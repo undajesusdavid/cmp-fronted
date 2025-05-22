@@ -1,0 +1,235 @@
+/* src/pages/BienFormPage.module.css - Versión Optimizada para Horizontalidad */
+
+.formPageContainer {
+    padding: 40px;
+    max-width: 1100px;
+    /* Ancho ajustado para un look más compacto pero horizontal */
+    margin: 30px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    /* Bordes ligeramente menos redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    /* Sombra más sutil y definida */
+    font-family: 'Inter', sans-serif;
+    /* Fuente moderna y legible */
+    color: #333;
+}
+
+.formPageContainer h2 {
+    text-align: center;
+    color: #2c3e50;
+    /* Gris oscuro para el título */
+    margin-bottom: 35px;
+    font-size: 2.2em;
+    font-weight: 700;
+    position: relative;
+    /* Para la línea inferior */
+    padding-bottom: 15px;
+}
+
+.formPageContainer h2::after {
+    /* Línea decorativa debajo del título */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    /* Ancho de la línea */
+    height: 3px;
+    background-color: #007bff;
+    /* Un azul primario elegante */
+    border-radius: 2px;
+}
+
+.bienForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    /* Espacio entre las secciones */
+}
+
+.formSection {
+    background-color: #fcfdff;
+    /* Fondo muy claro para la sección */
+    border: 1px solid #eef1f4;
+    /* Borde muy sutil */
+    border-radius: 6px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    /* Sombra muy ligera para cada sección */
+}
+
+.formSection h3 {
+    color: #5a6778;
+    /* Gris azulado para los subtítulos de sección */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e6ed;
+    /* Línea discontinua sutil */
+}
+
+/* **CLAVE PARA LA DISPOSICIÓN HORIZONTAL** */
+.formFieldsGrid {
+    display: grid;
+    /* Esto creará columnas que se ajustan automáticamente.
+     Cada columna tendrá un ancho mínimo de 250px.
+     Si hay suficiente espacio, se mostrarán 2, 3 o más columnas. */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px 25px;
+    /* Espacio vertical y horizontal entre los grupos de campos */
+}
+
+.formGroup {
+    /* No necesitamos margin-bottom aquí si el gap del grid maneja el espaciado */
+    margin-bottom: 0;
+}
+
+.formGroup label {
+    display: block;
+    /* Asegura que la etiqueta esté en su propia línea */
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #666;
+    font-size: 0.9em;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="date"],
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    /* El input debe ocupar todo el ancho de su columna */
+    padding: 10px 12px;
+    border: 1px solid #d9e0e8;
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    /* Crucial para que padding y border no aumenten el ancho total */
+    background-color: #ffffff;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+.formGroup textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #eef1f4;
+}
+
+.saveButton,
+.cancelButton {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saveButton {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+.saveButton:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.saveButton:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
+}
+
+.cancelButton {
+    background-color: #6c757d;
+    color: white;
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+}
+
+.cancelButton:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.cancelButton:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(108, 117, 125, 0.2);
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+    .formFieldsGrid {
+        /* En pantallas medianas, puedes tener 2 columnas mínimas para mantener la horizontalidad */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px 20px;
+    }
+
+    .formPageContainer {
+        padding: 30px;
+        margin: 20px;
+    }
+
+    .formPageContainer h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .formFieldsGrid {
+        /* En pantallas pequeñas, forzamos una sola columna para la mejor legibilidad */
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .formPageContainer {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .formPageContainer h2 {
+        font-size: 1.8em;
+    }
+
+    .formSection {
+        padding: 18px;
+    }
+
+    .formSection h3 {
+        font-size: 1.2em;
+    }
+
+    .saveButton,
+    .cancelButton {
+        padding: 8px 18px;
+        font-size: 0.9em;
+    }
+}

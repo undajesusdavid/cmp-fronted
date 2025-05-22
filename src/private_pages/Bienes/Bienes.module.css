@@ -1,0 +1,25 @@
+/* src/private_pages/Bienes/Bienes.module.css */
+
+.pageContent {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Asegúrate de que no haya grid-template-columns o grid-template-areas aquí */
+}
+
+.pageContent h1 {
+    color: #343A40;
+    margin-bottom: 20px;
+}
+
+.pageContent p {
+    color: #6C757D;
+    line-height: 1.6;
+}
+
+/* Área que contendrá las sub-páginas renderizadas por Outlet */
+.subPageContentArea {
+    /* Puedes aplicar estilos si quieres un contenedor específico para el Outlet */
+    /* margin-top: 20px; */
+}

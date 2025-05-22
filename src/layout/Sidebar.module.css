@@ -1,0 +1,153 @@
+/* src/layout/Sidebar.module.css */
+
+.sidebar {
+  background-color: #F8F9FA;
+  /* Blanco grisáceo muy suave */
+  padding: 20px 0;
+  /* Padding vertical, 0 horizontal para que el navLink controle eso */
+  border-right: 1px solid #DEE2E6;
+  /* Gris muy claro */
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  /* Sombra sutil para darle profundidad */
+}
+
+/* Encabezado del Sidebar */
+.sidebarHeader {
+  padding: 0 20px 20px 20px;
+  /* Padding para el header */
+  text-align: center;
+  border-bottom: 1px solid #E9ECEF;
+  /* Separador bajo el título */
+  margin-bottom: 20px;
+  /* Espacio debajo del separador */
+}
+
+.sidebarTitle {
+  margin: 0;
+  color: #343A40;
+  /* Gris muy oscuro */
+  font-size: 1.8em;
+  /* Título más grande */
+  font-weight: 700;
+  /* Más peso para el título */
+  letter-spacing: -0.5px;
+  /* Ajuste sutil del espaciado entre letras */
+}
+
+/* Navegación */
+.sidebarNav {
+  flex-grow: 1;
+  /* Permite que la navegación crezca y empuje el botón hacia abajo */
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  margin-bottom: 5px;
+  /* Menos espacio entre ítems para un look más compacto */
+}
+
+.navLink {
+  display: flex;
+  /* Permite alinear el icono y el texto */
+  align-items: center;
+  /* Alinea verticalmente */
+  padding: 12px 20px;
+  /* Padding cómodo para cada enlace */
+  color: #495057;
+  /* Gris oscuro para el texto */
+  text-decoration: none;
+  /* Sin subrayado por defecto */
+  font-size: 1.05em;
+  /* Tamaño de letra ligeramente ajustado */
+  font-weight: 500;
+  /* Peso de fuente intermedio */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  border-radius: 8px;
+  /* Bordes redondeados para los ítems */
+  margin: 0 10px;
+  /* Margen horizontal para que los items no toquen los bordes */
+}
+
+.navLink:hover {
+  background-color: #E9ECEF;
+  /* Fondo gris muy claro al pasar el ratón */
+  color: #007BFF;
+  /* Azul al pasar el ratón */
+  transform: translateX(3px);
+  /* Pequeño desplazamiento a la derecha al pasar el ratón */
+}
+
+/* Estilos para el enlace activo */
+.activeLink {
+  background-color: #007BFF !important;
+  /* Fondo azul brillante cuando está activo */
+  color: white !important;
+  /* Texto blanco cuando está activo */
+  font-weight: 600 !important;
+  /* Más peso para el texto activo */
+  transform: translateX(0) !important;
+  /* Elimina la animación de hover cuando está activo */
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  /* Sombra sutil para el enlace activo */
+}
+
+/* Estilos de icono para el enlace activo */
+.activeLink .navIcon {
+  color: white !important;
+  /* Icono blanco cuando el enlace está activo */
+}
+
+/* Iconos */
+.navIcon {
+  margin-right: 12px;
+  /* Espacio entre el icono y el texto */
+  font-size: 1.2em;
+  /* Tamaño de los iconos */
+  color: #6C757D;
+  /* Color de icono más tenue por defecto */
+}
+
+.navLink:hover .navIcon {
+  color: #007BFF;
+  /* Color de icono azul al pasar el ratón */
+}
+
+/* Contenedor del botón de logout para espaciado */
+.logoutContainer {
+  margin-top: 30px;
+  /* Más espacio superior para separar del nav */
+  padding: 20px 20px 0 20px;
+  /* Padding horizontal y superior */
+  border-top: 1px solid #E9ECEF;
+  /* Línea separadora sutil */
+}
+
+/* Estilos del botón de logout */
+.logoutButton {
+  width: 100%;
+  padding: 12px 15px;
+  /* Un poco más de padding */
+  background-color: #DC3545;
+  /* Rojo para una acción de salida */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05em;
+  /* Tamaño de fuente ligeramente mayor */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #C82333;
+}

@@ -1,0 +1,74 @@
+/* src/private_pages/Bienes/SubPaginaInventario.module.css */
+
+.inventarioContainer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.inventarioContainer h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 2em;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inventarioContainer p {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 1.05em;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    /* Permite scroll horizontal si la tabla es muy ancha */
+    margin-top: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.inventarioTable {
+    width: 100%;
+    border-collapse: collapse;
+    /* Elimina el espacio entre bordes de celdas */
+    min-width: 1000px;
+    /* Asegura que la tabla no sea demasiado estrecha en pantallas pequeñas */
+}
+
+.inventarioTable th,
+.inventarioTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.inventarioTable th {
+    background-color: #f0f2f5;
+    color: #34495e;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.inventarioTable tbody tr:nth-child(even) {
+    background-color: #fbfbfc;
+    /* Color de fondo para filas pares */
+}
+
+.inventarioTable tbody tr:hover {
+    background-color: #e2f2ff;
+    /* Color de fondo al pasar el ratón */
+}
+
+.inventarioTable td {
+    color: #495057;
+    font-size: 0.95em;
+}

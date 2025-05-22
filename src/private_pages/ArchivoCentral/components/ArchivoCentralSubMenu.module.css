@@ -1,0 +1,125 @@
+/* src/private_pages/ArchivoCentral/components/ArchivoCentralSubMenu.module.css */
+
+.subMenuContainer {
+    background-color: #E9ECEF;
+    /* Fondo un poco más oscuro que el sidebar */
+    border-bottom: 1px solid #CED4DA;
+    /* Línea inferior sutil */
+    padding: 0 20px;
+    /* Padding horizontal */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Sombra suave */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    margin-bottom: 20px;
+    /* Espacio debajo del menú */
+    overflow-x: auto;
+    /* Permite desplazamiento horizontal si hay muchos items */
+}
+
+.subMenuList {
+    display: flex;
+    /* Para un menú horizontal */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-start;
+    /* Alinea los items al principio */
+    align-items: center;
+    height: 50px;
+    /* Altura fija para el menú */
+}
+
+.subMenuItem {
+    margin-right: 15px;
+    /* Espacio entre los items del menú */
+    position: relative;
+    /* Necesario para sub-submenús si los implementas */
+}
+
+.subMenuLink {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    /* Padding interno del enlace */
+    color: #495057;
+    /* Color de texto normal */
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 500;
+    border-radius: 6px;
+    /* Bordes redondeados */
+    transition: background-color 0.2s ease, color 0.2s ease, border-bottom 0.2s ease;
+    position: relative;
+    /* Para la línea activa */
+}
+
+.subMenuLink:hover {
+    background-color: #DEE2E6;
+    /* Fondo al pasar el ratón */
+    color: #007BFF;
+    /* Texto azul al pasar el ratón */
+}
+
+/* Estilo para el enlace activo */
+.activeSubMenuLink {
+    color: #007BFF !important;
+    /* Texto azul brillante */
+    font-weight: 600 !important;
+    /* Más peso */
+    background-color: transparent !important;
+    /* No cambia el fondo directamente */
+}
+
+/* Línea azul debajo del enlace activo */
+.activeSubMenuLink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    /* Ajusta para que quede justo en el borde inferior */
+    height: 3px;
+    /* Grosor de la línea */
+    background-color: #007BFF;
+    /* Color de la línea */
+    border-radius: 2px;
+    /* Bordes redondeados para la línea */
+}
+
+
+/* Estilos para sub-submenús (si los implementas con JS) */
+/*
+.subSubMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #CED4DA;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 10px 0;
+  margin-top: 5px;
+  border-radius: 6px;
+  z-index: 10;
+  min-width: 150px;
+  display: none; // Oculto por defecto, se muestra con JS
+}
+
+.subMenuItem:hover .subSubMenu {
+  display: block; // Muestra el sub-submenú al hacer hover
+}
+
+.subSubMenu li a {
+  padding: 8px 15px;
+  display: block;
+  color: #495057;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.subSubMenu li a:hover {
+  background-color: #F8F9FA;
+  color: #007BFF;
+}
+*/

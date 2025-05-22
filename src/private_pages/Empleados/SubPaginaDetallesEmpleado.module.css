@@ -1,0 +1,146 @@
+/* src/private_pages/Empleados/SubPaginaDetallesEmpleado.module.css */
+
+.detailsContainer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.detailsContainer h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.detailsContainer h3 {
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 1px dashed #ced4da;
+    padding-bottom: 5px;
+}
+
+.detailGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px 25px;
+    margin-bottom: 20px;
+}
+
+.detailItem {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.detailItem strong {
+    color: #007bff;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+.detailItem span {
+    color: #495057;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.detailItemFull {
+    /* Para elementos que ocupan todo el ancho */
+    grid-column: 1 / -1;
+    /* Ocupa todas las columnas disponibles */
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.detailItemFull strong {
+    color: #007bff;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+.detailItemFull span {
+    color: #495057;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+
+.familiaresList,
+.vehiculosList {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.familiarItem {
+    margin-bottom: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e9ecef;
+    color: #555;
+}
+
+.familiarItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.familiarItem strong {
+    color: #343a40;
+}
+
+
+.loadingMessage,
+.errorMessage,
+.emptyDetailsMessage {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2em;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px dashed #ced4da;
+}
+
+.errorMessage {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.backButton {
+    background-color: #6c757d;
+    /* Gris para el botón de volver */
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-bottom: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.backButton:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}

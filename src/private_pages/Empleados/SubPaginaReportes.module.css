@@ -1,0 +1,115 @@
+/* src/private_pages/Empleados/SubPaginaReportes.module.css */
+
+.reportsContainer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.reportsContainer h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 2em;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reportsContainer p {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 1.05em;
+}
+
+/* Estilos para la cuadrícula de tarjetas */
+.reportCardsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Columnas responsivas */
+    gap: 25px;
+    /* Espacio entre tarjetas */
+    margin-top: 30px;
+}
+
+/* Estilos para cada tarjeta de reporte */
+.reportCard {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* Distribuye el espacio entre los elementos */
+}
+
+.reportCard:hover {
+    transform: translateY(-5px);
+    /* Efecto de elevación al pasar el ratón */
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    border-color: #007bff;
+    /* Borde azul al pasar el ratón */
+}
+
+.reportCardIcon {
+    font-size: 3em;
+    /* Tamaño grande para el ícono */
+    color: #007bff;
+    /* Color principal del ícono */
+    margin-bottom: 15px;
+}
+
+.reportCardTitle {
+    color: #343a40;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.reportCardDescription {
+    color: #6c757d;
+    font-size: 0.95em;
+    flex-grow: 1;
+    /* Permite que la descripción ocupe el espacio restante */
+    margin-bottom: 20px;
+}
+
+.generateButton {
+    background-color: #28a745;
+    /* Verde para el botón de acción */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
+    /* Botón ocupa todo el ancho de la tarjeta */
+}
+
+.generateButton:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+.developmentNote {
+    margin-top: 40px;
+    /* Más espacio para la nota */
+    font-style: italic;
+    color: #007bff;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px dashed #dee2e6;
+}

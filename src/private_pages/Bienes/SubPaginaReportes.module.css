@@ -1,0 +1,166 @@
+/* src/private_pages/Bienes/SubPaginaReportesBienes.module.css */
+
+.reportsContainer {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #f8f9fa;
+    /* Fondo ligeramente diferente para diferenciar */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.reportsContainer h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.reportsContainer p {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.reportCardsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* 3 columnas en pantallas grandes */
+    gap: 30px;
+    /* Espacio entre las tarjetas */
+    justify-content: center;
+}
+
+.reportCard {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Empuja el botón hacia abajo */
+    align-items: center;
+}
+
+.reportCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reportCardIcon {
+    font-size: 3.5em;
+    /* Iconos más grandes */
+    color: #007bff;
+    /* Color azul distintivo para los iconos */
+    margin-bottom: 20px;
+}
+
+.reportCardTitle {
+    color: #34495e;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.reportCardDescription {
+    color: #7f8c8d;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    /* Más espacio antes del botón */
+    flex-grow: 1;
+    /* Permite que la descripción ocupe el espacio disponible */
+}
+
+.generateButton {
+    background-color: #28a745;
+    /* Un verde vibrante */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    /* Botón de ancho completo */
+}
+
+.generateButton:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.generateButton:active {
+    transform: translateY(0);
+}
+
+.developmentNote {
+    text-align: center;
+    margin-top: 50px;
+    color: #999;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+    .reportCardsGrid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        /* 2 columnas en pantallas medianas */
+        gap: 25px;
+    }
+
+    .reportsContainer {
+        padding: 25px;
+    }
+
+    .reportsContainer h2 {
+        font-size: 2em;
+    }
+
+    .reportCard {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reportCardsGrid {
+        grid-template-columns: 1fr;
+        /* Una sola columna en móviles */
+        gap: 20px;
+    }
+
+    .reportsContainer {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    .reportsContainer h2 {
+        font-size: 1.8em;
+    }
+
+    .reportCardIcon {
+        font-size: 3em;
+    }
+
+    .reportCardTitle {
+        font-size: 1.3em;
+    }
+
+    .generateButton {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+}

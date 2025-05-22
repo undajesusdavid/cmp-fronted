@@ -1,0 +1,145 @@
+/* Contenedor principal para centrar la tarjeta */
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    background-color: #F0F2F5;
+    /* Fondo suave y neutro */
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    /* Fuente amigable */
+}
+
+/* Tarjeta de login */
+.loginCard {
+    background-color: #FFFFFF;
+    padding: 40px;
+    border-radius: 12px;
+    /* Bordes más suaves */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Sombra elegante */
+    width: 100%;
+    max-width: 400px;
+    /* Ancho máximo para que no sea demasiado grande */
+    text-align: center;
+    box-sizing: border-box;
+    /* Incluye padding en el ancho */
+}
+
+/* Título de inicio de sesión */
+.loginTitle {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+    /* Ligeramente más grueso */
+}
+
+/* Formulario */
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Espacio entre los grupos de formulario */
+}
+
+/* Grupo de formulario (label + input) */
+.formGroup {
+    text-align: left;
+    /* Alinea los labels a la izquierda */
+}
+
+.formLabel {
+    display: block;
+    /* Asegura que el label esté en su propia línea */
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.formInput {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #D1D5DA;
+    /* Borde suave */
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Transición suave al enfocar */
+    box-sizing: border-box;
+}
+
+.formInput:focus {
+    outline: none;
+    border-color: #007BFF;
+    /* Borde azul al enfocar */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    /* Sombra suave al enfocar */
+}
+
+/* Botón de inicio de sesión */
+.loginButton {
+    background-color: #007BFF;
+    /* Azul principal */
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Transición y pequeña escala */
+    margin-top: 10px;
+    /* Espacio superior */
+}
+
+.loginButton:hover {
+    background-color: #0056b3;
+    /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+    /* Pequeño efecto de elevación */
+}
+
+.loginButton:active {
+    transform: translateY(0);
+    /* Vuelve a la posición original al hacer clic */
+}
+
+/* Enlaces adicionales */
+.forgotPassword,
+.signUpPrompt {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 15px;
+}
+
+.forgotPassword a,
+.signUpPrompt a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.forgotPassword a:hover,
+.signUpPrompt a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+
+.errorMessage {
+  color: #dc3545; /* Rojo para errores */
+  font-size: 0.9em;
+  margin-top: -10px; /* Ajusta el margen si es necesario */
+}
+
+/* Deshabilita el botón cuando está cargando */
+.loginButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

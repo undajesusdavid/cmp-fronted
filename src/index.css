@@ -1,0 +1,18 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body{
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(166, 166, 166);
+}
+
+#root{
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  min-height:100vh;
+}

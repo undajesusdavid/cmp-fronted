@@ -1,0 +1,202 @@
+/* src/private_pages/Empleados/SubPaginaAgregarEmpleado.module.css */
+
+.addEmployeeContainer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.addEmployeeContainer h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 2em;
+    /* Título más grande */
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.addEmployeeContainer h2 svg {
+    font-size: 1.2em;
+}
+
+
+.addEmployeeContainer p {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 1.05em;
+}
+
+.sectionTitle {
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    /* Títulos de sección más grandes */
+    border-bottom: 1px dashed #ced4da;
+    padding-bottom: 8px;
+    grid-column: 1 / -1;
+    /* Asegura que el título de sección ocupe todo el ancho del grid */
+}
+
+.employeeForm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.formSection {
+    display: contents;
+    /* Permite que los elementos hijos se comporten como si estuvieran directamente en el grid del formulario */
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #343a40;
+    font-size: 0.95em;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="date"],
+.formGroup input[type="number"],
+.formGroup select,
+.formGroup textarea {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    /* Asegura que ocupen todo el ancho disponible */
+    box-sizing: border-box;
+    /* Incluye padding y border en el width */
+}
+
+.formGroup textarea {
+    resize: vertical;
+    /* Permite redimensionar verticalmente */
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="email"]:focus,
+.formGroup input[type="date"]:focus,
+.formGroup input[type="number"]:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Estilo para campos que ocupan todo el ancho del grid */
+.formGroupFull {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroupFull label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #343a40;
+    font-size: 0.95em;
+}
+
+.formGroupFull textarea {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Estilo para checkboxes */
+.formGroupCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    grid-column: span 1;
+    /* Ocupa una columna */
+}
+
+.formGroupCheckbox input[type="checkbox"] {
+    transform: scale(1.3);
+    /* Hace el checkbox un poco más grande */
+    margin: 0;
+    /* Elimina margen por defecto */
+    cursor: pointer;
+}
+
+.formGroupCheckbox label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: normal;
+    /* No tan negrita como otros labels */
+}
+
+.submitButton {
+    grid-column: 1 / -1;
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submitButton:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submitButton:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.backButton {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-bottom: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.backButton:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
