@@ -21,9 +21,9 @@ import Dashboard from "./private_pages/Dashboard";
 import Usuarios from "./private_pages/Usuarios/Usuarios"; // <-- RUTA ACTUALIZADA
 
 // Sub-páginas de Usuarios
-import SubPaginaGestion from "./private_pages/Usuarios/SubPaginaGestion"; // <-- NUEVO
-import SubPaginaRoles from "./private_pages/Usuarios/SubPaginaRoles"; // <-- NUEVO
-import SubPaginaPermisos from "./private_pages/Usuarios/SubPaginaPermisos"; // <-- NUEVO
+import SubPaginaGestion from "./private_pages/Usuarios/SubPaginaGestion";
+import SubPaginaRoles from "./private_pages/Usuarios/SubPaginaRoles";
+import SubPaginaPermisos from "./private_pages/Usuarios/SubPaginaPermisos";
 
 // Página de Empleados (y sus sub-páginas)
 import Empleados from "./private_pages/Empleados/Empleados";
@@ -178,7 +178,10 @@ function App() {
                   path="devoluciones"
                   element={<SubPaginaDevoluciones />}
                 />
-                <Route path="inventario" element={<SubPaginaInventarioArchivo />} />
+                <Route
+                  path="inventario"
+                  element={<SubPaginaInventarioArchivo />}
+                />
               </Route>
 
               {/* Rutas Anidadas para Empleados */}

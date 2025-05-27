@@ -1,10 +1,15 @@
-// src/private_pages/Empleados/SubPaginaAgregarEmpleado.jsx
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./SubPaginaAgregarEmpleado.module.css";
+import { addEmployee } from "../../api/Employees/EmployeeController";
+import { getMetadataEmployee } from "../../api/Employees/EmployeeController";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import FamiliaresFormSection from "./FamiliaresFormSection";
 
 const SubPaginaAgregarEmpleado = () => {
+  const [metadata, setMetadata] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   // Estado inicial para todos los campos del formulario
@@ -37,7 +42,7 @@ const SubPaginaAgregarEmpleado = () => {
     nivel_academico_id: "",
     profesion_id: "",
     tipo_personal_id: "",
-    cargo_id: "",
+    cargo_id: 99999,
     dir_adscrita_id: "", // Departamento
     // Las propiedades anidadas como 'nacionalidad.nombre' no se manejan directamente aquí,
     // se enviarían los IDs y el backend haría la relación.
@@ -52,6 +57,22 @@ const SubPaginaAgregarEmpleado = () => {
     familiares: [],
   });
 
+  const handleGetMetadata = async () => {
+    setLoading(true);
+    try {
+      const metadata = await getMetadataEmployee();
+      setMetadata(metadata);
+    } catch (error) {
+      setError("Error al cargar metadatos del formulario");
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    handleGetMetadata();
+  }, []);
+
   // Manejador genérico para todos los cambios de input
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -61,17 +82,26 @@ const SubPaginaAgregarEmpleado = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar los datos del nuevo empleado a tu API
-    // En una aplicación real, probablemente harías un POST a /api/empleados
-    console.log("Datos a enviar:", formData);
+    try {
+      setLoading(true);
 
-    // Simulación de envío exitoso
-    alert("Empleado agregado (simulado) exitosamente.");
-    // Después de agregar, navega de vuelta al listado
-    navigate("/empleados/listado");
+      const employeeId = await addEmployee(formData);
+      if (employeeId) {
+        alert("Empleado agregado (simulado) exitosamente.");
+        navigate("/empleados/listado");
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError("Ocurrio un error inesperado");
+    }
   };
+
+  if (!metadata && !error) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className={styles.addEmployeeContainer}>
@@ -79,10 +109,15 @@ const SubPaginaAgregarEmpleado = () => {
         ← Volver al Listado
       </button>
       <h2>➕ Agregar Nuevo Empleado</h2>
-      <p>
-        Completa todos los campos con la información detallada del nuevo
-        empleado.
-      </p>
+
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        <p>
+          Completa todos los campos con la información detallada del nuevo
+          empleado.
+        </p>
+      )}
 
       <form onSubmit={handleSubmit} className={styles.employeeForm}>
         {/* Sección: Datos Personales */}
@@ -196,6 +231,22 @@ const SubPaginaAgregarEmpleado = () => {
             />
           </div>
           <div className={styles.formGroup}>
+            <label htmlFor="tipo_sangre_id">Tipo de Sangre:</label>
+            <select
+              id="tipo_sangre_id"
+              name="tipo_sangre_id"
+              value={formData.tipo_sangre_id}
+              onChange={handleChange}
+            >
+              <option value="">Seleccione</option>
+              {metadata.tipoSangre.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.tipo}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.formGroup}>
             <label htmlFor="estado_civil">Estado Civil:</label>
             <select
               id="estado_civil"
@@ -230,20 +281,12 @@ const SubPaginaAgregarEmpleado = () => {
               onChange={handleChange}
             >
               <option value="">Seleccione</option>
-              <option value="1">Venezolana</option>
-              {/* Agrega más opciones si es necesario */}
+              {metadata.nacionalidad.map((nac) => (
+                <option key={nac.id} value={nac.id}>
+                  {nac.nombre}
+                </option>
+              ))}
             </select>
-          </div>
-          <div className={styles.formGroupFull}>
-            <label htmlFor="dir_habitacion">Dirección de Habitación:</label>
-            <textarea
-              id="dir_habitacion"
-              name="dir_habitacion"
-              value={formData.dir_habitacion}
-              onChange={handleChange}
-              placeholder="Dirección completa"
-              rows="3"
-            ></textarea>
           </div>
         </div>
 
@@ -285,6 +328,17 @@ const SubPaginaAgregarEmpleado = () => {
               required
             />
           </div>
+          <div className={styles.formGroupFull}>
+            <label htmlFor="dir_habitacion">Dirección de Habitación:</label>
+            <textarea
+              id="dir_habitacion"
+              name="dir_habitacion"
+              value={formData.dir_habitacion}
+              onChange={handleChange}
+              placeholder="Dirección completa"
+              rows="3"
+            ></textarea>
+          </div>
         </div>
 
         {/* Sección: Datos Laborales */}
@@ -324,12 +378,11 @@ const SubPaginaAgregarEmpleado = () => {
               onChange={handleChange}
             >
               <option value="">Seleccione</option>
-              <option value="1">Bachiller</option>
-              <option value="2">Técnico Medio</option>
-              <option value="3">TSU</option>
-              <option value="4">Licenciado</option>
-              <option value="5">Postgrado</option>
-              {/* Agrega más opciones */}
+              {metadata.nivelAcademico.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.nivel}
+                </option>
+              ))}
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -341,9 +394,11 @@ const SubPaginaAgregarEmpleado = () => {
               onChange={handleChange}
             >
               <option value="">Seleccione</option>
-              <option value="1">Administrador</option>
-              <option value="6">Analisis de Sistemas</option>
-              {/* Agrega más opciones */}
+              {metadata.profesion.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -355,10 +410,11 @@ const SubPaginaAgregarEmpleado = () => {
               onChange={handleChange}
             >
               <option value="">Seleccione</option>
-              <option value="1">Fijo</option>
-              <option value="12">Archivista</option>{" "}
-              {/* Esto parece ser un tipo de personal también */}
-              {/* Agrega más opciones */}
+              {metadata.tipoPersonal.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -371,9 +427,11 @@ const SubPaginaAgregarEmpleado = () => {
               required
             >
               <option value="">Seleccione</option>
-              <option value="1">Asistente Administrativo</option>
-              <option value="9">ARCHIVISTA</option>
-              {/* Agrega más opciones */}
+              {metadata.cargo.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -386,11 +444,52 @@ const SubPaginaAgregarEmpleado = () => {
               required
             >
               <option value="">Seleccione</option>
-              <option value="1">DIR. ADMINISTRACIÓN Y FINANZAS</option>
-              <option value="8">
-                DIR. PLANIFICACIÓN, SECRETARÍA Y ARCHIVO
-              </option>
-              {/* Agrega más opciones */}
+              {metadata.departamento.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/*Seccion: Vivienda*/}
+        <h3 className={styles.sectionTitle}>Datos de Vivienda</h3>
+        <div className={styles.formSection}>
+          <div className={styles.formGroup}>
+            <label htmlFor="tipo_vivienda_id">Tipo Vivienda:</label>
+            <select
+              id="tipo_vivienda_id"
+              name="tipo_vivienda_id"
+              value={formData.tipo_vivienda_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione</option>
+              {metadata.tipoVivienda.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.tipo}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="condicion_vivienda_id">
+              Condición de Vivienda:
+            </label>
+            <select
+              id="condicion_vivienda_id"
+              name="condicion_vivienda_id"
+              value={formData.condicion_vivienda_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione</option>
+              {metadata.condicionVivienda.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.condicion}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -487,13 +586,8 @@ const SubPaginaAgregarEmpleado = () => {
             />
           </div>
         </div>
-
-        {/* Nota: La sección de Familiares y Vehículos requeriría un componente
-            más complejo con lógica para agregar/eliminar elementos dinámicamente.
-            Por simplicidad, no se incluye en este formulario inicial. */}
-
         <button type="submit" className={styles.submitButton}>
-          Guardar Nuevo Empleado
+          Guardar Nuevo Empleado <p>{loading ? "registrando..." : null}</p>
         </button>
       </form>
     </div>

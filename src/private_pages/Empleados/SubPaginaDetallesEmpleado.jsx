@@ -1,27 +1,77 @@
-// src/private_pages/Empleados/SubPaginaDetallesEmpleado.jsx
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import empleadosData from "../../data/empleadosData"; // <-- Importa los datos de los empleados
 import styles from "./SubPaginaDetallesEmpleado.module.css";
+import { getOneEmployee } from "../../api/Employees/EmployeeController";
+
+// Importa tu imagen de silueta. Asegúrate de que esta ruta sea correcta.
+// Por ejemplo, si tienes una carpeta 'assets' en 'src', sería:
+import defaultEmployeeImage from "../../assets/default_employee.jpg";
+// Si no tienes una imagen, puedes usar una URL de un servicio como Placehold.co o simplemente base64 si es muy pequeña.
+// const defaultEmployeeImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIyIDIwdi0yaC0ydi0yYzAtNC0yLjg4LTMtNS41LTNjLTIuNjIgMC00LjUgMS01LjUgM2gtMnYySDR2MmgyaDE2di0yWiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+";
+
+// Componente auxiliar para mostrar un item de detalle
+const DetailItem = ({ label, value, fullWidth = false }) => (
+  <div
+    className={`${styles.detailItem} ${fullWidth ? styles.fullWidthItem : ""}`}
+  >
+    <strong>{label}:</strong> <span>{value}</span>
+  </div>
+);
 
 const SubPaginaDetallesEmpleado = () => {
   const { empleadoId } = useParams();
   const navigate = useNavigate();
   const [empleado, setEmpleado] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulamos la búsqueda en los datos locales importados
-    const foundEmpleado = empleadosData.find((emp) => emp.id === empleadoId);
-    if (foundEmpleado) {
-      setEmpleado(foundEmpleado);
-    } else {
-      setError(new Error("Empleado no encontrado."));
-    }
-    setLoading(false);
+    const handleGetOneEmployee = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const employee = await getOneEmployee(empleadoId);
+        if (employee) {
+          setEmpleado(employee);
+        } else {
+          setError(new Error("Empleado no encontrado."));
+        }
+      } catch (err) {
+        setError(
+          new Error(
+            "Error al cargar los datos del empleado. Por favor, inténtelo de nuevo más tarde."
+          )
+        );
+        console.error("Error fetching employee:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    handleGetOneEmployee();
   }, [empleadoId]);
+
+  const formatFecha = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-VE", {
+      year: "numeric",
+      month: "long", // 'long' para el nombre completo del mes (e.g., "diciembre")
+      day: "numeric",
+    });
+  };
+
+  // Esta función simula la obtención de una URL de imagen.
+  // En una aplicación real, 'empleado.fotoUrl' vendría del backend.
+  const getEmployeeDisplayImage = (employeeData) => {
+    // Si el empleado tiene una URL de foto en sus datos, úsala.
+    if (employeeData && employeeData.fotoUrl) {
+      // Asume que 'fotoUrl' es un campo en tu objeto empleado
+      return employeeData.fotoUrl;
+    }
+    // Si no tiene, usa la imagen de silueta por defecto.
+    return defaultEmployeeImage;
+  };
 
   if (loading) {
     return (
@@ -32,161 +82,229 @@ const SubPaginaDetallesEmpleado = () => {
   }
 
   if (error) {
-    return <div className={styles.errorMessage}>Error: {error.message}</div>;
+    return (
+      <div className={styles.errorMessage}>
+        Error: {error.message}
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
+          Volver
+        </button>
+      </div>
+    );
   }
 
   if (!empleado) {
     return (
       <div className={styles.emptyDetailsMessage}>
         No se encontraron detalles para este empleado.
+        <button onClick={() => navigate(-1)} className={styles.backButton}>
+          Volver al Listado
+        </button>
       </div>
     );
   }
 
-  const formatFecha = (dateString) => {
-    if (!dateString) return "N/A";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("es-VE");
-  };
+  const employeeDisplayImage = getEmployeeDisplayImage(empleado);
 
   return (
-    <div className={styles.detailsContainer}>
+    <div className={styles.detailsPageContainer}>
       <button className={styles.backButton} onClick={() => navigate(-1)}>
         ← Volver al Listado
       </button>
-      <h2>
-        Detalles Completos de {empleado.nombre} {empleado.apellido}
-      </h2>
 
-      <div className={styles.detailGrid}>
-        <div className={styles.detailItem}>
-          <strong>Cédula:</strong> <span>{empleado.cedula}</span>
+      <div className={styles.employeeCard}>
+        <div className={styles.profileHeader}>
+          <img
+            src={employeeDisplayImage}
+            alt={`Foto de ${empleado.nombre} ${empleado.apellido}`}
+            className={styles.profileImage}
+          />
+          <div className={styles.profileInfo}>
+            <h2>
+              {empleado.nombre} {empleado.apellido}
+            </h2>
+            <p className={styles.employeeTitle}>
+              {empleado.cargo?.nombre || "Sin Cargo Asignado"}
+            </p>
+            <p className={styles.employeeDepartment}>
+              {empleado.departamento?.nombre || "Sin Departamento"}
+            </p>
+          </div>
         </div>
-        <div className={styles.detailItem}>
-          <strong>RIF:</strong> <span>{empleado.rif}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Género:</strong>{" "}
-          <span>{empleado.genero === "M" ? "Masculino" : "Femenino"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Fecha de Nacimiento:</strong>{" "}
-          <span>{formatFecha(empleado.fecha_nac)}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Lugar de Nacimiento:</strong>{" "}
-          <span>{empleado.lugar_nac}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Estado Civil:</strong>{" "}
-          <span>
-            {empleado.estado_civil === "S"
-              ? "Soltero/a"
-              : empleado.estado_civil === "C"
-              ? "Casado/a"
-              : empleado.estado_civil}
-          </span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Hijos:</strong> <span>{empleado.num_hijos}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Altura:</strong> <span>{empleado.altura} m</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Peso:</strong> <span>{empleado.peso} kg</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Nacionalidad:</strong>{" "}
-          <span>{empleado.nacionalidad?.nombre || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Correo:</strong> <span>{empleado.correo}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Teléfono Móvil:</strong> <span>{empleado.tlf_movil}</span>
-        </div>
-        <div className={styles.detailItemFull}>
-          <strong>Dirección:</strong> <span>{empleado.dir_habitacion}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Fecha Ingreso (Admin Pública):</strong>{" "}
-          <span>{formatFecha(empleado.fec_ingreso_admin_pub)}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Fecha Ingreso (Institución):</strong>{" "}
-          <span>{formatFecha(empleado.fec_ingreso_inst)}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Nivel Académico:</strong>{" "}
-          <span>{empleado.nivel_academico?.nivel || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Profesión:</strong>{" "}
-          <span>{empleado.profesion?.nombre || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Tipo de Personal:</strong>{" "}
-          <span>{empleado.tipo_personal?.nombre || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Cargo:</strong> <span>{empleado.cargo?.nombre || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Departamento:</strong>{" "}
-          <span>{empleado.departamento?.nombre || "N/A"}</span>
-        </div>
-        <div className={styles.detailItem}>
-          <strong>Carnet de Patria:</strong>{" "}
-          <span>{empleado.tiene_carnet_patria ? "Sí" : "No"}</span>
-        </div>
-        {empleado.tiene_carnet_patria && (
-          <>
-            <div className={styles.detailItem}>
-              <strong>Cod. Carnet Patria:</strong>{" "}
-              <span>{empleado.codigo_carnet_patria}</span>
-            </div>
-            <div className={styles.detailItem}>
-              <strong>Serial Carnet Patria:</strong>{" "}
-              <span>{empleado.serial_carnet_patria}</span>
-            </div>
-          </>
-        )}
-      </div>
 
-      {empleado.familiares && empleado.familiares.length > 0 && (
-        <>
-          <h3>Familiares</h3>
-          <div className={styles.familiaresList}>
-            {empleado.familiares.map((familiar) => (
-              <div key={familiar.id} className={styles.familiarItem}>
-                <strong>
-                  {familiar.nombre} {familiar.apellido}
-                </strong>{" "}
-                ({familiar.parentesco?.nombre || "N/A"}) - C.I.:{" "}
-                {familiar.cedula}
+        <div className={styles.sectionsContainer}>
+          {/* Sección: Información Personal */}
+          <section className={styles.detailSection}>
+            <h3>Información Personal</h3>
+            <div className={styles.detailGrid}>
+              <DetailItem label="Cédula" value={empleado.cedula} />
+              <DetailItem label="RIF" value={empleado.rif || "N/A"} />
+              <DetailItem
+                label="Género"
+                value={empleado.genero === "M" ? "Masculino" : "Femenino"}
+              />
+              <DetailItem
+                label="Fecha de Nacimiento"
+                value={formatFecha(empleado.fecha_nac)}
+              />
+              <DetailItem
+                label="Lugar de Nacimiento"
+                value={empleado.lugar_nac || "N/A"}
+              />
+              <DetailItem
+                label="Estado Civil"
+                value={
+                  empleado.estado_civil === "S"
+                    ? "Soltero/a"
+                    : empleado.estado_civil === "C"
+                    ? "Casado/a"
+                    : empleado.estado_civil || "N/A"
+                }
+              />
+              <DetailItem label="Hijos" value={empleado.num_hijos} />
+              <DetailItem
+                label="Altura"
+                value={`${empleado.altura || "N/A"} m`}
+              />
+              <DetailItem label="Peso" value={`${empleado.peso || "N/A"} kg`} />
+              <DetailItem
+                label="Nacionalidad"
+                value={empleado.nacionalidad?.nombre || "N/A"}
+              />
+            </div>
+          </section>
+
+          {/* Sección: Contacto */}
+          <section className={styles.detailSection}>
+            <h3>Contacto</h3>
+            <div className={styles.detailGrid}>
+              <DetailItem label="Correo" value={empleado.correo || "N/A"} />
+              <DetailItem
+                label="Teléfono Móvil"
+                value={empleado.tlf_movil || "N/A"}
+              />
+              <DetailItem
+                label="Dirección"
+                value={empleado.dir_habitacion || "N/A"}
+                fullWidth // Este item ocupará todo el ancho
+              />
+            </div>
+          </section>
+
+          {/* Sección: Detalles Laborales */}
+          <section className={styles.detailSection}>
+            <h3>Detalles Laborales</h3>
+            <div className={styles.detailGrid}>
+              <DetailItem
+                label="Fecha Ingreso (Admin Pública)"
+                value={formatFecha(empleado.fec_ingreso_admin_pub)}
+              />
+              <DetailItem
+                label="Fecha Ingreso (Institución)"
+                value={formatFecha(empleado.fec_ingreso_inst)}
+              />
+              <DetailItem
+                label="Nivel Académico"
+                value={empleado.nivel_academico?.nivel || "N/A"}
+              />
+              <DetailItem
+                label="Profesión"
+                value={empleado.profesion?.nombre || "N/A"}
+              />
+              <DetailItem
+                label="Tipo de Personal"
+                value={empleado.tipo_personal?.nombre || "N/A"}
+              />
+              <DetailItem
+                label="Cargo"
+                value={empleado.cargo?.nombre || "N/A"}
+              />
+              <DetailItem
+                label="Departamento"
+                value={empleado.departamento?.nombre || "N/A"}
+              />
+            </div>
+          </section>
+
+          {/* Sección: Carnet de la Patria */}
+          <section className={styles.detailSection}>
+            <h3>Carnet de la Patria</h3>
+            <div className={styles.detailGrid}>
+              <DetailItem
+                label="Tiene Carnet"
+                value={empleado.tiene_carnet_patria ? "Sí" : "No"}
+              />
+              {empleado.tiene_carnet_patria && (
+                <>
+                  <DetailItem
+                    label="Código"
+                    value={empleado.codigo_carnet_patria || "N/A"}
+                  />
+                  <DetailItem
+                    label="Serial"
+                    value={empleado.serial_carnet_patria || "N/A"}
+                  />
+                </>
+              )}
+            </div>
+          </section>
+
+          {/* Sección: Tallas */}
+          {empleado.tallas && (
+            <section className={styles.detailSection}>
+              <h3>Tallas</h3>
+              <div className={styles.detailGrid}>
+                <DetailItem
+                  label="Zapato"
+                  value={empleado.tallas.zapato || "N/A"}
+                />
+                <DetailItem
+                  label="Camisa"
+                  value={empleado.tallas.camisa || "N/A"}
+                />
+                <DetailItem
+                  label="Pantalón"
+                  value={empleado.tallas.pantalon || "N/A"}
+                />
               </div>
-            ))}
-          </div>
-        </>
-      )}
+            </section>
+          )}
 
-      {empleado.tallas && (
-        <>
-          <h3>Tallas</h3>
-          <div className={styles.detailGrid}>
-            <div className={styles.detailItem}>
-              <strong>Zapato:</strong> <span>{empleado.tallas.zapato}</span>
-            </div>
-            <div className={styles.detailItem}>
-              <strong>Camisa:</strong> <span>{empleado.tallas.camisa}</span>
-            </div>
-            <div className={styles.detailItem}>
-              <strong>Pantalón:</strong> <span>{empleado.tallas.pantalon}</span>
-            </div>
-          </div>
-        </>
-      )}
+          {/* Sección: Vivienda */}
+          {empleado.tipo_vivienda && (
+            <section className={styles.detailSection}>
+              <h3>Vivienda</h3>
+              <div className={styles.detailGrid}>
+                <DetailItem
+                  label="Tipo de vivienda"
+                  value={empleado.tipo_vivienda.tipo || "N/A"}
+                />
+                <DetailItem
+                  label="Condición de vivienda"
+                  value={empleado.cond_vivienda.condicion || "N/A"}
+                />
+              </div>
+            </section>
+          )}
+
+          {/* Sección: Familiares */}
+          {empleado.familiares && empleado.familiares.length > 0 && (
+            <section className={styles.detailSection}>
+              <h3>Familiares</h3>
+              <div className={styles.familiaresList}>
+                {empleado.familiares.map((familiar) => (
+                  <div key={familiar.id} className={styles.familiarItem}>
+                    <strong>
+                      {familiar.nombre} {familiar.apellido}
+                    </strong>{" "}
+                    ({familiar.parentesco?.nombre || "N/A"}) - C.I.:{" "}
+                    {familiar.cedula || "N/A"}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,194 @@
+/* Contenedor principal del componente */
+.familiares-section-container {
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.familiares-section-container h3,
+.familiares-table-container h4 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos para los inputs del formulario (disposición horizontal) */
+.familiares-form-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que los elementos se envuelvan a la siguiente línea */
+    gap: 15px;
+    /* Espacio entre los campos y el botón */
+    align-items: flex-end;
+    /* Alinea los elementos al final (útil para el botón) */
+    justify-content: center;
+    /* Centra los elementos horizontalmente */
+    margin-bottom: 30px;
+}
+
+.form-field {
+    flex: 1 1 180px;
+    /* Base de 180px, permite crecer y encoger */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.form-field input,
+.form-field select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    /* Asegura que ocupen todo el ancho disponible */
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho total */
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.form-actions {
+    flex: 0 0 auto;
+    /* Evita que el contenedor del botón crezca/encoga */
+    min-width: 150px;
+    /* Ancho mínimo para el botón */
+}
+
+.form-actions button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    /* Asegura que el botón ocupe todo el ancho de su contenedor */
+}
+
+.form-actions button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para la tabla */
+.familiares-table-container {
+    margin-top: 25px;
+    overflow-x: auto;
+    /* Permite el scroll horizontal en pantallas pequeñas */
+}
+
+.familiares-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.familiares-table th,
+.familiares-table td {
+    border: 1px solid #eee;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.familiares-table th {
+    background-color: #f8f8f8;
+    color: #555;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+.familiares-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.familiares-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos para los botones de acción en la tabla */
+.action-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-right: 5px;
+    /* Espacio entre botones */
+}
+
+.action-button:last-child {
+    margin-right: 0;
+}
+
+.edit-button {
+    background-color: #ffc107;
+    /* Amarillo de advertencia */
+    color: #333;
+}
+
+.edit-button:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.delete-button {
+    background-color: #dc3545;
+    /* Rojo de peligro */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .familiares-form-inputs {
+        flex-direction: column;
+        /* Apila los inputs verticalmente en pantallas pequeñas */
+        align-items: stretch;
+        /* Estira los elementos para que ocupen todo el ancho */
+    }
+
+    .form-field,
+    .form-actions {
+        min-width: unset;
+        /* Reinicia el ancho mínimo */
+        width: 100%;
+        /* Ocupa el 100% del ancho disponible */
+    }
+
+    .familiares-table th,
+    .familiares-table td {
+        padding: 10px;
+        /* Reduce el padding en celdas para pantallas pequeñas */
+        font-size: 0.8em;
+        /* Reduce el tamaño de fuente */
+    }
+
+    .action-button {
+        padding: 5px 10px;
+        font-size: 0.75em;
+    }
+}

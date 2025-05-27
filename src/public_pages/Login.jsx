@@ -20,6 +20,7 @@ const Login = () => {
       const success = await login(email, password); // Llama a la función login del contexto
       if (success) {
         navigate("/dashboard"); // Redirige a la ruta privada después del login exitoso
+        console.log("Exito al inicar session")
       } else {
         setError("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
       }

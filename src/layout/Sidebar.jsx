@@ -4,15 +4,16 @@ import React from "react";
 import styles from "./Sidebar.module.css";
 import { useAuth } from "../context/AuthContext";
 import { NavLink } from "react-router-dom"; // Importa NavLink en lugar de Link
+import UserProfileCard from "./UserProfileCard/UserProfileCard";
 
 const Sidebar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
-        <h3 className={styles.sidebarTitle}>Tu Empresa</h3>{" "}
-        {/* Título de la aplicación */}
+        <h3 className={styles.sidebarTitle}>CMP</h3>
+        <UserProfileCard imageUrl={null} name={user.username} />
       </div>
 
       <nav className={styles.sidebarNav}>
