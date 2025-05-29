@@ -21,7 +21,7 @@ import Dashboard from "./private_pages/Dashboard";
 import Usuarios from "./private_pages/Usuarios/Usuarios"; // <-- RUTA ACTUALIZADA
 
 // Sub-páginas de Usuarios
-import SubPaginaGestion from "./private_pages/Usuarios/SubPaginaGestion";
+import ListadoUsuarios from "./private_pages/Usuarios/ListadoUsuarios";
 import SubPaginaRoles from "./private_pages/Usuarios/SubPaginaRoles";
 import SubPaginaPermisos from "./private_pages/Usuarios/SubPaginaPermisos";
 
@@ -211,14 +211,9 @@ function App() {
 
               {/* Rutas Anidadas para Usuarios */}
               <Route path="/usuarios" element={<Usuarios />}>
-                {" "}
-                {/* <-- NUEVO */}
-                <Route path="gestion" element={<SubPaginaGestion />} />{" "}
-                {/* <-- NUEVO */}
-                <Route path="roles" element={<SubPaginaRoles />} />{" "}
-                {/* <-- NUEVO */}
-                <Route path="permisos" element={<SubPaginaPermisos />} />{" "}
-                {/* <-- NUEVO */}
+                <Route path="listado" element={<ListadoUsuarios />} />
+                <Route path="roles" element={<SubPaginaRoles />} />
+                <Route path="permisos" element={<SubPaginaPermisos />} />
               </Route>
             </Route>
           </Route>

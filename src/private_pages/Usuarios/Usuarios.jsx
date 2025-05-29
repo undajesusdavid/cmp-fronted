@@ -8,7 +8,7 @@ const Usuarios = () => {
   const location = useLocation();
 
   const usuariosSubMenuItems = [
-    { label: "Gestión", path: "gestion", icon: "⚙️" },
+    { label: "Listado", path: "listado", icon: "⚙️" },
     { label: "Roles", path: "roles", icon: "🛡️" },
     { label: "Permisos", path: "permisos", icon: "🔑" }
   ];
@@ -18,7 +18,7 @@ const Usuarios = () => {
       location.pathname === "/usuarios" ||
       location.pathname === "/usuarios/"
     ) {
-      navigate("/usuarios/gestion", { replace: true });
+      navigate("/usuarios/listado", { replace: true });
     }
   }, [location.pathname, navigate]);
 
