@@ -24,6 +24,7 @@ import Usuarios from "./private_pages/Usuarios/Usuarios"; // <-- RUTA ACTUALIZAD
 import ListadoUsuarios from "./private_pages/Usuarios/ListadoUsuarios";
 import SubPaginaRoles from "./private_pages/Usuarios/SubPaginaRoles";
 import SubPaginaPermisos from "./private_pages/Usuarios/SubPaginaPermisos";
+import RegistroUsuario from "./private_pages/Usuarios/RegistroUsuario";
 
 // Página de Empleados (y sus sub-páginas)
 import Empleados from "./private_pages/Empleados/Empleados";
@@ -214,6 +215,7 @@ function App() {
                 <Route path="listado" element={<ListadoUsuarios />} />
                 <Route path="roles" element={<SubPaginaRoles />} />
                 <Route path="permisos" element={<SubPaginaPermisos />} />
+                <Route path="registrar" element={<RegistroUsuario />} />
               </Route>
             </Route>
           </Route>

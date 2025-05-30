@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Table from "../../components/Table/Table";
 import styles from "./ListadoUsuarios.module.css";
-import {getAllUsers} from "../../api/Users/UserController";
+import { getAllUsers } from "../../api/Users/UserController";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const usuariosColumns = [
@@ -9,30 +10,33 @@ const usuariosColumns = [
 ];
 
 const ListadoUsuarios = () => {
-  const [usuariosData, setUsuariosData]  = useState([]);
+  const navigate = useNavigate();
+
+  const [usuariosData, setUsuariosData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleGetUsers = async () => {
-    setLoading(true)
+    setLoading(true);
     const res = await getAllUsers();
-    if(res.data) setUsuariosData(res.data);
-    if(res.error) setError(res.error);
-    setLoading(false)
-  }
+    if (res.data) setUsuariosData(res.data);
+    if (res.error) setError(res.error);
+    setLoading(false);
+  };
 
   useEffect(() => {
     handleGetUsers();
-  },[]);
+  }, []);
 
-
-  const handleAdd = () => {};
+  const handleAdd = () => {
+    navigate("/usuarios/registrar");
+  };
   const handleView = () => {};
   const handleEdit = () => {};
   const handleDelete = () => {};
 
-  if(loading){
-    return <LoadingSpinner />
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -50,7 +54,9 @@ const ListadoUsuarios = () => {
         onDelete={handleDelete}
         searchable={true}
         searchKeys={["username"]}
-        emptyMessage={(error)? error: "No hay usuarios registrados en este momento."}
+        emptyMessage={
+          error ? error : "No hay usuarios registrados en este momento."
+        }
       />
     </div>
   );
