@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import styles from "./Table.module.css";
-import { FaEye, FaEdit, FaTrashAlt, FaPlus, FaSearch } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrashAlt, FaPlus, FaSearch } from "react-icons/fa"; // Estos íconos ya están siendo usados y son elegantes
 
 /**
  * Componente de Tabla Reutilizable con Paginación, Columna de Acciones, Botón de Agregar y Buscador.
@@ -44,28 +44,22 @@ const Table = ({
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Resetear página a 1 cuando cambian los datos, filas por página o término de búsqueda
-  // El useEffect aquí asegura que la paginación se reinicie correctamente
   useEffect(() => {
     setCurrentPage(1);
   }, [data, rowsPerPage, searchTerm]);
 
-  // Lógica de búsqueda (filteredData)
   const filteredData = useMemo(() => {
     if (!searchTerm) {
       return data;
     }
 
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    // Usa searchKeys si están definidas, de lo contrario, usa las claves de las columnas.
-    // Filtrar para asegurar que 'key' existe (ej. la columna de acciones no tiene key de datos)
     const keysToSearch =
       searchKeys || columns.map((col) => col.key).filter(Boolean);
 
     return data.filter((row) =>
       keysToSearch.some((key) => {
         const value = row[key];
-        // Convertir a string para buscar, manejar nulos/indefinidos
         return String(value || "")
           .toLowerCase()
           .includes(lowerCaseSearchTerm);
@@ -76,7 +70,6 @@ const Table = ({
   const totalRecords = filteredData.length;
   const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-  // Datos para la página actual
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * rowsPerPage;
     const lastPageIndex = firstPageIndex + rowsPerPage;
@@ -114,54 +107,80 @@ const Table = ({
       startPage = Math.max(1, endPage - maxPageButtons + 1);
     }
 
+    // Asegúrate de que el botón '1' se muestre si no está ya en el rango visible
+    if (startPage > 1) {
+      pageNumbers.push(1);
+      if (startPage > 2) {
+        pageNumbers.push("..."); // Ellipsis
+      }
+    }
+
     for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i);
+      if (i !== 1 && i !== totalPages) {
+        // Evitar duplicar 1 y totalPages si ya están fuera del ellipsis
+        pageNumbers.push(i);
+      } else if (totalPages === 1) {
+        // Si solo hay una página, mostrar el 1
+        pageNumbers.push(i);
+      }
+    }
+
+    // Asegúrate de que el botón 'totalPages' se muestre si no está ya en el rango visible
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push("..."); // Ellipsis
+      }
+      pageNumbers.push(totalPages);
+    }
+
+    // Filtra duplicados y ajusta el orden para los casos especiales
+    const finalPageNumbers = [];
+    let prev = null;
+    for (const num of pageNumbers) {
+      if (num === "..." && prev === "...") continue; // Evitar elipses dobles
+      if (prev === 1 && num === "...") {
+        // Si 1 y luego ... y la siguiente es 2, no mostrar 1...2, solo 1, 2
+        if (pageNumbers[pageNumbers.indexOf(num) + 1] === 2) {
+          // do nothing, it will be added below
+        } else {
+          finalPageNumbers.push(num);
+        }
+      } else if (
+        num === totalPages &&
+        prev === "..." &&
+        totalPages - 1 === finalPageNumbers[finalPageNumbers.length - 1]
+      ) {
+        // Avoid ...totalPages if totalPages is just one step after the last visible number
+        // and the last visible number is not already totalPages
+        finalPageNumbers.push(num);
+      } else if (num !== prev) {
+        finalPageNumbers.push(num);
+      }
+      prev = num;
     }
 
     return (
       <>
-        {startPage > 1 && (
-          <>
-            <button
-              className={`${styles.paginationButton} ${
-                currentPage === 1 ? styles.active : ""
-              }`}
-              onClick={() => goToPage(1)}
-              disabled={currentPage === 1}
+        {finalPageNumbers.map((number, index) =>
+          number === "..." ? (
+            <span
+              key={`ellipsis-${index}`}
+              className={styles.paginationEllipsis}
             >
-              1
-            </button>
-            {startPage > 2 && (
-              <span className={styles.paginationEllipsis}>...</span>
-            )}
-          </>
-        )}
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            className={`${styles.paginationButton} ${
-              currentPage === number ? styles.active : ""
-            }`}
-            onClick={() => goToPage(number)}
-          >
-            {number}
-          </button>
-        ))}
-        {endPage < totalPages && (
-          <>
-            {endPage < totalPages - 1 && (
-              <span className={styles.paginationEllipsis}>...</span>
-            )}
+              ...
+            </span>
+          ) : (
             <button
+              key={number}
               className={`${styles.paginationButton} ${
-                currentPage === totalPages ? styles.active : ""
+                currentPage === number ? styles.active : ""
               }`}
-              onClick={() => goToPage(totalPages)}
-              disabled={currentPage === totalPages}
+              onClick={() => goToPage(number)}
+              disabled={currentPage === number}
             >
-              {totalPages}
+              {number}
             </button>
-          </>
+          )
         )}
       </>
     );
@@ -221,7 +240,7 @@ const Table = ({
             <FaPlus size={16} /> Agregar Nuevo
           </button>
         )}
-        {searchable && ( // El buscador siempre se renderiza aquí
+        {searchable && (
           <div className={styles.searchContainer}>
             <FaSearch className={styles.searchIcon} />
             <input
@@ -236,9 +255,12 @@ const Table = ({
       </div>
 
       <div className={styles.tableContainer}>
-        {/* Renderizado condicional de la tabla o el mensaje de vacío */}
-        {totalRecords === 0 ? (
+        {totalRecords === 0 && !searchTerm ? ( // Muestra mensaje si no hay datos y no se está buscando
           <div className={styles.emptyTableMessage}>{emptyMessage}</div>
+        ) : totalRecords === 0 && searchTerm ? ( // Mensaje para búsqueda sin resultados
+          <div className={styles.emptyTableMessage}>
+            No se encontraron resultados para "{searchTerm}"
+          </div>
         ) : (
           <table className={styles.table}>
             <thead>
@@ -279,8 +301,6 @@ const Table = ({
         )}
       </div>
 
-      {/* Controles de Paginación e Información de Registros */}
-      {/* Solo muestra esta sección si hay registros para mostrar o si se ha filtrado */}
       {(totalRecords > 0 || searchTerm) && (
         <div className={styles.paginationAndInfoContainer}>
           <div className={styles.recordCount}>
@@ -288,7 +308,7 @@ const Table = ({
             {searchTerm && ` (filtrado de ${data.length} totales)`}
           </div>
 
-          {totalPages > 1 && ( // Solo muestra los controles de paginación si hay más de una página
+          {totalPages > 1 && (
             <div className={styles.paginationControls}>
               <div className={styles.paginationInfo}>
                 Filas por página:

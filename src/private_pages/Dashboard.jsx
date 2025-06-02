@@ -7,7 +7,6 @@ import styles from "./Dashboard.module.css"; // Mantenemos el CSS de la página 
 const Dashboard = () => {
   return (
     <div className={styles.pageContent}>
-      {" "}
       {/* Asegúrate de que tu CSS para .pageContent sea simple y solo afecte el contenido */}
       <h1>📊 Dashboard Principal</h1>
       <p>

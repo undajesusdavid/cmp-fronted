@@ -1,66 +1,38 @@
-.user-profile-card {
+/* src/layout/UserProfileCard/UserProfileCard.module.css */
+
+.userProfileCard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 25px;
-    /* Un poco más de padding para "aire" */
-    border-radius: 12px;
-    /* Bordes más suaves */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-    /* Sombra más sutil y elegante */
-    background-color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Fuente más moderna */
-    max-width: 220px;
-    /* Ajusta el ancho para una apariencia más compacta */
-    margin: 20px;
-    transition: transform 0.2s ease-in-out;
-    /* Animación al pasar el ratón */
+    gap: 10px;
+    /* Add any additional styling specific to the card container */
 }
 
-.user-profile-card:hover {
-    transform: translateY(-5px);
-    /* Pequeño efecto de elevación al pasar el ratón */
-}
-
-.user-profile-image-container {
-    width: 100px;
-    /* Tamaño de imagen ligeramente más pequeño */
-    height: 100px;
+.userAvatar {
+    width: 80px;
+    /* Adjust size as needed */
+    height: 80px;
     border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 18px;
-    /* Espacio entre imagen y nombre */
-    border: 2px solid #e0e0e0;
-    /* Un borde más fino y neutro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Animación para el borde al pasar el ratón */
-    transition: border-color 0.3s ease-in-out;
-}
-
-.user-profile-card:hover .user-profile-image-container {
-    border-color: #007bff;
-    /* Color primario al pasar el ratón */
-}
-
-
-.user-profile-image {
-    width: 100%;
-    height: 100%;
+    /* Makes it circular */
     object-fit: cover;
+    /* Ensures the image covers the area without distortion */
+    border: 2px solid #e0f2f7;
+    /* Optional: adds a border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.user-profile-name {
-    margin: 0;
+.userName {
     font-size: 1.1em;
-    /* Tamaño de fuente más discreto para el nombre */
-    color: #444;
-    /* Color de texto más suave */
-    text-align: center;
-    font-weight: 500;
-    /* Peso de fuente intermedio */
-    line-height: 1.4;
-    /* Espaciado de línea para legibilidad */
+    font-weight: 600;
+    color: #e0f2f7;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    overflow: hidden;
+    /* Hides overflowing content */
+    text-overflow: ellipsis;
+    /* Displays "..." for overflowing text */
+    max-width: 100%;
+    /* Ensures the text doesn't exceed the parent's width */
+    display: block;
+    /* Ensures text-overflow works correctly */
 }

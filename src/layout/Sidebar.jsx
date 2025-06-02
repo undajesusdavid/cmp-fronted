@@ -3,8 +3,22 @@
 import React from "react";
 import styles from "./Sidebar.module.css";
 import { useAuth } from "../context/AuthContext";
-import { NavLink } from "react-router-dom"; // Importa NavLink en lugar de Link
+import { NavLink } from "react-router-dom";
 import UserProfileCard from "./UserProfileCard/UserProfileCard";
+import defaultUserImage from "../assets/default_employee.jpg"
+
+// Importa los íconos de React Icons
+import {
+  FiHome, // Para Dashboard o Inicio
+  FiArchive, // Para Archivo Central
+  FiBriefcase, // Para Bienes (o FiGrid, FiBox)
+  FiUsers, // Para Empleados
+  FiUser, // Para Usuarios
+  FiLogOut, // Para Cerrar Sesión
+} from "react-icons/fi"; // Puedes cambiar a 'hi2' si prefieres Heroicons
+
+// Define a default image URL if user.profilePicture is not available
+
 
 const Sidebar = () => {
   const { logout, user } = useAuth();
@@ -13,13 +27,16 @@ const Sidebar = () => {
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
         <h3 className={styles.sidebarTitle}>CMP</h3>
-        <UserProfileCard imageUrl={null} name={user.username} />
+        <UserProfileCard
+          imageUrl={user?.profilePicture || defaultUserImage} // Use user's image or default
+          name={user.username}
+          className={styles.userProfileCard}
+        />
       </div>
 
       <nav className={styles.sidebarNav}>
         <ul className={styles.navList}>
           <li className={styles.navItem}>
-            {/* NavLink para Dashboard */}
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
@@ -28,11 +45,10 @@ const Sidebar = () => {
                   : styles.navLink
               }
             >
-              <span className={styles.navIcon}>📊</span> Dashboard
+              <FiHome className={styles.navIcon} /> Dashboard
             </NavLink>
           </li>
           <li className={styles.navItem}>
-            {/* NavLink para Archivo Central */}
             <NavLink
               to="/archivo-central"
               className={({ isActive }) =>
@@ -41,11 +57,10 @@ const Sidebar = () => {
                   : styles.navLink
               }
             >
-              <span className={styles.navIcon}>📂</span> Archivo Central
+              <FiArchive className={styles.navIcon} /> Archivo Central
             </NavLink>
           </li>
           <li className={styles.navItem}>
-            {/* NavLink para Bienes */}
             <NavLink
               to="/bienes"
               className={({ isActive }) =>
@@ -54,11 +69,10 @@ const Sidebar = () => {
                   : styles.navLink
               }
             >
-              <span className={styles.navIcon}>🏠</span> Bienes
+              <FiBriefcase className={styles.navIcon} /> Bienes
             </NavLink>
           </li>
           <li className={styles.navItem}>
-            {/* NavLink para Empleados */}
             <NavLink
               to="/empleados"
               className={({ isActive }) =>
@@ -67,11 +81,10 @@ const Sidebar = () => {
                   : styles.navLink
               }
             >
-              <span className={styles.navIcon}>👥</span> Empleados
+              <FiUsers className={styles.navIcon} /> Empleados
             </NavLink>
           </li>
           <li className={styles.navItem}>
-            {/* NavLink para Usuarios */}
             <NavLink
               to="/usuarios"
               className={({ isActive }) =>
@@ -80,7 +93,7 @@ const Sidebar = () => {
                   : styles.navLink
               }
             >
-              <span className={styles.navIcon}>👤</span> Usuarios
+              <FiUser className={styles.navIcon} /> Usuarios
             </NavLink>
           </li>
         </ul>
@@ -88,7 +101,7 @@ const Sidebar = () => {
 
       <div className={styles.logoutContainer}>
         <button onClick={logout} className={styles.logoutButton}>
-          Cerrar Sesión
+          <FiLogOut className={styles.logoutIcon} /> Cerrar Sesión
         </button>
       </div>
     </aside>

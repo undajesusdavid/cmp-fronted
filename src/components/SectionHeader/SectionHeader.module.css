@@ -1,0 +1,92 @@
+/* src/components/SectionHeader/SectionHeader.module.css */
+
+.sectionHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    /* Alinea el título y los extras a los extremos */
+    align-items: center;
+    /* Centra verticalmente los elementos */
+    background-color: #ffffff;
+    /* Fondo blanco para el header */
+    border-bottom: 1px solid #e0e6ed;
+    /* Línea sutil en la parte inferior */
+    padding: 25px 30px;
+    /* Espaciado interno generoso */
+    margin-bottom: 30px;
+    /* Espacio debajo del header para separar del contenido */
+    border-radius: 12px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    /* Sombra suave */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    flex-wrap: wrap;
+    /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 20px;
+    /* Espacio entre los elementos al envolverse */
+}
+
+.textContainer {
+    flex-shrink: 0;
+    /* Evita que el texto se encoja si hay mucho contenido extra */
+}
+
+.sectionTitle {
+    font-size: 2.2em;
+    color: #212529;
+    /* Un gris muy oscuro para el título principal */
+    margin: 0;
+    /* Elimina márgenes por defecto */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.sectionDescription {
+    font-size: 1.05em;
+    color: #6c757d;
+    /* Un gris medio para la descripción */
+    margin: 8px 0 0;
+    /* Pequeño margen superior para separar del título */
+    line-height: 1.5;
+}
+
+.extraContent {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Espacio entre elementos si se añaden varios */
+    flex-wrap: wrap;
+    /* Permite que los elementos extras también se envuelvan */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .sectionHeaderContainer {
+        flex-direction: column;
+        /* Apila el título y los extras en pantallas pequeñas */
+        align-items: flex-start;
+        /* Alinea el texto a la izquierda cuando apilado */
+        padding: 20px;
+        /* Reducir padding */
+        margin-bottom: 20px;
+        /* Reducir margen inferior */
+    }
+
+    .sectionTitle {
+        font-size: 1.8em;
+        /* Tamaño más pequeño en móvil */
+    }
+
+    .sectionDescription {
+        font-size: 0.95em;
+        /* Tamaño más pequeño en móvil */
+        margin-bottom: 15px;
+        /* Espacio antes de los elementos extra */
+    }
+
+    .extraContent {
+        width: 100%;
+        /* Los elementos extra ocupan todo el ancho */
+        justify-content: flex-start;
+        /* Alinea los extras a la izquierda */
+    }
+}

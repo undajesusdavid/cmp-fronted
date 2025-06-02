@@ -1,94 +1,107 @@
-/* src/components/SubMenu/SubMenu.module.css */
+/* SubMenu.module.css */
 
 .subMenuContainer {
-    background-color: #E9ECEF;
-    /* Fondo un poco más oscuro que el sidebar */
-    border-bottom: 1px solid #CED4DA;
-    /* Línea inferior sutil */
-    padding: 0 20px;
-    /* Padding horizontal */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    /* Sombra suave */
-    border-radius: 8px;
-    /* Bordes redondeados */
-    margin-bottom: 20px;
-    /* Espacio debajo del menú */
+    background-color: #f0f4f8;
+    /* Un gris azulado muy claro */
+    border-bottom: 1px solid #e0e6ed;
+    /* Línea sutil en la parte inferior */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* Sombra muy ligera */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     overflow-x: auto;
-    /* Permite desplazamiento horizontal si hay muchos items */
+    /* Permite desplazamiento horizontal en pantallas pequeñas */
+    -webkit-overflow-scrolling: touch;
+    /* Suaviza el desplazamiento en iOS */
+    white-space: nowrap;
+    /* Evita que los elementos se envuelvan */
 }
 
 .subMenuList {
-    display: flex;
-    /* Para un menú horizontal */
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    /* Para que los ítems estén en fila */
     justify-content: flex-start;
-    /* Alinea los items al principio */
-    align-items: center;
-    height: 50px;
-    /* Altura fija para el menú */
+    /* Alinea los ítems a la izquierda */
+    gap: 25px;
+    /* Espacio entre los ítems del submenú */
 }
 
 .subMenuItem {
-    margin-right: 15px;
-    /* Espacio entre los items del menú */
-    position: relative;
-    /* Necesario para sub-submenús si los implementas */
+    flex-shrink: 0;
+    /* Evita que los ítems se encojan en el scroll horizontal */
 }
 
 .subMenuLink {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    /* Padding interno del enlace */
-    color: #495057;
-    /* Color de texto normal */
+    gap: 8px;
+    /* Espacio entre el ícono y el texto */
     text-decoration: none;
+    color: #555;
+    /* Un gris oscuro para el texto normal */
+    padding: 10px 15px;
+    /* Espaciado interno de cada enlace */
+    border-radius: 6px;
     font-size: 0.95em;
     font-weight: 500;
-    border-radius: 6px;
-    /* Bordes redondeados */
-    transition: background-color 0.2s ease, color 0.2s ease, border-bottom 0.2s ease;
-    position: relative;
-    /* Para la línea activa */
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .subMenuLink:hover {
-    background-color: #DEE2E6;
-    /* Fondo al pasar el ratón */
-    color: #007BFF;
-    /* Texto azul al pasar el ratón */
+    background-color: #e2e8f0;
+    /* Fondo ligeramente más oscuro al pasar el mouse */
+    color: #004080;
+    /* Azul oscuro al pasar el mouse */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil al pasar el mouse */
 }
 
-/* Estilo para el enlace activo */
 .activeSubMenuLink {
-    color: #007BFF !important;
-    /* Texto azul brillante */
-    font-weight: 600 !important;
-    /* Más peso */
-    background-color: transparent !important;
-    /* No cambia el fondo directamente */
+    background-color: #007bff;
+    /* Azul vibrante para el enlace activo */
+    color: white;
+    /* Texto blanco para el enlace activo */
+    font-weight: 600;
+    /* Más en negrita para el activo */
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+    /* Sombra para el activo */
 }
 
-/* Línea azul debajo del enlace activo */
-.activeSubMenuLink::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    /* Ajusta para que quede justo en el borde inferior */
-    height: 3px;
-    /* Grosor de la línea */
-    background-color: #007BFF;
-    /* Color de la línea */
-    border-radius: 2px;
-    /* Bordes redondeados para la línea */
+.activeSubMenuLink .subMenuIcon {
+    color: white;
+    /* Asegura que el icono también sea blanco en el estado activo */
 }
 
 .subMenuIcon {
-    margin-right: 8px;
-    /* Espacio entre icono y texto */
     font-size: 1.1em;
+    /* Tamaño del ícono */
+    color: #777;
+    /* Color de ícono por defecto */
+    /* Si usas React Icons, este color se aplicará al Path/SVG directamente */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+    .subMenuContainer {
+        padding: 8px 15px;
+    }
+
+    .subMenuList {
+        gap: 15px;
+        /* Menos espacio entre ítems en móviles */
+    }
+
+    .subMenuLink {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        gap: 6px;
+    }
+
+    .subMenuIcon {
+        font-size: 1em;
+    }
 }

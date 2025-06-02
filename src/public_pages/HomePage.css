@@ -1,0 +1,88 @@
+/* HomePage.css */
+
+.home-container {
+    padding: 0;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #e0f2f7, #c1e4ed);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+}
+
+.home-card {
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.home-title {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #004080;
+    margin-bottom: 10px;
+}
+
+.home-description {
+    font-size: 1.25em;
+    color: #555;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.button-base {
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    /* Esto se aplica a ambos botones, el color de fondo y sombra serán específicos */
+}
+
+.primary-button {
+    background-color: #0056b3;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.2);
+}
+
+.primary-button:hover {
+    background-color: #004080;
+}
+
+.secondary-button {
+    background-color: #218838;
+    color: white;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+.secondary-button:hover {
+    background-color: #1e7e34;
+}
+
+.auth-status-section {
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+    width: 100%;
+    color: #777;
+    font-size: 0.95em;
+}

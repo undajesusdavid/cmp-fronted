@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
-import { useAuth } from "../context/AuthContext"; // Importa useAuth
-import styles from "./Login.module.css";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import styles from "./Login.module.css"; // Esto es correcto para CSS Modules
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // Para el estado de carga
-  const [error, setError] = useState(""); // Para mensajes de error
-  const { login } = useAuth(); // Obtiene la función login del contexto
-  const navigate = useNavigate(); // Obtiene la función de navegación
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { login, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,10 +17,9 @@ const Login = () => {
     setError(""); // Limpiar errores anteriores
 
     try {
-      const success = await login(email, password); // Llama a la función login del contexto
+      const success = await login(email, password);
       if (success) {
-        navigate("/dashboard"); // Redirige a la ruta privada después del login exitoso
-        console.log("Exito al inicar session")
+        navigate("/dashboard");
       } else {
         setError("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
       }
@@ -31,6 +30,10 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div className={styles.loginContainer}>
@@ -65,8 +68,7 @@ const Login = () => {
               required
             />
           </div>
-          {error && <p className={styles.errorMessage}>{error}</p>}{" "}
-          {/* Muestra el error */}
+          {error && <p className={styles.errorMessage}>{error}</p>}
           <button
             type="submit"
             className={styles.loginButton}

@@ -1,17 +1,12 @@
+// src/layout/UserProfileCard/UserProfileCard.jsx
 import React from "react";
-import "./UserProfileCard.module.css"; // Asegúrate de que la ruta sea correcta
+import styles from "./UserProfileCard.module.css"; // Assuming you have a CSS module for it
 
-const UserProfileCard = ({ imageUrl, name }) => {
+const UserProfileCard = ({ imageUrl, name, className }) => {
   return (
-    <div className="user-profile-card">
-      <div className="user-profile-image-container">
-        {/*<img
-          src={imageUrl}
-          alt={`Foto de perfil de ${name}`}
-          className="user-profile-image"
-        />*/}
-      </div>
-      <h3 className="user-profile-name">{name}</h3>
+    <div className={`${styles.userProfileCard} ${className}`}>
+      <img src={imageUrl} alt="User Avatar" className={styles.userAvatar} />
+      <span className={styles.userName}>{name}</span>
     </div>
   );
 };

@@ -1,293 +1,369 @@
-/* src/components/Table/Table.module.css */
+/* Table.module.css */
 
 .tableWrapper {
-    margin: 20px 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    /* Sombra más pronunciada para el componente completo */
-    padding: 20px;
+    background-color: #ffffff;
+    /* Fondo blanco para el contenedor de la tabla */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    /* Sombra suave para un efecto flotante */
+    padding: 25px;
+    /* Espaciado interno general */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    margin-bottom: 30px;
+    /* Espacio debajo de la tabla */
+    overflow-x: auto;
+    /* Permite el scroll horizontal en pantallas pequeñas */
 }
 
 .tableControls {
     display: flex;
     justify-content: space-between;
-    /* Alinea botón a la izquierda, buscador a la derecha */
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     flex-wrap: wrap;
-    /* Para responsividad */
+    /* Permite que los elementos se envuelvan */
     gap: 15px;
-    /* Espacio entre los elementos */
+    /* Espacio entre el botón y el buscador */
 }
 
 .addNewButton {
     background-color: #28a745;
+    /* Verde para agregar */
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.95em;
-    font-weight: bold;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
 }
 
 .addNewButton:hover {
     background-color: #218838;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
 }
 
-.addNewButton:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* --- Estilos del Buscador --- */
 .searchContainer {
     position: relative;
-    display: flex;
-    align-items: center;
-    width: 250px;
-    /* Ancho fijo para el buscador */
+    width: 100%;
+    max-width: 300px;
+    /* Ancho máximo para el buscador */
 }
 
 .searchIcon {
     position: absolute;
-    left: 12px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #888;
     font-size: 1.1em;
 }
 
 .searchInput {
     width: 100%;
-    padding: 10px 12px 10px 40px;
-    /* Padding a la izquierda para el ícono */
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    /* Borde redondeado para un look más moderno */
-    font-size: 0.95em;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    padding: 12px 15px 12px 45px;
+    /* Padding para el ícono */
+    border: 1px solid #ccd6e0;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    /* Asegura que el padding no afecte el ancho total */
 }
 
 .searchInput:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
 .tableContainer {
-    width: 100%;
     overflow-x: auto;
+    /* Permite el scroll horizontal de la tabla si es muy ancha */
     border-radius: 8px;
-    /* Bordes redondeados para la tabla */
-    border: 1px solid #eee;
-    /* Borde ligero para la tabla */
+    /* Bordes redondeados para la tabla en sí */
+    border: 1px solid #e0e6ed;
+    /* Borde sutil para la tabla */
 }
 
 .table {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 0;
-    /* Eliminar margen inferior si lo tenía */
+    border-collapse: separate;
+    /* Permite border-spacing */
+    border-spacing: 0;
+    /* Elimina el espaciado predeterminado */
+    background-color: white;
+    /* Asegura el fondo blanco dentro de la tabla */
 }
 
 .tableHeader {
-    background-color: #f8f9fa;
-    /* Color de fondo más claro */
-    padding: 12px 15px;
-    border-bottom: 2px solid #e9ecef;
+    background-color: #f0f4f8;
+    /* Fondo más oscuro para los encabezados */
+    color: #004080;
+    /* Azul oscuro institucional */
+    font-weight: 600;
+    padding: 15px 20px;
     text-align: left;
-    font-weight: bold;
-    color: #495057;
-    text-transform: uppercase;
-    font-size: 0.9em;
+    /* Alineación por defecto */
+    border-bottom: 2px solid #e0e6ed;
+    /* Línea más gruesa en la parte inferior */
+    font-size: 0.95em;
+    white-space: nowrap;
+    /* Evita que los encabezados se rompan */
+}
+
+.tableHeader:first-child {
+    border-top-left-radius: 8px;
+    /* Redondear la esquina superior izquierda */
+}
+
+.tableHeader:last-child {
+    border-top-right-radius: 8px;
+    /* Redondear la esquina superior derecha */
 }
 
 .tableRow {
-    border-bottom: 1px solid #e9ecef;
     transition: background-color 0.2s ease;
 }
 
+.tableRow:nth-child(even) {
+    background-color: #fcfdff;
+    /* Fondo ligeramente diferente para filas pares */
+}
+
 .tableRow:hover {
-    background-color: #f2f2f2;
+    background-color: #e6f7ff;
+    /* Azul muy claro al pasar el mouse */
 }
 
 .tableCell {
-    padding: 10px 15px;
-    text-align: left;
-    color: #343a40;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e0e6ed;
+    /* Línea sutil entre filas */
+    color: #444;
     font-size: 0.9em;
+    white-space: nowrap;
+    /* Evita que el contenido de la celda se rompa */
+    text-overflow: ellipsis;
+    /* Añade puntos suspensivos si el texto es muy largo */
+    overflow: hidden;
+    /* Oculta el texto que desborda */
+    max-width: 250px;
+    /* Ancho máximo para celdas, ajusta según necesidad */
+}
+
+.tableRow:last-child .tableCell {
+    border-bottom: none;
+    /* Eliminar borde inferior de la última fila */
+}
+
+.actionButtonsContainer {
+    display: flex;
+    gap: 8px;
+    /* Espacio entre los botones de acción */
+    justify-content: center;
+    /* Centrar los botones en la celda */
+}
+
+.actionButton {
+    background: none;
+    border: 1px solid #ccd6e0;
+    /* Borde sutil para los botones de acción */
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #777;
+    /* Color de ícono por defecto */
+}
+
+.actionButton:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    /* Ligero levantamiento al hover */
+}
+
+.viewButton:hover {
+    color: #007bff;
+    /* Azul para ver */
+    border-color: #007bff;
+}
+
+.editButton:hover {
+    color: #ffc107;
+    /* Amarillo/Naranja para editar */
+    border-color: #ffc107;
+}
+
+.deleteButton:hover {
+    color: #dc3545;
+    /* Rojo para eliminar */
+    border-color: #dc3545;
 }
 
 .emptyTableMessage {
     text-align: center;
-    padding: 40px 20px;
-    /* Más padding para el mensaje de vacío */
+    padding: 50px 20px;
+    font-size: 1.2em;
     color: #777;
-    font-style: italic;
-    font-size: 1.1em;
     background-color: #fdfdfd;
-    border-radius: 0 0 8px 8px;
-    /* Bordes redondeados inferiores si está solo */
-    border-top: 1px solid #eee;
+    border-radius: 8px;
+    border: 1px solid #e0e6ed;
+    margin-top: 20px;
 }
 
-/* --- Estilos de Botones de Acción --- */
-.actionButtonsContainer {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-.actionButton {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 6px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 35px;
-    height: 35px;
-}
-
-.actionButton:hover {
-    background-color: #e0e0e0;
-    transform: translateY(-1px);
-}
-
-.actionButton:active {
-    transform: translateY(0);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.viewButton {
-    border-color: #007bff;
-    /* Azul primario */
-    color: #007bff;
-}
-
-.viewButton:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-.editButton {
-    border-color: #ffc107;
-    color: #ffc107;
-}
-
-.editButton:hover {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.deleteButton {
-    border-color: #dc3545;
-    color: #dc3545;
-}
-
-.deleteButton:hover {
-    background-color: #dc3545;
-    color: white;
-}
-
-/* --- Estilos de Paginación y Contador de Registros --- */
 .paginationAndInfoContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    padding: 20px 0 0;
+    border-top: 1px solid #e0e6ed;
+    /* Línea divisoria de paginación */
     margin-top: 20px;
-    padding: 10px 0;
-    border-top: 1px solid #eee;
-    /* Separador */
+    gap: 15px;
+    /* Espacio entre elementos de paginación */
 }
 
 .recordCount {
     font-size: 0.9em;
     color: #666;
-    padding-left: 10px;
-    /* Alineación con el padding de .paginationInfo */
 }
 
 .paginationControls {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .paginationInfo {
+    font-size: 0.9em;
+    color: #666;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9em;
-    color: #555;
 }
 
 .rowsPerPageSelect {
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
+    padding: 8px 12px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
     font-size: 0.9em;
+    color: #333;
+    background-color: white;
     cursor: pointer;
     outline: none;
     transition: border-color 0.2s ease;
 }
 
-.rowsPerPageSelect:hover {
+.rowsPerPageSelect:focus {
     border-color: #007bff;
 }
 
 .paginationButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    background-color: #f0f4f8;
+    /* Fondo suave para botones de paginación */
+    color: #004080;
+    /* Azul oscuro institucional */
+    border: 1px solid #e0e6ed;
+    padding: 8px 14px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    min-width: 80px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    min-width: 38px;
+    /* Ancho mínimo para números de página */
+    text-align: center;
 }
 
 .paginationButton:hover:not(:disabled) {
-    background-color: #0056b3;
-    transform: translateY(-1px);
+    background-color: #d9e2ec;
+    /* Más oscuro al pasar el mouse */
+    color: #0056b3;
 }
 
 .paginationButton:disabled {
-    background-color: #cccccc;
+    background-color: #eceff1;
+    color: #aab8c2;
     cursor: not-allowed;
     opacity: 0.7;
+}
+
+.paginationButton.active {
+    background-color: #007bff;
+    /* Azul vibrante para el botón activo */
+    color: white;
+    border-color: #007bff;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
 }
 
 .pageNumbers {
     display: flex;
     gap: 5px;
-}
-
-.paginationButton.active {
-    background-color: #28a745;
-    font-weight: bold;
-    box-shadow: 0 0 0 2px #28a74540;
+    /* Espacio entre los números de página */
 }
 
 .paginationEllipsis {
-    font-weight: bold;
-    color: #666;
-    padding: 0 5px;
+    padding: 8px 5px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .tableWrapper {
+        padding: 15px;
+    }
+
+    .tableControls {
+        flex-direction: column;
+        align-items: stretch;
+        /* Estirar elementos para ocupar todo el ancho */
+    }
+
+    .addNewButton {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .searchContainer {
+        max-width: 100%;
+    }
+
+    .tableHeader,
+    .tableCell {
+        padding: 10px 15px;
+        font-size: 0.85em;
+    }
+
+    .actionButton {
+        padding: 6px;
+    }
+
+    .paginationAndInfoContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .paginationControls {
+        margin-top: 15px;
+        justify-content: center;
+    }
+
+    .paginationButton {
+        padding: 6px 10px;
+    }
 }

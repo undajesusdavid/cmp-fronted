@@ -1,42 +1,44 @@
-/* Contenedor principal para centrar la tarjeta */
+/* Login.module.css */
+
 .loginContainer {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    /* Ocupa toda la altura de la ventana */
-    background-color: #F0F2F5;
-    /* Fondo suave y neutro */
-    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    /* Fuente amigable */
+    background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+    /* Fondo degradado suave */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    /* Padding para evitar que el contenido toque los bordes en móviles */
+    box-sizing: border-box;
+    /* Asegura que el padding no añada al ancho/alto total */
 }
 
-/* Tarjeta de login */
 .loginCard {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 40px;
     border-radius: 12px;
-    /* Bordes más suaves */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    /* Sombra elegante */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    /* Sombra más pronunciada para un efecto flotante */
     width: 100%;
-    max-width: 400px;
-    /* Ancho máximo para que no sea demasiado grande */
+    max-width: 450px;
+    /* Ancho máximo para el formulario */
     text-align: center;
-    box-sizing: border-box;
-    /* Incluye padding en el ancho */
+    border: 1px solid #e0e6ed;
+    /* Borde sutil */
 }
 
-/* Título de inicio de sesión */
 .loginTitle {
-    font-size: 2.2em;
-    color: #333;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #004080;
+    /* Azul oscuro institucional */
     margin-bottom: 30px;
-    font-weight: 600;
-    /* Ligeramente más grueso */
+    letter-spacing: -0.5px;
+    /* Ajuste para un título más pulido */
 }
 
-/* Formulario */
 .loginForm {
     display: flex;
     flex-direction: column;
@@ -44,82 +46,92 @@
     /* Espacio entre los grupos de formulario */
 }
 
-/* Grupo de formulario (label + input) */
 .formGroup {
     text-align: left;
-    /* Alinea los labels a la izquierda */
 }
 
 .formLabel {
     display: block;
-    /* Asegura que el label esté en su propia línea */
-    font-size: 0.95em;
+    font-size: 1em;
     color: #555;
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .formInput {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #D1D5DA;
-    /* Borde suave */
+    padding: 14px 18px;
+    border: 1px solid #ccd6e0;
+    /* Borde más suave */
     border-radius: 8px;
-    font-size: 1em;
+    font-size: 1.05em;
     color: #333;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    /* Transición suave al enfocar */
+    transition: all 0.3s ease;
     box-sizing: border-box;
+    /* Asegura que el padding no añada al ancho total */
+}
+
+.formInput::placeholder {
+    color: #aab8c2;
 }
 
 .formInput:focus {
+    border-color: #007bff;
+    /* Resalta el borde al enfocar */
     outline: none;
-    border-color: #007BFF;
-    /* Borde azul al enfocar */
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    /* Sombra suave al enfocar */
+    /* Sombra al enfocar */
 }
 
-/* Botón de inicio de sesión */
+.errorMessage {
+    color: #dc3545;
+    /* Rojo de error estándar */
+    font-size: 0.9em;
+    margin-top: -10px;
+    /* Ajusta el margen para que esté cerca del input */
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .loginButton {
-    background-color: #007BFF;
-    /* Azul principal */
+    width: 100%;
+    padding: 15px;
+    background-color: #0056b3;
+    /* Azul primario */
     color: white;
-    padding: 14px 20px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1em;
+    font-size: 1.15em;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    /* Transición y pequeña escala */
-    margin-top: 10px;
-    /* Espacio superior */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.2);
+    /* Sombra para el botón */
 }
 
 .loginButton:hover {
-    background-color: #0056b3;
-    /* Azul más oscuro al pasar el ratón */
-    transform: translateY(-2px);
-    /* Pequeño efecto de elevación */
+    background-color: #004080;
+    /* Azul más oscuro al pasar el mouse */
+    box-shadow: 0 7px 20px rgba(0, 86, 179, 0.3);
 }
 
-.loginButton:active {
-    transform: translateY(0);
-    /* Vuelve a la posición original al hacer clic */
+.loginButton:disabled {
+    background-color: #aab8c2;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-/* Enlaces adicionales */
 .forgotPassword,
 .signUpPrompt {
-    font-size: 0.9em;
-    color: #666;
+    font-size: 0.95em;
     margin-top: 15px;
+    color: #777;
 }
 
 .forgotPassword a,
 .signUpPrompt a {
-    color: #007BFF;
+    color: #007bff;
+    /* Azul de enlace */
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
@@ -128,18 +140,25 @@
 .forgotPassword a:hover,
 .signUpPrompt a:hover {
     color: #0056b3;
+    /* Azul más oscuro al pasar el mouse */
     text-decoration: underline;
 }
 
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .loginCard {
+        padding: 30px;
+        margin: 20px;
+        /* Margen para que no se pegue a los bordes */
+    }
 
-.errorMessage {
-  color: #dc3545; /* Rojo para errores */
-  font-size: 0.9em;
-  margin-top: -10px; /* Ajusta el margen si es necesario */
-}
+    .loginTitle {
+        font-size: 2em;
+    }
 
-/* Deshabilita el botón cuando está cargando */
-.loginButton:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+    .formInput,
+    .loginButton {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
 }
