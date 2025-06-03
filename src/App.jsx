@@ -1,16 +1,16 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import AppRoutes from "./routes/AppRoutes"; // Importamos nuestras rutas
 import { ToastContainer } from "react-toastify";
+import router from "./routes/router"; // Importamos nuestro objeto router
 
 // --- Componente Principal de la Aplicación ---
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <AppRoutes /> {/* Usamos el componente de rutas aquí */}
-      </AuthProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+      {/* Usamos el componente de rutas aquí */}
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -23,7 +23,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-    </Router>
+    </AuthProvider>
   );
 }
 

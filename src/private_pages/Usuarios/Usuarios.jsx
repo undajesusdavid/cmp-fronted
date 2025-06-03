@@ -1,3 +1,4 @@
+import "../stylesPrivatePages.css";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu";
@@ -23,9 +24,7 @@ const Usuarios = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <div className={styles.pageContent}>
-      <h1>👥 Administración de Usuarios</h1>
-      <p>Controla el acceso y los permisos de los usuarios del sistema.</p>
+    <div className="pageContent">
       <SubMenu items={usuariosSubMenuItems} />
       <div className={styles.subPageContentArea}>
         <Outlet />

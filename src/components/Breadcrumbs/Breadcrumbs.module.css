@@ -1,0 +1,41 @@
+.breadcrumbs {
+    margin-bottom: 15px;
+    /* Espacio entre el breadcrumbs y el título */
+}
+
+.breadcrumbs__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    /* Tamaño de fuente más pequeño para el breadcrumbs */
+    color: #777;
+    /* Color de texto más suave */
+}
+
+.breadcrumbs__item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumbs__link,
+.breadcrumbs__label {
+    text-decoration: none;
+    color: #555;
+    /* Color para los enlaces */
+    transition: color 0.2s ease-in-out;
+    /* Transición suave para el hover */
+}
+
+.breadcrumbs__link:hover {
+    color: #007bff;
+    /* Un azul primario al pasar el ratón */
+}
+
+.breadcrumbs__separator {
+    margin: 0 8px;
+    color: #ccc;
+    /* Color del separador */
+}

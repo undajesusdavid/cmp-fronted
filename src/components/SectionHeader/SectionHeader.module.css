@@ -1,92 +1,79 @@
-/* src/components/SectionHeader/SectionHeader.module.css */
-
-.sectionHeaderContainer {
-    display: flex;
-    justify-content: space-between;
-    /* Alinea el título y los extras a los extremos */
-    align-items: center;
-    /* Centra verticalmente los elementos */
-    background-color: #ffffff;
-    /* Fondo blanco para el header */
-    border-bottom: 1px solid #e0e6ed;
-    /* Línea sutil en la parte inferior */
-    padding: 25px 30px;
-    /* Espaciado interno generoso */
-    margin-bottom: 30px;
-    /* Espacio debajo del header para separar del contenido */
-    border-radius: 12px;
-    /* Bordes redondeados */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-    /* Sombra suave */
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    flex-wrap: wrap;
-    /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    gap: 20px;
-    /* Espacio entre los elementos al envolverse */
+/* Variables CSS para fácil personalización */
+:root {
+    --header-bg-color: #f8f8f8;
+    /* Un gris muy claro */
+    --title-color: #333;
+    /* Gris oscuro para el título */
+    --description-color: #666;
+    /* Gris medio para la descripción */
+    --border-color: #eee;
+    /* Gris claro para bordes sutiles */
+    --padding-vertical: 40px;
+    /* Padding vertical reducido */
+    --padding-horizontal: 20px;
+    /* Fuentes de Google Fonts - Asegúrate de importarlas en tu index.html o App.js */
 }
 
-.textContainer {
-    flex-shrink: 0;
-    /* Evita que el texto se encoja si hay mucho contenido extra */
+.sectionHeader {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 10px 10px 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    /* Separador sutil */
+    /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);*/
+    /* Sombra ligeramente reducida */
+    margin-bottom: 5px;
+    /* Margen inferior reducido */
 }
 
-.sectionTitle {
-    font-size: 2.2em;
-    color: #212529;
-    /* Un gris muy oscuro para el título principal */
-    margin: 0;
-    /* Elimina márgenes por defecto */
-    font-weight: 700;
-    letter-spacing: -0.5px;
+.sectionHeader__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    /* Título ligeramente más pequeño */
+    color: var(--title-color);
+   
+    /* Espaciado reducido alrededor del título */
+ 
+
 }
 
-.sectionDescription {
-    font-size: 1.05em;
-    color: #6c757d;
-    /* Un gris medio para la descripción */
-    margin: 8px 0 0;
-    /* Pequeño margen superior para separar del título */
+.sectionHeader__description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1em;
+    /* Descripción ligeramente más pequeña */
+    color: var(--description-color);
+    max-width: 700px;
+    /* Ancho máximo ligeramente reducido */
+    margin: 5px auto 0 auto;
+    /* Margen superior reducido, auto para centrar */
     line-height: 1.5;
+    font-style: italic;
 }
 
-.extraContent {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    /* Espacio entre elementos si se añaden varios */
-    flex-wrap: wrap;
-    /* Permite que los elementos extras también se envuelvan */
-}
-
-/* Media Queries para responsividad */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .sectionHeaderContainer {
-        flex-direction: column;
-        /* Apila el título y los extras en pantallas pequeñas */
-        align-items: flex-start;
-        /* Alinea el texto a la izquierda cuando apilado */
-        padding: 20px;
-        /* Reducir padding */
-        margin-bottom: 20px;
-        /* Reducir margen inferior */
+    .sectionHeader__title {
+        font-size: 2em;
     }
 
-    .sectionTitle {
+    .sectionHeader__description {
+        font-size: 0.9em;
+        padding: 0 15px;
+    }
+
+    .sectionHeader {
+        padding: calc(var(--padding-vertical) / 1.5) var(--padding-horizontal);
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sectionHeader__title {
         font-size: 1.8em;
-        /* Tamaño más pequeño en móvil */
     }
 
-    .sectionDescription {
-        font-size: 0.95em;
-        /* Tamaño más pequeño en móvil */
-        margin-bottom: 15px;
-        /* Espacio antes de los elementos extra */
-    }
-
-    .extraContent {
-        width: 100%;
-        /* Los elementos extra ocupan todo el ancho */
-        justify-content: flex-start;
-        /* Alinea los extras a la izquierda */
+    .sectionHeader {
+        padding: calc(var(--padding-vertical) / 2) var(--padding-horizontal);
+        margin-bottom: 20px;
     }
 }

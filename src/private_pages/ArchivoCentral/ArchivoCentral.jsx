@@ -1,5 +1,5 @@
 // src/private_pages/ArchivoCentral/ArchivoCentral.jsx
-
+import "../stylesPrivatePages.css";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu"; // <-- Importa el componente genérico
@@ -30,7 +30,7 @@ const ArchivoCentral = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <div className={styles.pageContent}>
+    <div className="pageContent">
       <h1>📦 Archivo Central</h1>
       <p>
         Aquí puedes gestionar los documentos y archivos centrales de la empresa.

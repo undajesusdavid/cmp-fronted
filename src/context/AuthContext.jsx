@@ -6,9 +6,10 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify"; // Importa toast para notificaciones
+import router from "../routes/router";
 
 const AuthContext = createContext(null);
 const API_URL = import.meta.env.VITE_API_BASE_URL;
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     return storedToken ? JSON.parse(localStorage.getItem("user")) : null;
   });
 
-  const navigate = useNavigate(); // Hook para la redirección
+  //const navigate = useNavigate(); // Hook para la redirección
   const sessionTimeoutRef = useRef(null); // Ref para almacenar el ID del temporizador de la sesión
 
   // Función para iniciar o reiniciar el temporizador de la sesión
@@ -47,7 +48,8 @@ export const AuthProvider = ({ children }) => {
       });
       logout(); // Llama a logout para limpiar los datos
       // La redirección a /login ya está en logout, pero la dejo aquí como respaldo o si quieres un comportamiento diferente
-      navigate("/login");
+      
+      router.navigate("/login");
     }, SESSION_TIMEOUT_MS);
   };
 
@@ -116,7 +118,7 @@ export const AuthProvider = ({ children }) => {
       progress: undefined,
       theme: "light",
     });
-    navigate("/login"); // Redirigir a la página de login
+    router.navigate("/login"); // Redirigir a la página de login
   };
 
   useEffect(() => {
@@ -163,5 +165,9 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  
+  const context = useContext(AuthContext);
+  
+
+  return context;
 };

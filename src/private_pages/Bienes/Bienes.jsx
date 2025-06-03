@@ -1,5 +1,5 @@
 // src/private_pages/Bienes/Bienes.jsx
-
+import "../stylesPrivatePages.css";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu"; // Importa el componente SubMenu genérico
@@ -12,7 +12,7 @@ const Bienes = () => {
   // Define las opciones específicas para el submenú de Bienes
   const bienesSubMenuItems = [
     { label: "Inventario", path: "inventario", icon: "📝" },
-    { label: "Reportes", path: "reportes", icon: "📉" }
+    { label: "Reportes", path: "reportes", icon: "📉" },
   ];
 
   // Redirige a la subpágina por defecto si se accede a /bienes directamente
@@ -23,7 +23,7 @@ const Bienes = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <div className={styles.pageContent}>
+    <div className="pageContent">
       <h1>🏠 Gestión de Bienes</h1>
       <p>Administra los activos y propiedades de la empresa.</p>
 

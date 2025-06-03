@@ -1,5 +1,5 @@
 // src/private_pages/Dashboard.jsx
-
+import "../stylesPrivatePages.css";
 import React from "react";
 // ¡Ya NO importamos Sidebar aquí!
 import styles from "./Dashboard.module.css"; // Mantenemos el CSS de la página si tiene estilos específicos

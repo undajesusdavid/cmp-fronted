@@ -1,5 +1,5 @@
 // src/private_pages/Empleados/Empleados.jsx
-
+import "../stylesPrivatePages.css";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu";
@@ -12,10 +12,9 @@ const Empleados = () => {
 
   // Define los enlaces para el sub-menú de Empleados
   const empleadosSubMenuLinks = [
-    { path: "listado", label: "Listado", icon: <FaUsers /> }, // Ícono de usuarios
+    { path: "listado", label: "Listado", icon: <FaUsers /> },
     { path: "reportes", label: "Reportes", icon: <FaChartBar /> }, // Ícono de gráfico de barras
   ];
- 
 
   // Redirige a la subpágina por defecto si se accede a /usuarios directamente
   useEffect(() => {
@@ -28,7 +27,7 @@ const Empleados = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <div className={styles.pageContent}>
+    <div className="pageContent">
       <h1>Gestión de Personal</h1>
       <p>
         Administra toda la información relacionada con los empleados de la
