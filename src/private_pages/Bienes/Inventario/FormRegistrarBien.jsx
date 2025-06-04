@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./SubPageAgregarBien.module.css";
+import styles from "./FormRegistrarBien.module.css";
 
-const BienFormPage = () => {
+const FormRegistrarBien = () => {
   const navigate = useNavigate();
 
   const initialBienState = {
@@ -52,7 +52,6 @@ const BienFormPage = () => {
 
   return (
     <div className={styles.formPageContainer}>
-      <h2>Registrar Nuevo Bien</h2>
       <form onSubmit={handleSubmit} className={styles.bienForm}>
         {/* Sección 1: Datos de Ubicación y Código */}
         <div className={styles.formSection}>
@@ -318,4 +317,4 @@ const BienFormPage = () => {
   );
 };
 
-export default BienFormPage;
+export default FormRegistrarBien;

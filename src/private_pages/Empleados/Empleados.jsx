@@ -28,12 +28,6 @@ const Empleados = () => {
 
   return (
     <div className="pageContent">
-      <h1>Gestión de Personal</h1>
-      <p>
-        Administra toda la información relacionada con los empleados de la
-        institución.
-      </p>
-
       {/* Renderiza el componente SubMenu con los enlaces definidos */}
       <SubMenu items={empleadosSubMenuLinks} />
 

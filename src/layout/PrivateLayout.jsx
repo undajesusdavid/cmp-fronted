@@ -20,7 +20,7 @@ const PrivateLayout = () => {
     <div className={styles.privateLayoutContainer}>
       <Sidebar />
       <main className={styles.mainContentArea}>
-        <Breadcrumbs items={breadcrumbs}/>
+        <Breadcrumbs items={breadcrumbs} />
         <SectionHeader
           title={handle?.title || 'Título por Defecto'}
           description={handle?.description || ''}

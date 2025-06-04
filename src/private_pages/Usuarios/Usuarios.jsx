@@ -1,8 +1,9 @@
 import "../stylesPrivatePages.css";
+import styles from "./Usuarios.module.css";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu";
-import styles from "./Usuarios.module.css";
+
 
 const Usuarios = () => {
   const navigate = useNavigate();

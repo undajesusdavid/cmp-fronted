@@ -1,0 +1,175 @@
+/* HomeBienes.css */
+
+.home-bienes-central {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    padding: 25px;
+    background-color: #f8f9fa;
+    /* Un gris claro para el fondo */
+    color: #343a40;
+    /* Texto oscuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 1200px;
+    /* Ancho máximo para el contenido */
+    margin: 30px auto;
+    /* Centrar en la página */
+}
+
+.section-title {
+    text-align: center;
+    color: #2c3e50;
+    /* Un azul-gris oscuro */
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+/* Sección de Resumen de Estadísticas */
+.stats-summary {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    text-align: center;
+    min-width: 250px;
+    flex: 1;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card h3 {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.stat-card p {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #007bff;
+    /* Azul primario para los números */
+}
+
+/* Colores específicos para los totales si se desean */
+.total-bienes p {
+    color: #007bff;
+}
+
+.total-valor p {
+    color: #28a745;
+}
+
+
+/* Contenedor de Gráficos */
+.charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 450px;
+    /* Asegura que no se hagan demasiado pequeños */
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.chart-title {
+    text-align: center;
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Estilos de Tooltip de Recharts (personalizado) */
+.custom-tooltip {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.custom-tooltip .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.custom-tooltip .intro {
+    margin-bottom: 3px;
+}
+
+/* Overrides para elementos de Recharts si es necesario */
+.recharts-text {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 0.9em;
+}
+
+.recharts-tooltip-cursor {
+    fill: rgba(0, 0, 0, 0.05);
+    /* Color de fondo del cursor del tooltip */
+}
+
+.recharts-cartesian-grid line {
+    stroke: #e0e0e0;
+    stroke-dasharray: 3 3;
+}
+
+.recharts-legend-item-text {
+    color: #555 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .stats-summary {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-card {
+        min-width: unset;
+        width: 90%;
+    }
+
+    .charts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-card {
+        min-width: unset;
+        width: 95%;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+    }
+}

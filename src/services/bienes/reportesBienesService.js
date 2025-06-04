@@ -1,7 +1,7 @@
 // src/servicios/bienes/reportesBienesService.js
 
 // Importamos los datos simulados
-import bienesSimulados from "../../data/inventarioBienesData";
+import bienesSimulados from "../../private_pages/Bienes/data/inventarioBienesData";
 
 // Importamos todos los reportes específicos
 import { generarReporteGeneral } from "./reportes/reporteGeneralBienes";

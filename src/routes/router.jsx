@@ -18,14 +18,9 @@ import PrivateLayout from "../layout/PrivateLayout"; // El layout principal para
 
 const router = createBrowserRouter([
   // Rutas Públicas
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
+  { path: "/", element: <HomePage /> },
+  { path: "/login", element: <Login /> },
+
   // Rutas Privadas
   {
     element: <PrivateRoute />, // Este elemento envuelve todas las rutas que requieren autenticación
@@ -35,19 +30,20 @@ const router = createBrowserRouter([
         children: [
           // Páginas privadas principales
           {
+            index: true,
             path: "/dashboard",
             element: <Dashboard />,
             handle: {
               title: "Contraloria Municipal de Páez",
               description: "",
-              //crumbLabel: "Dashboard", // Etiqueta para el breadcrumb de esta ruta
+              crumbLabel: "",
             },
           },
           rutasUsuario,
           rutasEmpleado,
           rutasArchivo,
           rutasBienes,
-        ]
+        ],
       },
     ],
   },

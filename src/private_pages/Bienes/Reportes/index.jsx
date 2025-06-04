@@ -1,11 +1,10 @@
-import React from "react";
-import styles from "./SubPaginaReportes.module.css";
+import styles from "./index.module.css";
 
 // Importa el servicio de reportes de bienes
 import {
   reportesDisponiblesBienes,
   generarReporteBienes,
-} from "../../services/bienes/reportesBienesService";
+} from "../../../services/bienes/reportesBienesService";
 
 // Importar iconos de react-icons/fa (Font Awesome)
 // Asegúrate de importar TODOS los iconos que hayas definido en reportesBienesService.js
@@ -39,12 +38,6 @@ const SubPaginaReportes = () => {
 
   return (
     <div className={styles.reportsContainer}>
-      <h2>📦 Reportes de Bienes</h2>
-      <p>
-        Explora y genera diversos reportes detallados sobre el inventario de
-        bienes de la institución.
-      </p>
-
       <div className={styles.reportCardsGrid}>
         {reportesDisponiblesBienes.map((report) => {
           const IconComponent = IconComponents[report.icon]; // Obtiene el componente de icono

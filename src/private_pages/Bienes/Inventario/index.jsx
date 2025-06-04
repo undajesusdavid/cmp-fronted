@@ -1,13 +1,25 @@
-// src/private_pages/Bienes/SubPaginaInventario.jsx
 
-import React from "react";
-import inventarioBienesData from "../../data/inventarioBienesData"; // Importa los datos
-import styles from "./SubPaginaInventario.module.css"; // Crear este archivo CSS
-import Table from "../../components/Table/Table";
-import { useNavigate } from "react-router-dom";
+import styles from "./index.module.css";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import inventarioBienesData from "../data/inventarioBienesData";
+import Table from "../../../components/Table/Table";
 
-const SubPaginaInventario = () => {
+const InventarioBienes = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [inCurrentPage, setInCurrentPage] = useState(true);
+
+  useEffect(() => {
+    const ubicacion = location.pathname.split("/")
+    if (ubicacion[ubicacion.length - 1] === "inventario") {
+      setInCurrentPage(true)
+    }else{
+      setInCurrentPage(false)
+    }
+
+    console.log(ubicacion[ubicacion.length - 1]);
+  }, [location.pathname]);
 
   // Funciones de ejemplo para las acciones
   const handleView = (rowData) => {
@@ -38,7 +50,7 @@ const SubPaginaInventario = () => {
 
   // Función para el botón "Agregar Nuevo Bien"
   const handleAddNewBien = () => {
-    navigate('/bienes/agregar/');
+    navigate("/bienes/inventario/agregar/");
   };
   // Columnas para la tabla
   const inventoryColumns = [
@@ -58,27 +70,35 @@ const SubPaginaInventario = () => {
     // },
   ];
 
+  if (inCurrentPage) {
+    return (
+      <div className={styles.inventarioContainer}>
+        <Table
+          columns={inventoryColumns}
+          data={inventarioBienesData}
+          rowsPerPageOptions={[3, 5, 10, 15, 20]}
+          initialRowsPerPage={5}
+          onAdd={handleAddNewBien}
+          onView={handleView} // Pasamos la función onView al componente Table
+          onEdit={handleEdit} // Pasamos la función onEdit al componente Table
+          onDelete={handleDelete} // Pasamos la función onDelete al componente Table
+          searchable={true} // Habilita el buscador
+          searchKeys={[
+            "descripcion",
+            "marca",
+            "codigoInternoDelBien",
+            "unidadAdministrativa",
+          ]} // Opcional: Define las claves para buscar
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.inventarioContainer}>
-      <h2>📦 Inventario de Bienes</h2>
-      <p>
-        Listado detallado de los bienes muebles e inmuebles de la institución.
-      </p>
-
-      <Table
-        columns={inventoryColumns}
-        data={inventarioBienesData}
-        rowsPerPageOptions={[3, 5, 10, 15, 20]}
-        initialRowsPerPage={5}
-        onAdd={handleAddNewBien}
-        onView={handleView} // Pasamos la función onView al componente Table
-        onEdit={handleEdit} // Pasamos la función onEdit al componente Table
-        onDelete={handleDelete} // Pasamos la función onDelete al componente Table
-        searchable={true} // Habilita el buscador
-        searchKeys={["descripcion", "marca", "codigoInternoDelBien", "unidadAdministrativa"]} // Opcional: Define las claves para buscar
-      />
+      <Outlet />
     </div>
   );
 };
 
-export default SubPaginaInventario;
+export default InventarioBienes;
