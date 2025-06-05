@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     /* Centra el contenido horizontalmente */
 }
 
@@ -39,7 +39,7 @@
 
 /* Contenedor principal de la tarjeta del empleado */
 .employeeCard {
-    
+
     background-color: #ffffff;
     border-radius: 15px;
     /* Más redondeado para un look moderno */

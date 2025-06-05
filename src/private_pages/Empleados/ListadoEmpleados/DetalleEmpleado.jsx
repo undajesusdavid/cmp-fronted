@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import styles from "./DetalleEmpleado.module.css";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import styles from "./SubPaginaDetallesEmpleado.module.css";
-import { getOneEmployee } from "../../api/Employees/EmployeeController";
+import { getOneEmployee } from "../../../api/Employees/EmployeeController";
 
 // Importa tu imagen de silueta. Asegúrate de que esta ruta sea correcta.
 // Por ejemplo, si tienes una carpeta 'assets' en 'src', sería:
-import defaultEmployeeImage from "../../assets/default_employee.jpg";
+import defaultEmployeeImage from "../../../assets/default_employee.jpg";
 // Si no tienes una imagen, puedes usar una URL de un servicio como Placehold.co o simplemente base64 si es muy pequeña.
 // const defaultEmployeeImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIyIDIwdi0yaC0ydi0yYzAtNC0yLjg4LTMtNS41LTNjLTIuNjIgMC00LjUgMS01LjUgM2gtMnYySDR2MmgyaDE2di0yWiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+";
 
@@ -18,7 +18,7 @@ const DetailItem = ({ label, value, fullWidth = false }) => (
   </div>
 );
 
-const SubPaginaDetallesEmpleado = () => {
+const DetalleEmpleado = () => {
   const { empleadoId } = useParams();
   const navigate = useNavigate();
   const [empleado, setEmpleado] = useState(null);
@@ -309,4 +309,4 @@ const SubPaginaDetallesEmpleado = () => {
   );
 };
 
-export default SubPaginaDetallesEmpleado;
+export default DetalleEmpleado;

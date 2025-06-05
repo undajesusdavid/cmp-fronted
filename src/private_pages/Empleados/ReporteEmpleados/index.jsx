@@ -1,13 +1,10 @@
-// src/private_pages/Empleados/SubPaginaReportes.jsx
 
-import React from "react";
-import styles from "./SubPaginaReportes.module.css";
-
+import styles from "./index.module.css";
 // Importa el servicio de reportes
 import {
   reportesDisponibles,
   generarReporteEmpleados,
-} from "../../services/reportesEmpleadosService";
+} from "../../../services/reportesEmpleadosService";
 
 // Importar iconos de react-icons/fa (Font Awesome)
 // Asegúrate de importar TODOS los iconos que hayas definido en reportesEmpleadosService.js
@@ -31,19 +28,13 @@ const IconComponents = {
   // Agrega aquí cualquier otro icono que uses
 };
 
-const SubPaginaReportes = () => {
+const ReporteEmpleados = () => {
   const handleGenerateReportClick = (reportId) => {
     generarReporteEmpleados(reportId); // Llama a la función del servicio
   };
 
   return (
     <div className={styles.reportsContainer}>
-      <h2>📊 Reportes de Empleados</h2>
-      <p>
-        Explora y genera diversos reportes detallados sobre el personal de la
-        institución.
-      </p>
-
       <div className={styles.reportCardsGrid}>
         {reportesDisponibles.map((report) => {
           const IconComponent = IconComponents[report.icon]; // Obtiene el componente de icono
@@ -74,4 +65,4 @@ const SubPaginaReportes = () => {
   );
 };
 
-export default SubPaginaReportes;
+export default ReporteEmpleados;

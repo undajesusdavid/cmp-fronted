@@ -1,0 +1,98 @@
+/* src/components/Dashboard.css */
+
+/* Importar una fuente de Google Fonts para mayor elegancia */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400&display=swap');
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    /* Ajusta si tienes un header/footer */
+    /* Nuevo color de fondo que combina con el azul */
+    background-color: #e6f3f8;
+    /* Un azul muy claro y suave */
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.welcome-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Sombra más profunda y elegante */
+    padding: 40px;
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeInScale 0.8s ease-out forwards;
+    /* Animación de entrada */
+    border: 1px solid #e0e0e0;
+}
+
+.welcome-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    color: #2c3e50;
+    /* Un azul oscuro casi negro, base para la combinación */
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.welcome-message {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0;
+    /* No hay botones, así que eliminamos el margen inferior */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Las clases .dashboard-actions, .action-button, .action-button.secondary
+   han sido eliminadas ya que no hay botones. */
+
+/* Animación de entrada para la tarjeta */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2.2em;
+    }
+
+    .welcome-message {
+        font-size: 1em;
+    }
+
+    .welcome-card {
+        padding: 30px;
+        /* Ajuste para pantallas medianas */
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 1.8em;
+    }
+
+    .welcome-card {
+        padding: 25px;
+    }
+}

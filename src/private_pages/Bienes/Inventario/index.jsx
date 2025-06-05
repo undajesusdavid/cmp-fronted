@@ -1,25 +1,11 @@
 
 import styles from "./index.module.css";
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, useMatch } from "react-router-dom";
 import inventarioBienesData from "../data/inventarioBienesData";
 import Table from "../../../components/Table/Table";
-
 const InventarioBienes = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [inCurrentPage, setInCurrentPage] = useState(true);
-
-  useEffect(() => {
-    const ubicacion = location.pathname.split("/")
-    if (ubicacion[ubicacion.length - 1] === "inventario") {
-      setInCurrentPage(true)
-    }else{
-      setInCurrentPage(false)
-    }
-
-    console.log(ubicacion[ubicacion.length - 1]);
-  }, [location.pathname]);
+  const inCurrentPage = useMatch('/bienes/inventario');
 
   // Funciones de ejemplo para las acciones
   const handleView = (rowData) => {

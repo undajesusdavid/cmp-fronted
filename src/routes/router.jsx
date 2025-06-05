@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             element: <Dashboard />,
             handle: {
               title: "Contraloria Municipal de Páez",
-              description: "",
+              description: "",  
               crumbLabel: "",
             },
           },

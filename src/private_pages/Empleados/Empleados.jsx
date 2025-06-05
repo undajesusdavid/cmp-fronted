@@ -1,30 +1,17 @@
 // src/private_pages/Empleados/Empleados.jsx
 import "../stylesPrivatePages.css";
-import React, { useEffect } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+
+import { Outlet } from "react-router-dom";
 import SubMenu from "../../components/SubMenu/SubMenu";
 import styles from "./Empleados.module.css";
 import { FaChartBar, FaUsers } from "react-icons/fa";
 
 const Empleados = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   // Define los enlaces para el sub-menú de Empleados
   const empleadosSubMenuLinks = [
     { path: "listado", label: "Listado", icon: <FaUsers /> },
     { path: "reportes", label: "Reportes", icon: <FaChartBar /> }, // Ícono de gráfico de barras
   ];
-
-  // Redirige a la subpágina por defecto si se accede a /usuarios directamente
-  useEffect(() => {
-    if (
-      location.pathname === "/empleados" ||
-      location.pathname === "/empleados/"
-    ) {
-      navigate("/empleados/listado", { replace: true });
-    }
-  }, [location.pathname, navigate]);
 
   return (
     <div className="pageContent">

@@ -1,18 +1,25 @@
-// src/private_pages/Dashboard.jsx
-import "../stylesPrivatePages.css";
+// src/components/Dashboard.jsx
 import React from "react";
-// ¡Ya NO importamos Sidebar aquí!
-import styles from "./Dashboard.module.css"; // Mantenemos el CSS de la página si tiene estilos específicos
+import "./Dashboard.css"; // Importa el archivo CSS
 
 const Dashboard = () => {
+  // Puedes obtener el nombre del usuario logueado de un estado o contexto global si lo tienes
+  const userName = ""; // Valor por defecto
+
   return (
-    <div className="pageContent">
-      {/* Asegúrate de que tu CSS para .pageContent sea simple y solo afecte el contenido */}
-      <h1>📊 Dashboard Principal</h1>
-      <p>
-        Bienvenido a tu panel de control. Aquí encontrarás un resumen de la
-        actividad de tu empresa.
-      </p>
+    <div className="dashboard-container">
+      <div className="welcome-card">
+        <h1 className="welcome-title">
+          ¡Bienvenido{userName ? ", "+userName : ""}!
+        </h1>
+        <p className="welcome-message">
+          Nos alegra verte. Aquí podrás encontrar las estadísticas y la
+          información relevante de tus empleados. Explora las diferentes
+          secciones para obtener una visión completa del rendimiento y la
+          composición de tu equipo.
+        </p>
+        {/* Los botones han sido eliminados */}
+      </div>
     </div>
   );
 };

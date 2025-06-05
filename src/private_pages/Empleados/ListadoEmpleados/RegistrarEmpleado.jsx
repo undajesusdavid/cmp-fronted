@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import styles from "./RegistrarEmpleado.module.css";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./SubPaginaAgregarEmpleado.module.css";
-import { addEmployee } from "../../api/Employees/EmployeeController";
-import { getMetadataEmployee } from "../../api/Employees/EmployeeController";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import FamiliaresFormSection from "./FamiliaresFormSection";
+import { addEmployee } from "../../../api/Employees/EmployeeController";
+import { getMetadataEmployee } from "../../../api/Employees/EmployeeController";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
-const SubPaginaAgregarEmpleado = () => {
+
+const RegistrarEmpleado = () => {
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -108,15 +108,14 @@ const SubPaginaAgregarEmpleado = () => {
       <button className={styles.backButton} onClick={() => navigate(-1)}>
         ← Volver al Listado
       </button>
-      <h2>➕ Agregar Nuevo Empleado</h2>
-
+     
       {error ? (
         <p>{error}</p>
       ) : (
-        <p>
+        <h3>
           Completa todos los campos con la información detallada del nuevo
           empleado.
-        </p>
+        </h3>
       )}
 
       <form onSubmit={handleSubmit} className={styles.employeeForm}>
@@ -594,4 +593,4 @@ const SubPaginaAgregarEmpleado = () => {
   );
 };
 
-export default SubPaginaAgregarEmpleado;
+export default RegistrarEmpleado;

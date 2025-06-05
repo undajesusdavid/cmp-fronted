@@ -2,7 +2,7 @@
 
 import { jsPDF } from "jspdf";
 // Importa tus datos simulados de empleados (si los usas para llenar los PDFs)
-import empleadosData from "../data/empleadosData";
+import empleadosData from "../private_pages/Empleados/data/empleadosData";
 
 /**
  * Servicio para encapsular la lógica de generación y manejo de reportes de empleados.

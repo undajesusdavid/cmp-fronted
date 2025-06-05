@@ -1,11 +1,12 @@
 // src/private_pages/Empleados/SubPaginaEditarEmpleado.jsx
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import empleadosData from "../../data/empleadosData"; // Importa tus datos simulados
-import styles from "./SubPaginaEditarEmpleado.module.css"; // Usaremos el mismo CSS por ahora, o crear uno específico
+import styles from "./EditarEmpleado.module.css"; // Usaremos el mismo CSS por ahora, o crear uno específico
 
-const SubPaginaEditarEmpleado = () => {
+const empleadosData = [];
+
+const EditarEmpleado = () => {
   const { empleadoId } = useParams(); // Obtiene el ID del empleado de la URL
   const navigate = useNavigate();
 
@@ -578,4 +579,4 @@ const SubPaginaEditarEmpleado = () => {
   );
 };
 
-export default SubPaginaEditarEmpleado;
+export default EditarEmpleado;
