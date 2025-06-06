@@ -22,8 +22,8 @@ const ListadoEmpleados = () => {
   };
 
   useEffect(() => {
-    handleGetList();
-  }, []);
+    if(inCurrentPage) handleGetList();
+  }, [inCurrentPage]);
 
   const handleView = (rowData) => {
     navigate(`/empleados/listado/detalle/${rowData.id}`);

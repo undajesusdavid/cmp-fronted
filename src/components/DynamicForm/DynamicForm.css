@@ -1,0 +1,155 @@
+/* DynamicForm.css */
+
+.dynamic-form-container {
+    width: 100%;
+    /* Aumentado para acomodar campos lado a lado */
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.form-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-item-group {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.item-title {
+    margin-top: 0;
+    color: #555;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.form-fields-grid {
+    display: grid;
+    /* Ajusta el número de columnas y el tamaño.
+       Puedes usar repeat(auto-fit, minmax(250px, 1fr)) para flexibilidad,
+       o un número fijo como repeat(2, 1fr) para dos columnas. */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    /* Espacio entre los campos */
+}
+
+.form-field {
+    margin-bottom: 0;
+    /* Ya el gap maneja el espaciado */
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* Importante para que el padding no desborde el width */
+    font-size: 1em;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .25);
+}
+
+/* Botón de eliminar dentro del grupo de campos */
+.remove-item-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    /* Padding reducido para solo iconos */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+    /* Tamaño del icono */
+    margin-top: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.remove-item-button:hover {
+    background-color: #c82333;
+}
+
+/* Contenedor de botones principales */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    /* Más padding para los botones principales */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.add-button {
+    background-color: #007bff;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+.submit-button {
+    background-color: #28a745;
+}
+
+.submit-button:hover {
+    background-color: #218838;
+}
+
+/* Estilo para los iconos dentro de los botones */
+.action-button svg,
+.remove-item-button svg {
+    margin-right: 5px;
+    /* Espacio entre icono y texto si lo hubiera */
+}
+
+/* Para ocultar el texto si solo queremos el icono */
+.action-button span,
+.remove-item-button span {
+    display: none;
+}
+
+/* Si quieres que el texto aparezca solo en hover para accesibilidad */
+/*
+.action-button:hover span,
+.remove-item-button:hover span {
+    display: inline;
+    margin-left: 5px;
+}
+*/

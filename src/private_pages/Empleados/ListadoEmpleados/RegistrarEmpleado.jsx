@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addEmployee } from "../../../api/Employees/EmployeeController";
 import { getMetadataEmployee } from "../../../api/Employees/EmployeeController";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import { toast } from "react-toastify";
 
 
 const RegistrarEmpleado = () => {
@@ -86,16 +87,16 @@ const RegistrarEmpleado = () => {
     e.preventDefault();
     try {
       setLoading(true);
-
+      console.log(formData)
       const employeeId = await addEmployee(formData);
       if (employeeId) {
-        alert("Empleado agregado (simulado) exitosamente.");
-        navigate("/empleados/listado");
+        toast.success('Empleado registrado exitosamente.');
+        navigate(`/empleados/listado/detalle/${employeeId}`);
       }
       setLoading(false);
     } catch (error) {
       console.log(error);
-      setError("Ocurrio un error inesperado");
+      toast.error('Ocurrio un error inesperado');
     }
   };
 

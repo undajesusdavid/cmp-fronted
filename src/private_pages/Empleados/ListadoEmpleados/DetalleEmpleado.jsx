@@ -2,12 +2,8 @@ import styles from "./DetalleEmpleado.module.css";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOneEmployee } from "../../../api/Employees/EmployeeController";
-
-// Importa tu imagen de silueta. Asegúrate de que esta ruta sea correcta.
-// Por ejemplo, si tienes una carpeta 'assets' en 'src', sería:
 import defaultEmployeeImage from "../../../assets/default_employee.jpg";
-// Si no tienes una imagen, puedes usar una URL de un servicio como Placehold.co o simplemente base64 si es muy pequeña.
-// const defaultEmployeeImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIyIDIwdi0yaC0ydi0yYzAtNC0yLjg4LTMtNS41LTNjLTIuNjIgMC00LjUgMS01LjUgM2gtMnYySDR2MmgyaDE2di0yWiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+";
+import { formatFecha } from "../../../utils/ManejoFechas";
 
 // Componente auxiliar para mostrar un item de detalle
 const DetailItem = ({ label, value, fullWidth = false }) => (
@@ -51,15 +47,6 @@ const DetalleEmpleado = () => {
     handleGetOneEmployee();
   }, [empleadoId]);
 
-  const formatFecha = (dateString) => {
-    if (!dateString) return "N/A";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("es-VE", {
-      year: "numeric",
-      month: "long", // 'long' para el nombre completo del mes (e.g., "diciembre")
-      day: "numeric",
-    });
-  };
 
   // Esta función simula la obtención de una URL de imagen.
   // En una aplicación real, 'empleado.fotoUrl' vendría del backend.
@@ -107,10 +94,10 @@ const DetalleEmpleado = () => {
 
   return (
     <div className={styles.detailsPageContainer}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
+      <button className={styles.backButton} onClick={() => navigate("/empleados/listado")}>
         ← Volver al Listado
       </button>
-
+      
       <div className={styles.employeeCard}>
         <div className={styles.profileHeader}>
           <img
@@ -166,6 +153,7 @@ const DetalleEmpleado = () => {
                 value={`${empleado.altura || "N/A"} m`}
               />
               <DetailItem label="Peso" value={`${empleado.peso || "N/A"} kg`} />
+              <DetailItem label="Tipo de Sangre" value={empleado.tipo_sangre?.tipo } />
               <DetailItem
                 label="Nacionalidad"
                 value={empleado.nacionalidad?.nombre || "N/A"}

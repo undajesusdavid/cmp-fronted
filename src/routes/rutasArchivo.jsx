@@ -1,9 +1,12 @@
 import ArchivoCentral from "../private_pages/ArchivoCentral/ArchivoCentralLayout";
 import HomeArchivoCentral from "../private_pages/ArchivoCentral/HomeArchivoCentral";
+import InventarioDocumental from "../private_pages/ArchivoCentral/Inventario";
+import RegistrarDocumento from "../private_pages/ArchivoCentral/Inventario/RegistrarDocumento";
+
 import SubPaginaDevoluciones from "../private_pages/ArchivoCentral/SubPaginaDevoluciones";
 import SubPaginaEntrada from "../private_pages/ArchivoCentral/SubPaginaEntrada";
 import SubPaginaSalida from "../private_pages/ArchivoCentral/SubPaginaSalida";
-import SubPaginaInventarioArchivo from "../private_pages/ArchivoCentral/SubPaginaInventario";
+//import SubPaginaInventarioArchivo from "../private_pages/ArchivoCentral/SubPaginaInventario";
 
 const titleModule = "Gestión de Archivos";
 
@@ -27,12 +30,23 @@ export default {
     },
     {
       path: "inventario",
-      element: <SubPaginaInventarioArchivo />,
+      element: <InventarioDocumental />,
       handle: {
         title: "Inventario Documental",
         description: "",
         crumbLabel: "Inventario",
       },
+      children: [
+        {
+          path: "agregar",
+          element: <RegistrarDocumento />,
+          handle: {
+            title: "Registro de Documentos",
+            description: "",
+            crumbLabel: "Registrar",
+          },
+        },
+      ],
     },
     {
       path: "entrada",
