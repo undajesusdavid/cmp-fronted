@@ -4,15 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getOneEmployee } from "../../../api/Employees/EmployeeController";
 import defaultEmployeeImage from "../../../assets/default_employee.jpg";
 import { formatFecha } from "../../../utils/ManejoFechas";
-
-// Componente auxiliar para mostrar un item de detalle
-const DetailItem = ({ label, value, fullWidth = false }) => (
-  <div
-    className={`${styles.detailItem} ${fullWidth ? styles.fullWidthItem : ""}`}
-  >
-    <strong>{label}:</strong> <span>{value}</span>
-  </div>
-);
+import DetailItem from "../../../components/DetailItem/DetailItem";
+import SectionContainer from "../../../components/SectionContainer/SectionContainer";
+import SectionDetail from "../../../components/SectionDetail/SectionDetail";
 
 const DetalleEmpleado = () => {
   const { empleadoId } = useParams();
@@ -21,32 +15,31 @@ const DetalleEmpleado = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const handleGetOneEmployee = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const employee = await getOneEmployee(empleadoId);
-        if (employee) {
-          setEmpleado(employee);
-        } else {
-          setError(new Error("Empleado no encontrado."));
-        }
-      } catch (err) {
-        setError(
-          new Error(
-            "Error al cargar los datos del empleado. Por favor, inténtelo de nuevo más tarde."
-          )
-        );
-        console.error("Error fetching employee:", err);
-      } finally {
-        setLoading(false);
+  const handleGetOneEmployee = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const employee = await getOneEmployee(empleadoId);
+      if (employee) {
+        setEmpleado(employee);
+      } else {
+        setError(new Error("Empleado no encontrado."));
       }
-    };
+    } catch (err) {
+      setError(
+        new Error(
+          "Error al cargar los datos del empleado. Por favor, inténtelo de nuevo más tarde."
+        )
+      );
+      console.error("Error fetching employee:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     handleGetOneEmployee();
   }, [empleadoId]);
-
 
   // Esta función simula la obtención de una URL de imagen.
   // En una aplicación real, 'empleado.fotoUrl' vendría del backend.
@@ -94,10 +87,13 @@ const DetalleEmpleado = () => {
 
   return (
     <div className={styles.detailsPageContainer}>
-      <button className={styles.backButton} onClick={() => navigate("/empleados/listado")}>
+      <button
+        className={styles.backButton}
+        onClick={() => navigate("/empleados/listado")}
+      >
         ← Volver al Listado
       </button>
-      
+
       <div className={styles.employeeCard}>
         <div className={styles.profileHeader}>
           <img
@@ -118,10 +114,9 @@ const DetalleEmpleado = () => {
           </div>
         </div>
 
-        <div className={styles.sectionsContainer}>
+        <SectionContainer direction="column">
           {/* Sección: Información Personal */}
-          <section className={styles.detailSection}>
-            <h3>Información Personal</h3>
+          <SectionDetail label="Información Personal">
             <div className={styles.detailGrid}>
               <DetailItem label="Cédula" value={empleado.cedula} />
               <DetailItem label="RIF" value={empleado.rif || "N/A"} />
@@ -153,17 +148,19 @@ const DetalleEmpleado = () => {
                 value={`${empleado.altura || "N/A"} m`}
               />
               <DetailItem label="Peso" value={`${empleado.peso || "N/A"} kg`} />
-              <DetailItem label="Tipo de Sangre" value={empleado.tipo_sangre?.tipo } />
+              <DetailItem
+                label="Tipo de Sangre"
+                value={empleado.tipo_sangre?.tipo}
+              />
               <DetailItem
                 label="Nacionalidad"
                 value={empleado.nacionalidad?.nombre || "N/A"}
               />
             </div>
-          </section>
+          </SectionDetail>
 
           {/* Sección: Contacto */}
-          <section className={styles.detailSection}>
-            <h3>Contacto</h3>
+          <SectionDetail label="Contacto">
             <div className={styles.detailGrid}>
               <DetailItem label="Correo" value={empleado.correo || "N/A"} />
               <DetailItem
@@ -176,11 +173,10 @@ const DetalleEmpleado = () => {
                 fullWidth // Este item ocupará todo el ancho
               />
             </div>
-          </section>
+          </SectionDetail>
 
           {/* Sección: Detalles Laborales */}
-          <section className={styles.detailSection}>
-            <h3>Detalles Laborales</h3>
+          <SectionDetail label="Detalles Laborales">
             <div className={styles.detailGrid}>
               <DetailItem
                 label="Fecha Ingreso (Admin Pública)"
@@ -211,11 +207,10 @@ const DetalleEmpleado = () => {
                 value={empleado.departamento?.nombre || "N/A"}
               />
             </div>
-          </section>
+          </SectionDetail>
 
           {/* Sección: Carnet de la Patria */}
-          <section className={styles.detailSection}>
-            <h3>Carnet de la Patria</h3>
+          <SectionDetail label="Carnet de la Patria">
             <div className={styles.detailGrid}>
               <DetailItem
                 label="Tiene Carnet"
@@ -234,12 +229,11 @@ const DetalleEmpleado = () => {
                 </>
               )}
             </div>
-          </section>
+          </SectionDetail>
 
           {/* Sección: Tallas */}
           {empleado.tallas && (
-            <section className={styles.detailSection}>
-              <h3>Tallas</h3>
+            <SectionDetail label="Tallas">
               <div className={styles.detailGrid}>
                 <DetailItem
                   label="Zapato"
@@ -254,13 +248,12 @@ const DetalleEmpleado = () => {
                   value={empleado.tallas.pantalon || "N/A"}
                 />
               </div>
-            </section>
+            </SectionDetail>
           )}
 
           {/* Sección: Vivienda */}
           {empleado.tipo_vivienda && (
-            <section className={styles.detailSection}>
-              <h3>Vivienda</h3>
+            <SectionDetail label="Vivienda">
               <div className={styles.detailGrid}>
                 <DetailItem
                   label="Tipo de vivienda"
@@ -271,13 +264,12 @@ const DetalleEmpleado = () => {
                   value={empleado.cond_vivienda.condicion || "N/A"}
                 />
               </div>
-            </section>
+            </SectionDetail>
           )}
 
           {/* Sección: Familiares */}
           {empleado.familiares && empleado.familiares.length > 0 && (
-            <section className={styles.detailSection}>
-              <h3>Familiares</h3>
+            <SectionDetail label="Familiares">
               <div className={styles.familiaresList}>
                 {empleado.familiares.map((familiar) => (
                   <div key={familiar.id} className={styles.familiarItem}>
@@ -289,9 +281,9 @@ const DetalleEmpleado = () => {
                   </div>
                 ))}
               </div>
-            </section>
+            </SectionDetail>
           )}
-        </div>
+        </SectionContainer>
       </div>
     </div>
   );

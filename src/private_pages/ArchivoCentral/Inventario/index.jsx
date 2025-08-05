@@ -1,59 +1,59 @@
 import Table from "../../../components/Table/Table";
 import "../../stylesPrivatePages.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useMatch, useNavigate } from "react-router-dom";
+import { getAllInventory } from "../../../api/CentralArchive/InventoryController";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 const InventarioDocumental = () => {
   const navigate = useNavigate();
-    const inCurrentPage = useMatch("/archivo-central/inventario");
-  const [inventarioData, setInventarioData] = useState([
-    {
-      cod_clasificacion: "DPI-01-01",
-      nombre: "Actuación fiscal a INMUJER",
-      num_acta: "DCP-01-2025",
-      descripcion:
-        "Actuacion de tendente a evaluar los procedimientos de control del contabilidad",
-      //Detalles de piezas
-      piezas: [
-        {
-          numero: 1,
-          rang_folios: "1-250",
-          ubicacion_fisica: "1A-02-01",
-          ubicacion_digital: "asdb9238rr32r9813",
-          contenido: "Cedulas de asignacion, Oficios de Notificación",
-        },
-        {
-          numero: 2,
-          rang_folios: "250-500",
-          ubicacion_fisica: "1A-02-02",
-          ubicacion_digital: "ehgf329h2gf039gh023h009g",
-          contenido: "Cedulas de asignacion, Oficios de Notificación",
-        },
-      ],
-    },
-  ]);
+  const inCurrentPage = useMatch("/archivo-central/inventario");
+  const [loading, setLoading] = useState(false);
+  const [inventarioData, setInventarioData] = useState([]);
+
+  const handleGetList = async () => {
+    setLoading(true);
+    const inventory = await getAllInventory();
+    setInventarioData(inventory);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (inCurrentPage) handleGetList();
+  }, [inCurrentPage]);
 
   const handleAdd = () => navigate("agregar");
-  const handleView = () => {};
+  const handleView = (rowData) => {
+    navigate(`/archivo-central/inventario/detalle/${rowData.id}`);
+  };
   const handleEdit = () => {};
   const handleDelete = () => {};
 
   const DataColumns = [
     {
-      key: "cod_clasificacion",
+      key: "codigo",
       header: "Clasificación",
       align: "center",
+      render: (row) => row.clasificacion.nombre || "No disponible",
     },
-    { key: "nombre", header: "Nombre de Tramite", align: "center" },
     {
-      key: "piezas",
-      header: "N° de Piezas",
+      key: "titulo",
+      header: "Descripción ",
       align: "center",
-      render: (row) => row?.piezas.length,
+      render: (row) =>
+        <div style={{
+          wordBreak: "break-word",
+          whiteSpace: "normal",
+          width: "100%",
+          overflowWrap: "break-word"
+        }}>{row.titulo}</div> ||
+        "No disponible",
     },
-    { key: "num_acta", header: "N° de Acta", align: "center" },
-    { key: "descripcion", header: "Descripción", align: "center" },
   ];
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   if (inCurrentPage) {
     return (
@@ -68,7 +68,7 @@ const InventarioDocumental = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           searchable={true}
-          searchKeys={["serie"]}
+          searchKeys={["titulo", "codigo", "ubicacion"]}
           emptyMessage="No hay documentos registrados en este momento."
         />
       </div>

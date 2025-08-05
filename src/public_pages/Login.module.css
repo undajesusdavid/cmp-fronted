@@ -3,162 +3,177 @@
 .loginContainer {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
-    /* Fondo degradado suave */
+    justify-content: center;
+    background: linear-gradient(120deg, #eaf0fa 0%, #e0f7ef 100%);
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    color: #333;
-    padding: 20px;
-    /* Padding para evitar que el contenido toque los bordes en móviles */
-    box-sizing: border-box;
-    /* Asegura que el padding no añada al ancho/alto total */
 }
 
 .loginCard {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    /* Sombra más pronunciada para un efecto flotante */
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0,64,128,0.13), 0 2px 8px rgba(0,64,128,0.10);
+    padding: 56px 44px 38px 44px;
+    max-width: 420px;
     width: 100%;
-    max-width: 450px;
-    /* Ancho máximo para el formulario */
-    text-align: center;
-    border: 1px solid #e0e6ed;
-    /* Borde sutil */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.loginCard::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(135deg, #007bff 60%, #218838 100%);
+    opacity: 0.13;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.loginCard::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #218838 60%, #007bff 100%);
+    opacity: 0.10;
+    border-radius: 50%;
+    z-index: 0;
 }
 
 .loginTitle {
-    font-size: 2.5em;
-    font-weight: 700;
+    font-size: 2.2em;
     color: #004080;
-    /* Azul oscuro institucional */
-    margin-bottom: 30px;
-    letter-spacing: -0.5px;
-    /* Ajuste para un título más pulido */
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    z-index: 1;
 }
 
 .loginForm {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    /* Espacio entre los grupos de formulario */
+    gap: 22px;
+    z-index: 1;
 }
 
 .formGroup {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .formLabel {
-    display: block;
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 8px;
     font-weight: 600;
+    color: #218838;
+    margin-bottom: 2px;
+    font-size: 1.05em;
 }
 
 .formInput {
-    width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #ccd6e0;
-    /* Borde más suave */
-    border-radius: 8px;
-    font-size: 1.05em;
-    color: #333;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    /* Asegura que el padding no añada al ancho total */
-}
-
-.formInput::placeholder {
-    color: #aab8c2;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1.5px solid #c1e4ed;
+    font-size: 1.08em;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+    background: #f8fafc;
+    box-shadow: 0 1px 4px rgba(0,64,128,0.07);
 }
 
 .formInput:focus {
     border-color: #007bff;
-    /* Resalta el borde al enfocar */
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    /* Sombra al enfocar */
+    box-shadow: 0 2px 8px rgba(0,64,128,0.13);
 }
 
 .errorMessage {
-    color: #dc3545;
-    /* Rojo de error estándar */
-    font-size: 0.9em;
-    margin-top: -10px;
-    /* Ajusta el margen para que esté cerca del input */
-    margin-bottom: 10px;
+    color: #d32f2f;
+    background: #ffeaea;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    font-size: 1em;
     text-align: center;
+    box-shadow: 0 1px 4px rgba(211,47,47,0.07);
 }
 
 .loginButton {
-    width: 100%;
-    padding: 15px;
-    background-color: #0056b3;
-    /* Azul primario */
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background: linear-gradient(90deg, #007bff 60%, #218838 100%);
+    color: #fff;
+    font-weight: 700;
     font-size: 1.15em;
-    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 0;
+    margin-top: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.2);
-    /* Sombra para el botón */
+    box-shadow: 0 2px 12px rgba(0,64,128,0.13);
+    transition: background 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
 }
 
 .loginButton:hover {
-    background-color: #004080;
-    /* Azul más oscuro al pasar el mouse */
-    box-shadow: 0 7px 20px rgba(0, 86, 179, 0.3);
+    background: linear-gradient(90deg, #004080 60%, #218838 100%);
+    box-shadow: 0 7px 24px rgba(0, 86, 179, 0.18);
 }
 
 .loginButton:disabled {
-    background-color: #aab8c2;
+    background: #c1e4ed;
+    color: #888;
     cursor: not-allowed;
-    box-shadow: none;
 }
 
-.forgotPassword,
-.signUpPrompt {
-    font-size: 0.95em;
-    margin-top: 15px;
-    color: #777;
+.forgotPassword {
+    margin-top: 8px;
+    text-align: right;
+    font-size: 0.97em;
+    z-index: 1;
 }
 
-.forgotPassword a,
-.signUpPrompt a {
+.forgotPassword a {
     color: #007bff;
-    /* Azul de enlace */
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    text-decoration: underline;
+    transition: color 0.2s;
 }
 
-.forgotPassword a:hover,
-.signUpPrompt a:hover {
-    color: #0056b3;
-    /* Azul más oscuro al pasar el mouse */
+.forgotPassword a:hover {
+    color: #218838;
+}
+
+.signUpPrompt {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.97em;
+    z-index: 1;
+}
+
+.signUpPrompt a {
+    color: #218838;
     text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.signUpPrompt a:hover {
+    color: #007bff;
 }
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .loginCard {
-        padding: 30px;
-        margin: 20px;
-        /* Margen para que no se pegue a los bordes */
+        padding: 24px 8px 18px 8px;
+        max-width: 98vw;
     }
-
     .loginTitle {
-        font-size: 2em;
-    }
-
-    .formInput,
-    .loginButton {
-        padding: 12px 15px;
-        font-size: 1em;
+        font-size: 1.4em;
     }
 }

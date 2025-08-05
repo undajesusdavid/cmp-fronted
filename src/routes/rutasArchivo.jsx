@@ -1,6 +1,7 @@
 import ArchivoCentral from "../private_pages/ArchivoCentral/ArchivoCentralLayout";
 import HomeArchivoCentral from "../private_pages/ArchivoCentral/HomeArchivoCentral";
 import InventarioDocumental from "../private_pages/ArchivoCentral/Inventario";
+import DetalleDocumento from "../private_pages/ArchivoCentral/Inventario/DetalleDocumento";
 import RegistrarDocumento from "../private_pages/ArchivoCentral/Inventario/RegistrarDocumento";
 
 import SubPaginaDevoluciones from "../private_pages/ArchivoCentral/SubPaginaDevoluciones";
@@ -44,6 +45,15 @@ export default {
             title: "Registro de Documentos",
             description: "",
             crumbLabel: "Registrar",
+          },
+        },
+        {
+          path: "detalle/:itemId",
+          element: <DetalleDocumento />,
+          handle: {
+            title: "Detalle de Archivo",
+            description: "",
+            crumbLabel: "Detalle",
           },
         },
       ],

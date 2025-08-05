@@ -38,6 +38,17 @@ const Login = () => {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
+        <img
+          src="/cmp.svg"
+          alt="Logo CMP"
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: "50%",
+            marginBottom: 12,
+            boxShadow: "0 2px 8px rgba(0,64,128,0.10)",
+          }}
+        />
         <h2 className={styles.loginTitle}>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit} className={styles.loginForm}>
           <div className={styles.formGroup}>

@@ -1,0 +1,40 @@
+.detailItem {
+    /* border: 1px solid #e0e0e0; */
+    /* padding: 10px; */
+    /* border-radius: 8px; */
+    display: flex;
+    flex-direction: column;
+    /* Etiqueta arriba, valor abajo */
+    font-size: 1em;
+    /* Tamaño de fuente ligeramente más grande para mayor legibilidad */
+    line-height: 1.5;
+    /* Mayor espaciado de línea para legibilidad */
+}
+
+.detailItem strong {
+    color: #343a40;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.detailItem span {
+    color: #555;
+    word-wrap: break-word;
+    /* Para asegurar que el texto largo se rompa */
+}
+
+/* Estilo específico para items que ocupan todo el ancho */
+.fullWidthItem {
+    grid-column: 1 / -1;
+    /* Ocupa todas las columnas disponibles */
+    display: block;
+    /* Asegura que el contenido se muestre en bloque */
+}
+
+.fullWidthItem strong {
+    display: block;
+    /* Asegura que la etiqueta esté en su propia línea */
+    margin-bottom: 8px;
+    /* Más espacio entre etiqueta y valor */
+}
+

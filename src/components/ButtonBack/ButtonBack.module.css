@@ -1,0 +1,26 @@
+/* ButtonBack.module.css */
+.buttonBack {
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, #007bff 60%, #218838 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 64, 128, 0.13);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.buttonBack:hover {
+    background: linear-gradient(90deg, #004080 60%, #218838 100%);
+    box-shadow: 0 7px 20px rgba(0, 86, 179, 0.18);
+}
+
+.buttonBack svg {
+    display: inline-block;
+}
