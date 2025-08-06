@@ -1,0 +1,67 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  transition: border 0.2s;
+}
+
+.inputWrapper:focus-within {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px #3182ce33;
+}
+
+.inputWrapper > * {
+  flex: 1 1 0%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #2d3748;
+  padding: 0.25rem 0;
+}
+
+.inputWrapper input[type="checkbox"],
+.inputWrapper input[type="radio"] {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
+}
+
+.inputWrapper select {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #2d3748;
+  padding: 0.25rem 0;
+}
+
+.inputWrapper textarea {
+  min-height: 2.5rem;
+  resize: vertical;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.92rem;
+  margin-top: 0.1rem;
+  font-weight: 500;
+}

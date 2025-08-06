@@ -1,0 +1,34 @@
+.formGroup {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+}
+
+.vertical {
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.horizontal {
+  flex-direction: row;
+  gap: 1.2rem;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+/* Para que los InputGroup ocupen el espacio adecuado en horizontal */
+.horizontal > * {
+  flex: 1 1 250px;
+  min-width: 220px;
+  max-width: 100%;
+}
+
+/* Responsive: en pantallas pequeñas, forzar vertical */
+@media (max-width: 700px) {
+  .horizontal, .wrap {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+  }
+}

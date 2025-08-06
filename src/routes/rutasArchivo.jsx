@@ -1,6 +1,11 @@
 import ArchivoCentral from "../private_pages/ArchivoCentral/ArchivoCentralLayout";
 import HomeArchivoCentral from "../private_pages/ArchivoCentral/HomeArchivoCentral";
 import InventarioDocumental from "../private_pages/ArchivoCentral/Inventario";
+
+import ListadoClasificacion from "../private_pages/ArchivoCentral/Clasificacion/ListadoClasificacion";
+import RegistrarClasificacion from "../private_pages/ArchivoCentral/Clasificacion/RegistrarClasificacion";
+import EditarClasificacion from "../private_pages/ArchivoCentral/Clasificacion/EditarClasificacion";
+
 import DetalleDocumento from "../private_pages/ArchivoCentral/Inventario/DetalleDocumento";
 import RegistrarDocumento from "../private_pages/ArchivoCentral/Inventario/RegistrarDocumento";
 
@@ -29,6 +34,36 @@ export default {
         crumbLabel: "",
       },
     },
+    {
+      path: "clasificacion",
+      element: <ListadoClasificacion />,
+      handle: {
+        title: "Clasificación de Documentos",
+        description: "",
+        crumbLabel: "Clasificación",
+      },
+      children: [
+        {
+          path: "registrar",
+          element: <RegistrarClasificacion />,
+          handle: {
+            title: "Registrar Clasificación",
+            description: "",
+            crumbLabel: "Registrar clasificación",
+          },
+        },
+        {
+          path: "editar/:itemId",
+          element: <EditarClasificacion />,
+          handle: {
+            title: "Editar Clasificación",
+            description: "",
+            crumbLabel: "Editar Clasificación",
+          },
+        },
+      ],
+    },
+
     {
       path: "inventario",
       element: <InventarioDocumental />,

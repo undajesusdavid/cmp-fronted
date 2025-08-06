@@ -1,0 +1,28 @@
+.defaultButton {
+  background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%);
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 6px 0 #2563eb22;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.08s;
+  outline: none;
+}
+.defaultButton:hover:not(:disabled) {
+  background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+  box-shadow: 0 2px 10px 0 #2563eb22;
+  transform: translateY(-1px) scale(1.01);
+}
+.defaultButton:active:not(:disabled) {
+  background: #2563eb;
+  transform: scale(0.99);
+}
+.defaultButton:disabled {
+  background: #e5e7eb;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
