@@ -74,30 +74,12 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       startSessionTimer(); // Iniciar el temporizador al iniciar sesión exitosamente
-      toast.success("¡Inicio de sesión exitoso!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.success("¡Inicio de sesión exitoso!", { theme: "light"});
       return true;
     } catch (err) {
       console.error("Error during login:", err);
       // Mostrar notificación de error en caso de fallo de login
-      toast.error("Error al iniciar sesión. Verifica tus credenciales.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("Error al iniciar sesión. Verifica tus credenciales.");
       return false;
     }
   };
@@ -108,16 +90,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     delete axios.defaults.headers.common["Authorization"];
     clearSessionTimer(); // Limpiar el temporizador al cerrar sesión
-    toast.info("Has cerrado sesión.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    toast.info("Has cerrado sesión.",{theme: "light"});
     router.navigate("/login"); // Redirigir a la página de login
   };
 

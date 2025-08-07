@@ -2,33 +2,106 @@
   width: 100%;
   margin-bottom: 1.5rem;
   display: flex;
+  flex-direction: column;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  box-shadow: 0 2px 12px 0 #2563eb11;
+  position: relative;
 }
 
-.vertical {
+.groupTitle {
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 0.8rem;
+  margin-top: 0.1rem;
+  letter-spacing: 0.01em;
+  padding: 0.3rem 0.5rem;
+  background: #e0e7ef;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-left: 3px solid #60a5fa;
+  box-shadow: 0 1px 4px 0 #2563eb11;
+  width: fit-content;
+  min-width: 180px;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  position: absolute;
+  top: -1.1rem;
+  left: 1.2rem;
+  z-index: 2;
+}
+
+.collapseBtn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 0.7rem;
+  font-size: 1.1rem;
+  color: #2563eb;
+  transition: color 0.18s;
+  vertical-align: middle;
+  padding: 0.1rem 0.3rem;
+}
+
+.collapseBtn:hover {
+  color: #1e293b;
+}
+
+.iconExpanded {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.iconCollapsed {
+  display: inline-block;
+  transform: rotate(-90deg);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.groupContent {
+  width: 100%;
+  display: flex;
+  flex-direction: inherit;
+  gap: inherit;
+  padding: 2.2rem 1rem 1rem 1.2rem;
+  background: transparent;
+  border-radius: 0.3rem;
+  transition: max-height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+.vertical .groupContent {
   flex-direction: column;
   gap: 1.2rem;
 }
 
-.horizontal {
+.horizontal .groupContent {
   flex-direction: row;
   gap: 1.2rem;
 }
 
-.wrap {
+.wrap .groupContent {
   flex-wrap: wrap;
 }
 
-/* Para que los InputGroup ocupen el espacio adecuado en horizontal */
-.horizontal > * {
+.horizontal .groupContent > * {
   flex: 1 1 250px;
   min-width: 220px;
   max-width: 100%;
 }
 
-/* Responsive: en pantallas pequeñas, forzar vertical */
 @media (max-width: 700px) {
-  .horizontal, .wrap {
+  .horizontal .groupContent, .wrap .groupContent {
     flex-direction: column !important;
     flex-wrap: nowrap !important;
+  }
+  .groupTitle {
+    position: static;
+    margin-bottom: 1.2rem;
+    left: 0;
+    top: 0;
   }
 }

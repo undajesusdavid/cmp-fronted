@@ -1,5 +1,5 @@
 import ArchivoCentral from "../private_pages/ArchivoCentral/ArchivoCentralLayout";
-import HomeArchivoCentral from "../private_pages/ArchivoCentral/HomeArchivoCentral";
+import HomeArchivoCentral from "../private_pages/ArchivoCentral/Home/HomeArchivoCentral";
 import InventarioDocumental from "../private_pages/ArchivoCentral/Inventario";
 
 import ListadoClasificacion from "../private_pages/ArchivoCentral/Clasificacion/ListadoClasificacion";
@@ -9,9 +9,13 @@ import EditarClasificacion from "../private_pages/ArchivoCentral/Clasificacion/E
 import DetalleDocumento from "../private_pages/ArchivoCentral/Inventario/DetalleDocumento";
 import RegistrarDocumento from "../private_pages/ArchivoCentral/Inventario/RegistrarDocumento";
 
-import SubPaginaDevoluciones from "../private_pages/ArchivoCentral/SubPaginaDevoluciones";
-import SubPaginaEntrada from "../private_pages/ArchivoCentral/SubPaginaEntrada";
-import SubPaginaSalida from "../private_pages/ArchivoCentral/SubPaginaSalida";
+import SubPaginaDevoluciones from "../private_pages/ArchivoCentral/Devoluciones";
+import SubPaginaEntrada from "../private_pages/ArchivoCentral/Entradas";
+import SubPaginaSalida from "../private_pages/ArchivoCentral/Salidas";
+
+import ExpedienteModule from "../private_pages/ArchivoCentral/Expediente";
+import ContenedorModule from "../private_pages/ArchivoCentral/Contenedor";
+
 //import SubPaginaInventarioArchivo from "../private_pages/ArchivoCentral/SubPaginaInventario";
 
 const titleModule = "Gestión de Archivos";
@@ -118,6 +122,24 @@ export default {
         title: "Devoluciones de Documentos",
         description: "",
         crumbLabel: "Devoluciones",
+      },
+    },
+    {
+      path: "expedientes",
+      element: <ExpedienteModule />,
+      handle: {
+        title: "Expedientes",
+        description: "",
+        crumbLabel: "Expedientes",
+      },
+    },
+    {
+      path: "contenedores",
+      element: <ContenedorModule />,
+      handle: {
+        title: "Contenedores",
+        description: "",
+        crumbLabel: "Contenedores",
       },
     },
   ],

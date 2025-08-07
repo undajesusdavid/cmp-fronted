@@ -1,24 +1,25 @@
 import { useState } from "react";
 
 const initialState = {
-  cod_serie: "",
-  cod_subserie: "",
-  serie: "",
-  subserie: "",
+  descripcion: "",
+  ubicacion: "",
+  ejercicio: "",
+  unidad_conservacion_id: "",
   departamento_id: "",
 };
 
-function useFormClasificacion({ initialData = initialState,} = {}) {
+function useFormContenedor({ initialData = initialState,} = {}) {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const newErrors = {};
-    if (!form.cod_serie) newErrors.cod_serie = "Código de serie requerido";
-    if (!form.cod_subserie)
-      newErrors.cod_subserie = "Código de subserie requerido";
-    if (!form.serie) newErrors.serie = "Serie requerida";
-    if (!form.subserie) newErrors.subserie = "Subserie requerida";
+    if (!form.descripcion) newErrors.descripcion = "La descripcion es requerida";
+    if (!form.ubicacion)
+      newErrors.ubicacion = "La ubicación es requerida";
+    if (!form.ejercicio) newErrors.ejercicio = "El ejercicio fiscal es requerido";
+    if (!form.unidad_conservacion_id)
+      newErrors.unidad_conservacion_id = "Unidad de conservación requerida";
     if (!form.departamento_id)
       newErrors.departamento_id = "Departamento requerido";
     setErrors(newErrors);
@@ -46,4 +47,4 @@ function useFormClasificacion({ initialData = initialState,} = {}) {
 }
 
 
-export default useFormClasificacion;
+export default useFormContenedor;

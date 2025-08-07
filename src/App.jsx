@@ -12,16 +12,18 @@ function App() {
       <RouterProvider router={router} />
       {/* Usamos el componente de rutas aquí */}
       <ToastContainer
-        position="top-right"
+        style={{ minWidth: "1200px" }}
+        position="top-center"
         autoClose={5000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="colored"
+        
       />
     </AuthProvider>
   );

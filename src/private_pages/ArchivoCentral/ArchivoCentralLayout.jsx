@@ -2,7 +2,16 @@ import "../stylesPrivatePages.css";
 import styles from "./ArchivoCentral.module.css";
 import { useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { FaBoxes, FaDownload, FaUndo, FaUpload, FaListAlt, FaArchive, FaSignInAlt, FaSignOutAlt, FaRetweet } from "react-icons/fa";
+import {
+  FaListAlt,
+  FaFolderOpen,
+  FaBookOpen,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaRetweet,
+} from "react-icons/fa";
+
+import { GoContainer } from "react-icons/go";
 import SubMenu from "../../components/SubMenu/SubMenu";
 
 const ArchivoCentral = () => {
@@ -11,9 +20,11 @@ const ArchivoCentral = () => {
 
   const archivoCentralSubMenuItems = [
     { path: "clasificacion", label: "Clasificación", icon: <FaListAlt /> },
-    { path: "inventario", label: "Inventario Documental", icon: <FaArchive /> }, 
-    { path: "entrada", label: "Entrada", icon: <FaSignInAlt /> }, 
-    { path: "salida", label: "Salida", icon: <FaSignOutAlt /> }, 
+    { path: "expedientes", label: "Expedientes", icon: <FaFolderOpen /> },
+    { path: "contenedores", label: "Contenedores", icon: <GoContainer /> },
+    { path: "inventario", label: "Elementos Archivados", icon: <FaBookOpen /> },
+    { path: "entrada", label: "Entradas", icon: <FaSignInAlt /> },
+    { path: "salida", label: "Salidas", icon: <FaSignOutAlt /> },
     { path: "devoluciones", label: "Devoluciones", icon: <FaRetweet /> },
   ];
 

@@ -1,16 +1,13 @@
 import React from "react";
 import InputGroup from "../../../../components/InputGroup";
-import DefaultButton from "../../../../components/DefaultButton";
 import FormGroup from "../../../../components/FormGroup";
 
-const FormClasificacionFields = ({
+const Fields = ({
   form,
   errors,
-  departamentos,
-  loading,
   onChange,
   onSubmit,
-  submitLabel,
+  departamentos,
 }) => (
   <form onSubmit={onSubmit}>
     <FormGroup direction="horizontal" wrap="true"> 
@@ -78,11 +75,7 @@ const FormClasificacionFields = ({
         />
       </InputGroup>
     </FormGroup>
-
-    <DefaultButton type="submit" disabled={loading}>
-      {loading ? "Registrando..." : submitLabel || "Registrar Clasificación"}
-    </DefaultButton>
   </form>
 );
 
-export default FormClasificacionFields;
+export default Fields;

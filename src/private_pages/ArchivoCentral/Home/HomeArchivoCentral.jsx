@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../stylesPrivatePages.css";
+import "../../stylesPrivatePages.css";
 import {
   ResponsiveContainer,
   BarChart,
@@ -13,7 +13,7 @@ import {
   Line,
 } from "recharts";
 import "./HomeArchivoCentral.css";
-import { mockInventoryData, mockFlowData } from "./data/mockData";
+import { mockInventoryData, mockFlowData } from "../data/mockData";
 
 const HomeArchivoCentral = () => {
   const [data] = useState({
