@@ -14,7 +14,7 @@ const RegistrarElemento = () => {
     try {
       addElementoArchivado(form);
       toast.success("Elemento Archivado, registrado con éxito");
-      navigate("/archivo-central/inventario");
+      navigate("/archivo-central/elementos");
     } catch (error) {
       setError(error);
       toast.error("Ocurrió un error al registrar el elemento archivado");

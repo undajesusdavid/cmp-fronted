@@ -15,6 +15,7 @@ import SubPaginaSalida from "../private_pages/ArchivoCentral/Salidas";
 
 import ExpedienteModule from "../private_pages/ArchivoCentral/Expediente";
 import ContenedorModule from "../private_pages/ArchivoCentral/Contenedor";
+import RegistrarContenedor from "../private_pages/ArchivoCentral/Contenedor/RegistrarContenedor";
 
 //import SubPaginaInventarioArchivo from "../private_pages/ArchivoCentral/SubPaginaInventario";
 
@@ -69,12 +70,12 @@ export default {
     },
 
     {
-      path: "inventario",
+      path: "elementos",
       element: <InventarioDocumental />,
       handle: {
-        title: "Inventario Documental",
+        title: "Elementos Archivados",
         description: "",
-        crumbLabel: "Inventario",
+        crumbLabel: "Elementos Archivados",
       },
       children: [
         {
@@ -141,6 +142,17 @@ export default {
         description: "",
         crumbLabel: "Contenedores",
       },
+      children: [
+        {
+          path: "agregar",
+          element: <RegistrarContenedor />,
+          handle: {
+            title: "Registrar Contenedor",
+            description: "",
+            crumbLabel: "Registrar",
+          },
+        },
+      ],
     },
   ],
 };

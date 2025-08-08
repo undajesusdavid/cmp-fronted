@@ -1,107 +1,131 @@
-/* SubMenu.module.css */
-
 .subMenuContainer {
-    background-color: #f0f4f8;
-    /* Un gris azulado muy claro */
-    border-bottom: 1px solid #e0e6ed;
-    /* Línea sutil en la parte inferior */
-    padding: 10px 20px;
-    /* Espaciado interno */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    /* Sombra muy ligera */
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    overflow-x: auto;
-    /* Permite desplazamiento horizontal en pantallas pequeñas */
-    -webkit-overflow-scrolling: touch;
-    /* Suaviza el desplazamiento en iOS */
-    white-space: nowrap;
-    /* Evita que los elementos se envuelvan */
+  background-color: #f0f4f8;
+  border-bottom: 1px solid #e0e6ed;
+  padding: 10px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  overflow-y: visible;
+  white-space: nowrap;
 }
 
 .subMenuList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    /* Para que los ítems estén en fila */
-    justify-content: flex-start;
-    /* Alinea los ítems a la izquierda */
-    gap: 25px;
-    /* Espacio entre los ítems del submenú */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 25px;
 }
 
 .subMenuItem {
-    flex-shrink: 0;
-    /* Evita que los ítems se encojan en el scroll horizontal */
+  position: relative;
+  flex-shrink: 0;
 }
 
-.subMenuLink {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    /* Espacio entre el ícono y el texto */
-    text-decoration: none;
-    color: #555;
-    /* Un gris oscuro para el texto normal */
-    padding: 10px 15px;
-    /* Espaciado interno de cada enlace */
-    border-radius: 6px;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+.subMenuLink,
+.subMenuButton,
+.dropdownLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #555;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  border: none;
 }
 
-.subMenuLink:hover {
-    background-color: #e2e8f0;
-    /* Fondo ligeramente más oscuro al pasar el mouse */
-    color: #004080;
-    /* Azul oscuro al pasar el mouse */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Sombra sutil al pasar el mouse */
+.subMenuLink:hover,
+.subMenuButton:hover,
+.dropdownLink:hover {
+  background-color: #e2e8f0;
+  color: #004080;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.activeSubMenuLink {
-    background-color: #007bff;
-    /* Azul vibrante para el enlace activo */
-    color: white;
-    /* Texto blanco para el enlace activo */
-    font-weight: 600;
-    /* Más en negrita para el activo */
-    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
-    /* Sombra para el activo */
+.activeSubMenuLink,
+.activeSubMenuButton,
+.activeDropdownLink {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
 }
 
-.activeSubMenuLink .subMenuIcon {
-    color: white;
-    /* Asegura que el icono también sea blanco en el estado activo */
+.activeSubMenuLink .subMenuIcon,
+.activeSubMenuButton .subMenuIcon,
+.activeDropdownLink .subMenuIcon {
+  color: white;
 }
 
-.subMenuIcon {
-    font-size: 1.1em;
-    /* Tamaño del ícono */
-    color: #777;
-    /* Color de ícono por defecto */
-    /* Si usas React Icons, este color se aplicará al Path/SVG directamente */
+.subMenuIcon,
+.dropdownIcon {
+  font-size: 1.1em;
+  color: #777;
 }
 
-/* Ajustes para pantallas pequeñas */
+.dropdownIcon {
+  margin-left: 4px;
+  font-size: 0.9em;
+  transition: transform 0.2s ease;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #e0e6ed;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 8px 0;
+  min-width: 180px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  list-style: none;
+  white-space: nowrap;
+}
+
+.dropdownItem .dropdownLink {
+  padding: 8px 16px;
+  font-size: 0.9em;
+  border-radius: 4px;
+}
+
+
+
 @media (max-width: 600px) {
-    .subMenuContainer {
-        padding: 8px 15px;
-    }
+  .subMenuContainer {
+    padding: 8px 15px;
+  }
 
-    .subMenuList {
-        gap: 15px;
-        /* Menos espacio entre ítems en móviles */
-    }
+  .subMenuList {
+    gap: 15px;
+  }
 
-    .subMenuLink {
-        padding: 8px 12px;
-        font-size: 0.9em;
-        gap: 6px;
-    }
+  .subMenuLink,
+  .subMenuButton {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    gap: 6px;
+  }
 
-    .subMenuIcon {
-        font-size: 1em;
-    }
+  .subMenuIcon {
+    font-size: 1em;
+  }
+
+  .dropdownMenu {
+    min-width: 160px;
+  }
+
+  .dropdownItem .dropdownLink {
+    padding: 6px 12px;
+    font-size: 0.85em;
+  }
 }

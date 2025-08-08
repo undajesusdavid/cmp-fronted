@@ -3,18 +3,25 @@ import { Outlet, useLocation, useMatch, useNavigate } from "react-router-dom";
 import Table from "../../../components/Table/Table";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import { getClasificaciones } from "../../../api/CentralArchive/ClasificacionController";
+import { toast } from "react-toastify";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 const ListadoClasificacion = () => {
   const inCurrentPage = useMatch("/archivo-central/clasificacion");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await getClasificaciones();
-    setData(result);
-    setLoading(false);
+    try {
+      setData(await getClasificaciones());
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -23,7 +30,9 @@ const ListadoClasificacion = () => {
       fetchData();
       firstLoad = false;
     }
-    return () => { firstLoad = true; }
+    return () => {
+      firstLoad = true;
+    };
   }, [inCurrentPage]);
 
   const columns = [
@@ -65,14 +74,21 @@ const ListadoClasificacion = () => {
     navigate("/archivo-central/clasificacion/registrar");
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner message="Cargando Listado de Clasificaciones" />;
 
   if (inCurrentPage) {
     return (
       <div>
+        {error && loading === false && (
+          <ErrorMessage message={error?.message || "Error de servidor"} />
+        )}
         <Table
           columns={columns}
           data={data}
+          onAdd={handleAdd}
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
           rowsPerPageOptions={[5, 10, 20]}
           initialRowsPerPage={10}
           searchable={true}
@@ -84,10 +100,6 @@ const ListadoClasificacion = () => {
             "departamento_nombre",
           ]}
           emptyMessage="No hay clasificaciones registradas."
-          onAdd={handleAdd}
-          onView={handleView}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
         />
       </div>
     );

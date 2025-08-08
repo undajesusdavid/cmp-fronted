@@ -1,81 +1,149 @@
-// src/components/SubMenu/SubMenu.jsx
-
-import { NavLink } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation, matchPath } from "react-router-dom";
 import styles from "./SubMenu.module.css";
+import { FiChevronDown } from "react-icons/fi";
 
-// Ejemplo de importación de íconos para SubMenu
-// Elige los que mejor se adapten a cada opción de tu menú
-import {
-  FiList, // Por ejemplo, para "Ver Todos"
-  FiPlusCircle, // Para "Añadir Nuevo"
-  FiFilter, // Para "Filtrar"
-  FiEdit2, // Para "Editar"
-  FiTrash2, // Para "Eliminar" (si es una acción de menú)
-  FiSearch, // Para "Buscar"
-} from "react-icons/fi"; // Puedes elegir de otras colecciones también
-
-/**
- * Componente de Submenú Horizontal Reutilizable.
- *
- * @param {object} props
- * @param {Array<Object>} props.items - Un array de objetos, donde cada objeto
- * representa una opción del menú y debe tener:
- * - {string} label: El texto a mostrar en el enlace.
- * - {string} path: La ruta a la que apunta el enlace (relativa al padre).
- * - {React.Component} [icon]: (Opcional) Un componente de React Icon (ej. <FiHome />).
- */
 const SubMenu = ({ items }) => {
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const location = useLocation();
+  const menuRef = useRef(null);
+  const basePath = location.pathname.split("/")[1];
+
+  const handleToggle = (path) => {
+    setOpenDropdown((prev) => (prev === path ? null : path));
+  };
+
+  const handleClose = () => setOpenDropdown(null);
+
+  const isChildActive = (children, parentPath) =>
+    children?.some((child) =>
+      matchPath(
+        {
+          path: `/${basePath}/${parentPath}/${child.path}`.replace(/\/+/g, "/"),
+          end: false,
+        },
+        location.pathname
+      )
+    );
+
+  const getActiveChildLabel = (children, parentPath) => {
+    const activeChild = children?.find((child) => {
+      const fullPath = `/${basePath}/${parentPath}/${child.path}`.replace(
+        /\/+/g,
+        "/"
+      );
+      return matchPath({ path: fullPath, end: false }, location.pathname);
+    });
+    return activeChild?.label || null;
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        handleClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <nav className={styles.subMenuContainer}>
+    <nav
+      className={styles.subMenuContainer}
+      aria-label="Submenú de navegación"
+      ref={menuRef}
+    >
       <ul className={styles.subMenuList}>
-        {items.map((item) => (
-          <li key={item.path} className={styles.subMenuItem}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                isActive
-                  ? `${styles.subMenuLink} ${styles.activeSubMenuLink}`
-                  : styles.subMenuLink
-              }
-              end={item.end} // Usa 'end' para que coincida exactamente con la ruta base si es necesario
-            >
-              {/* Renderiza el componente de ícono si se proporciona */}
-              {item.icon && (
-                <span className={styles.subMenuIcon}>{item.icon}</span>
+        {items.map(({ path, label, icon, children, end }) => {
+          const hasChildren = Array.isArray(children) && children.length > 0;
+          const isActive = isChildActive(children, path);
+          
+
+          return (
+            <li key={path} className={styles.subMenuItem}>
+              {hasChildren ? (
+                <>
+                  <button
+                    type="button"
+                    className={`${styles.subMenuButton} ${
+                      isActive ? styles.activeSubMenuButton : ""
+                    }`}
+                    onClick={() => handleToggle(path)}
+                    aria-expanded={openDropdown === path}
+                    aria-controls={`submenu-${path}`}
+                  >
+                    {icon && <span className={styles.subMenuIcon}>{icon}</span>}
+                    {label}
+                    <span className={styles.dropdownIcon}>
+                      <FiChevronDown />
+                    </span>
+                  </button>
+
+                  {openDropdown === path && (
+                    <ul
+                      id={`submenu-${path}`}
+                      className={styles.dropdownMenu}
+                      role="menu"
+                    >
+                      {children.map(
+                        ({
+                          path: childPath,
+                          label: childLabel,
+                          icon: childIcon,
+                          end: childEnd,
+                        }) => {
+                          const fullPath =
+                            `/${basePath}/${path}/${childPath}`.replace(
+                              /\/+/g,
+                              "/"
+                            );
+                          return (
+                            <li key={childPath} className={styles.dropdownItem}>
+                              <NavLink
+                                to={fullPath}
+                                className={({ isActive }) =>
+                                  isActive
+                                    ? `${styles.dropdownLink} ${styles.activeDropdownLink}`
+                                    : styles.dropdownLink
+                                }
+                                end={childEnd}
+                                onClick={handleClose}
+                                role="menuitem"
+                              >
+                                {childIcon && (
+                                  <span className={styles.subMenuIcon}>
+                                    {childIcon}
+                                  </span>
+                                )}
+                                {childLabel}
+                              </NavLink>
+                            </li>
+                          );
+                        }
+                      )}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                <NavLink
+                  to={`/${basePath}/${path}`}
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${styles.subMenuLink} ${styles.activeSubMenuLink}`
+                      : styles.subMenuLink
+                  }
+                  end={end}
+                >
+                  {icon && <span className={styles.subMenuIcon}>{icon}</span>}
+                  {label}
+                </NavLink>
               )}
-              {item.label}
-            </NavLink>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
 };
 
 export default SubMenu;
-
-// --- Cómo usar este SubMenu ---
-// En el componente padre (ej. Dashboard, Archivo Central, etc.):
-
-/*
-import SubMenu from '../components/SubMenu/SubMenu';
-import { FiList, FiPlusCircle } from 'react-icons/fi'; // Importa los íconos que necesites
-
-const DashboardPage = () => {
-  const dashboardSubMenuItems = [
-    { label: 'Visión General', path: '/dashboard', icon: <FiList />, end: true },
-    { label: 'Reportes', path: '/dashboard/reportes', icon: <FiPlusCircle /> },
-    { label: 'Alertas', path: '/dashboard/alertas', icon: <FiFilter /> },
-  ];
-
-  return (
-    <div>
-      <h2>Página de Dashboard</h2>
-      <SubMenu items={dashboardSubMenuItems} />
-      // ... Contenido del dashboard ...
-    </div>
-  );
-};
-
-export default DashboardPage;
-*/

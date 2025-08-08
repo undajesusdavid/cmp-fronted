@@ -8,7 +8,7 @@ const initialState = {
   departamento_id: "",
 };
 
-function useFormContenedor({ initialData = initialState,} = {}) {
+function useForm({ initialData = initialState,} = {}) {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
 
@@ -47,4 +47,4 @@ function useFormContenedor({ initialData = initialState,} = {}) {
 }
 
 
-export default useFormContenedor;
+export default useForm;

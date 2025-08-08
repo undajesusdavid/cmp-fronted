@@ -4,22 +4,38 @@ import { useEffect, useState } from "react";
 import { Outlet, useMatch, useNavigate } from "react-router-dom";
 import { getAllInventory } from "../../../api/CentralArchive/InventoryController";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import { toast } from "react-toastify";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 const InventarioDocumental = () => {
   const navigate = useNavigate();
-  const inCurrentPage = useMatch("/archivo-central/inventario");
+  const inCurrentPage = useMatch("/archivo-central/elementos");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [inventarioData, setInventarioData] = useState([]);
 
-  const handleGetList = async () => {
+  const fetchData = async () => {
     setLoading(true);
-    const inventory = await getAllInventory();
-    setInventarioData(inventory);
+    try {
+      setInventarioData(await getAllInventory());
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+
     setLoading(false);
   };
 
   useEffect(() => {
-    if (inCurrentPage) handleGetList();
+    let firstLoad = true;
+    if (inCurrentPage && firstLoad) {
+      fetchData();
+      firstLoad = false;
+    }
+    return () => {
+      firstLoad = true;
+    };
   }, [inCurrentPage]);
 
   const handleAdd = () => navigate("agregar");
@@ -30,7 +46,6 @@ const InventarioDocumental = () => {
   const handleDelete = () => {};
 
   const DataColumns = [
-    
     {
       key: "clasificacion",
       header: "Clasificación",
@@ -38,7 +53,7 @@ const InventarioDocumental = () => {
       render: (row) =>
         (
           <div>
-            <p style={{fontWeight: "bold"}}>{row.clasificacion.serie}</p>
+            <p style={{ fontWeight: "bold" }}>{row.clasificacion.serie}</p>
             <p>{row?.clasificacion.subserie}</p>
           </div>
         ) || "No disponible",
@@ -68,7 +83,7 @@ const InventarioDocumental = () => {
           </div>
         ) || "No disponible",
     },
-     {
+    {
       key: "ejercicio_fiscal",
       header: "Ejericio Fiscal",
       align: "center",
@@ -76,12 +91,15 @@ const InventarioDocumental = () => {
   ];
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner message="Cargando Listado de Elementos Archivados"/>;
   }
 
   if (inCurrentPage) {
     return (
       <div>
+        {error && loading === false && (
+          <ErrorMessage message={error?.message || "Error de servidor"} />
+        )}
         <Table
           columns={DataColumns}
           data={inventarioData}
@@ -92,7 +110,7 @@ const InventarioDocumental = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           searchable={true}
-          searchKeys={["titulo", "codigo", "ubicacion"]}
+          searchKeys={["clasificacion","titulo", "codigo", "ubicacion"]}
           emptyMessage="No hay documentos registrados en este momento."
         />
       </div>

@@ -1,43 +1,26 @@
-import React, { useState, useEffect } from "react";
-
-//Componentes del Formulario
+import React, { useEffect, useState } from "react";
 import Fields from "./Fields";
-import useFormClasificacion from "./useForm";
-//Api
-import { getDepartamentos } from "../../../../api/Departamentos/DepartamentosController";
-//Componentes
 import SubmitButton from "../../../../components/DefaultButton";
+//import { toast } from "react-toastify";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
+import { getDepartamentos } from "../../../../api/Departamentos/DepartamentosController";
+import { getUnidadesConservacion } from "../../../../api/CentralArchive/UnidadConservacionController";
 import ErrorMessage from "../../../../components/ErrorMessage";
+import useForm from "./useForm";
 
 const Form = ({
   onSubmit,
   loading = false,
   initialData,
-  submitLabel = "Enviar Datos",
+  submitLabel = "Formulario de Contenedor",
 }) => {
+  const { form, errors, handleChange, validate, resetForm } = useForm({
+    initialData,
+  });
+  const [departamentos, setDepartamentos] = useState([]);
+  const [unidadConservacion, setUnidadConservacion] = useState([]);
   const [loadingMetadata, setLoadingMetadata] = useState(false);
   const [errorMetadata, setErrorMetadata] = useState(null);
-  const [departamentos, setDepartamentos] = useState([]);
-
-  // Funcion para cargar los datos para el formulario
-  const onLoadMetadata = async () => {
-    setLoadingMetadata(true);
-    try {
-      setDepartamentos(await getDepartamentos());
-    } catch (error) {
-      setErrorMetadata(error);
-    } finally {
-      setLoadingMetadata(false);
-    }
-  };
-
-  useEffect(() => {
-    onLoadMetadata();
-  }, []);
-
-  const { form, errors, handleChange, validate, resetForm } =
-    useFormClasificacion({ initialData });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,21 +30,37 @@ const Form = ({
     }
   };
 
+  const loadMetadata = async () => {
+    setLoadingMetadata(true);
+    try {
+      setDepartamentos(await getDepartamentos());
+      setUnidadConservacion(await getUnidadesConservacion());
+    } catch (error) {
+      setErrorMetadata(error);
+    } finally {
+      setLoadingMetadata(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMetadata();
+  }, []);
+
   return (
     <div>
-      {errorMetadata && (
+      {errorMetadata && loadingMetadata === false && (
         <ErrorMessage message="Error del servidor, no se pudo obtener los datos" />
       )}
       {loadingMetadata && (
         <LoadingSpinner message="Cargando datos del formulario" />
       )}
-
       <Fields
         form={form}
         errors={errors}
         onChange={handleChange}
         onSubmit={handleSubmit}
         departamentos={departamentos}
+        unidad_conservacion={unidadConservacion}
       />
 
       <SubmitButton onClick={(e) => handleSubmit(e)} disabled={loading}>
