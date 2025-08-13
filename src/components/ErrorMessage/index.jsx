@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdErrorOutline } from "react-icons/md"; // Ícono de error elegante
 import PropTypes from "prop-types";
 
-const ErrorMessage = ({ message }) => {
+const defaultError = {
+  message: "Sin Conexion",
+  status: "500",
+};
+
+const ErrorMessage = ({ message, error = defaultError }) => {
   return (
     <div style={styles.container}>
       <MdErrorOutline style={styles.icon} />
-      <span style={styles.text}>{message}</span>
+      <span style={styles.text}>{error.message}</span>
     </div>
   );
+
 };
 
 ErrorMessage.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
+  error: PropTypes.object,
 };
 
 const styles = {

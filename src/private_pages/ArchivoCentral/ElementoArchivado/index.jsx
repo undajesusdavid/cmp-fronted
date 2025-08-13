@@ -1,9 +1,9 @@
 import { Outlet, useMatch } from "react-router-dom";
 import Table from "./Table";
 
-const pathRoutes = "/archivo-central/clasificacion";
+const pathRoutes = "/archivo-central/elementos";
 
-const Clasificaciones = () => {
+const ElementosArchivados = () => {
   const inCurrentPage = useMatch(pathRoutes);
 
   if (inCurrentPage) {
@@ -21,4 +21,4 @@ const Clasificaciones = () => {
   );
 };
 
-export default Clasificaciones;
+export default ElementosArchivados;

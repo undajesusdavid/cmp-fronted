@@ -1,13 +1,14 @@
 import ArchivoCentral from "../private_pages/ArchivoCentral/ArchivoCentralLayout";
 import HomeArchivoCentral from "../private_pages/ArchivoCentral/Home/HomeArchivoCentral";
-import InventarioDocumental from "../private_pages/ArchivoCentral/Inventario";
+import InventarioDocumental from "../private_pages/ArchivoCentral/ElementoArchivado";
 
 import ListadoClasificacion from "../private_pages/ArchivoCentral/Clasificacion/ListadoClasificacion";
 import RegistrarClasificacion from "../private_pages/ArchivoCentral/Clasificacion/RegistrarClasificacion";
 import EditarClasificacion from "../private_pages/ArchivoCentral/Clasificacion/EditarClasificacion";
 
-import DetalleDocumento from "../private_pages/ArchivoCentral/Inventario/DetalleDocumento";
-import RegistrarDocumento from "../private_pages/ArchivoCentral/Inventario/RegistrarDocumento";
+import DetalleElementoArchivado from "../private_pages/ArchivoCentral/ElementoArchivado/DetalleElementoArchivado";
+import RegistrarElementoArchivado from "../private_pages/ArchivoCentral/ElementoArchivado/RegistrarElementoArchivado";
+import EditarElementoArchivado from "../private_pages/ArchivoCentral/ElementoArchivado/EditarElementoArchivado";
 
 import SubPaginaDevoluciones from "../private_pages/ArchivoCentral/Devoluciones";
 import SubPaginaEntrada from "../private_pages/ArchivoCentral/Entradas";
@@ -16,6 +17,13 @@ import SubPaginaSalida from "../private_pages/ArchivoCentral/Salidas";
 import ExpedienteModule from "../private_pages/ArchivoCentral/Expediente";
 import ContenedorModule from "../private_pages/ArchivoCentral/Contenedor";
 import RegistrarContenedor from "../private_pages/ArchivoCentral/Contenedor/RegistrarContenedor";
+import DetalleContenedor from "../private_pages/ArchivoCentral/Contenedor/DetalleContenedor";
+import EditarContenedor from "../private_pages/ArchivoCentral/Contenedor/EditarContenedor";
+import RegistrarExpediente from "../private_pages/ArchivoCentral/Expediente/RegistrarExpediente";
+import DetalleExpediente from "../private_pages/ArchivoCentral/Expediente/DetalleExpediente";
+import EditarExpediente from "../private_pages/ArchivoCentral/Expediente/EditarExpediente";
+import DetalleClasificacion from "../private_pages/ArchivoCentral/Clasificacion/DetalleClasificacion";
+
 
 //import SubPaginaInventarioArchivo from "../private_pages/ArchivoCentral/SubPaginaInventario";
 
@@ -49,7 +57,7 @@ export default {
       },
       children: [
         {
-          path: "registrar",
+          path: "agregar",
           element: <RegistrarClasificacion />,
           handle: {
             title: "Registrar Clasificación",
@@ -58,7 +66,16 @@ export default {
           },
         },
         {
-          path: "editar/:itemId",
+          path: "detalle/:id",
+          element: <DetalleClasificacion />,
+          handle: {
+            title: "Detalle de Clasificación",
+            description: "",
+            crumbLabel: "Detalle de Clasificación",
+          },
+        },
+        {
+          path: "editar/:id",
           element: <EditarClasificacion />,
           handle: {
             title: "Editar Clasificación",
@@ -80,7 +97,7 @@ export default {
       children: [
         {
           path: "agregar",
-          element: <RegistrarDocumento />,
+          element: <RegistrarElementoArchivado />,
           handle: {
             title: "Registro de Documentos",
             description: "",
@@ -89,11 +106,20 @@ export default {
         },
         {
           path: "detalle/:itemId",
-          element: <DetalleDocumento />,
+          element: <DetalleElementoArchivado />,
           handle: {
             title: "Detalle de Archivo",
             description: "",
             crumbLabel: "Detalle",
+          },
+        },
+        {
+          path: "editar/:id",
+          element: <EditarElementoArchivado />,
+          handle: {
+            title: "Editar Elemento Archivado",
+            description: "",
+            crumbLabel: "Editar elemento",
           },
         },
       ],
@@ -133,6 +159,35 @@ export default {
         description: "",
         crumbLabel: "Expedientes",
       },
+      children: [
+        {
+          path: "agregar",
+          element: <RegistrarExpediente />,
+          handle: {
+            title: "Registrar Expediente",
+            description: "",
+            crumbLabel: "Registrar Expediente",
+          },
+        },
+        {
+          path: "detalle/:id",
+          element: <DetalleExpediente />,
+          handle: {
+            title: "Información de Expediente",
+            description: "",
+            crumbLabel: "Detalle Expediente",
+          },
+        },
+        {
+          path: "editar/:id",
+          element: <EditarExpediente />,
+          handle: {
+            title: "Editar Expediente",
+            description: "",
+            crumbLabel: "Editar Expediente",
+          },
+        },
+      ],
     },
     {
       path: "contenedores",
@@ -150,6 +205,24 @@ export default {
             title: "Registrar Contenedor",
             description: "",
             crumbLabel: "Registrar",
+          },
+        },
+        {
+          path: "editar/:id",
+          element: <EditarContenedor />,
+          handle: {
+            title: "Editar Contenedor",
+            description: "",
+            crumbLabel: "Editar Contenedor",
+          },
+        },
+        {
+          path: "detalle/:id",
+          element: <DetalleContenedor />,
+          handle: {
+            title: "Información del Contenedor",
+            description: "",
+            crumbLabel: "Detalle de Contenedor",
           },
         },
       ],

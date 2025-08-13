@@ -18,8 +18,30 @@ export const getContenedor = async (id) => {
 };
 
 export const addContenedor = async (data) => {
-  const response = await api.post(`${API_URL}/archivo/contenedor/register`, data);
+  const response = await api.post(
+    `${API_URL}/archivo/contenedor/register`,
+    data
+  );
   const contenedor = response.data;
   console.log(contenedor);
   return contenedor;
+};
+
+export const updateContenedor = async (data) => {
+  const response = await api.put(
+    `${API_URL}/archivo/contenedor/update`,
+    data
+  );
+  const contenedor = response.data;
+  console.log(contenedor);
+  return contenedor;
+};
+
+export const deleteContenedor = async (id) => {
+  const response = await api.delete(`${API_URL}/archivo/contenedor/delete`, {
+    params: { id },
+  });
+  const status = response.data;
+  console.log(status);
+  return status;
 };

@@ -26,3 +26,19 @@ export const addExpediente = async (data) => {
   console.log(expediente);
   return expediente;
 };
+
+export const updateExpediente = async (data) => {
+  const response = await api.put(`${API_URL}/archivo/expediente/update`, data);
+  const expediente = response.data;
+  console.log(expediente);
+  return expediente;
+};
+
+export const deleteExpediente = async (id) => {
+  const response = await api.delete(`${API_URL}/archivo/expediente/delete`, {
+    params: { id },
+  });
+  const expediente = response.data;
+  console.log(expediente);
+  return expediente;
+};

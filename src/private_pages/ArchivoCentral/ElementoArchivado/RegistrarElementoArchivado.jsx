@@ -1,8 +1,9 @@
 import { useState } from "react";
 import FormElementos from "./Form";
-import { addElementoArchivado } from "../../../api/CentralArchive/InventoryController";
+import { addElementoArchivado } from "../../../api/CentralArchive/ElementoController";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ButtonBack from "../../../components/ButtonBack/ButtonBack";
 
 const RegistrarElemento = () => {
   const navigate = useNavigate();
@@ -21,15 +22,18 @@ const RegistrarElemento = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <FormElementos
-      submitLabel="Registrar Elemento"
-      loading={loading}
-      error={error}
-      onSubmit={handleRegister}
-    />
+    <div>
+      <ButtonBack />
+      <FormElementos
+        submitLabel="Registrar Elemento"
+        loading={loading}
+        error={error}
+        onSubmit={handleRegister}
+      />
+    </div>
   );
 };
 

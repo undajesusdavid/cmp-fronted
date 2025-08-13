@@ -2,20 +2,13 @@ import React from "react";
 import InputGroup from "../../../../components/InputGroup";
 import FormGroup from "../../../../components/FormGroup";
 
-const Fields = ({
-  form,
-  errors,
-  onChange,
-  onSubmit,
-  unidad_conservacion = [],
-  departamentos = [],
-}) => {
+const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
   return (
     <form onSubmit={onSubmit}>
       <FormGroup
         direction="horizontal"
         wrap="true"
-        titulo="Contenedor"
+        titulo="Expediente"
         collapsible={true}
       >
         <InputGroup
@@ -39,47 +32,29 @@ const Fields = ({
         </InputGroup>
 
         <InputGroup
-          label="Unidad de Conservación"
-          htmlFor="unidad_conservacion_id"
-          error={errors.unidad_conservacion_id}
-        >
-          <select
-            id="unidad_conservacion_id"
-            name="unidad_conservacion_id"
-            value={form.unidad_conservacion_id}
-            onChange={onChange}
-          >
-            <option value="">-- Seleccione --</option>
-            {unidad_conservacion.map((unidad) => (
-              <option key={unidad.id} value={unidad.id}>
-                {unidad.nombre}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
-
-        <InputGroup
-          label="Ejercicio"
-          htmlFor="ejercicio"
-          error={errors.ejercicio}
+          label="Codigo"
+          htmlFor="codigo"
+          error={errors.codigo}
         >
           <input
-            id="ejercicio"
-            name="ejercicio"
-            value={form.ejercicio}
+            id="codigo"
+            name="codigo"
+            value={form.codigo}
             onChange={onChange}
             autoComplete="off"
           />
         </InputGroup>
+
+
         <InputGroup
-          label="Ubicación"
-          htmlFor="ubicacion"
-          error={errors.ubicacion}
+          label="Ejercicio Fiscal"
+          htmlFor="ejercicio_fiscal"
+          error={errors.ejercicio_fiscal}
         >
           <input
-            id="ubicacion"
-            name="ubicacion"
-            value={form.ubicacion}
+            id="ejercicio_fiscal"
+            name="ejercicio_fiscal"
+            value={form.ejercicio_fiscal}
             onChange={onChange}
             autoComplete="off"
           />

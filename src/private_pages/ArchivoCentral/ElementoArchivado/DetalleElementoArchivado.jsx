@@ -1,47 +1,44 @@
 import { useParams } from "react-router-dom";
 import "../../stylesPrivatePages.css";
 import { useEffect, useState } from "react";
-import { getItemInventory } from "../../../api/CentralArchive/InventoryController";
+import { getElementoArchivado } from "../../../api/CentralArchive/ElementoController";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import DetailItem from "../../../components/DetailItem/DetailItem";
 import SectionDetail from "../../../components/SectionDetail/SectionDetail";
 import SectionContainer from "../../../components/SectionContainer/SectionContainer";
-import Table from "../../../components/Table/Table";
 import ButtonBack from "../../../components/ButtonBack/ButtonBack";
 
-const DetalleDocumento = () => {
+const DetalleElementoArchivado = () => {
   const { itemId } = useParams();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleGetItemInventory = async () => {
-    setLoading(true);
-    const item = await getItemInventory(itemId);
-    setItem(item);
-    setLoading(false);
+  const handlegetElementoArchivado = async () => {
+    try {
+      setLoading(true);
+      const item = await getElementoArchivado(itemId);
+      setItem(item);
+    } catch (error) {
+      setError(error.response.data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    handleGetItemInventory();
+    handlegetElementoArchivado();
   }, [itemId]);
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
-  const DataColumns = [
-    {
-      key: "descripcion",
-      header: "Contenido",
-      align: "center",
-    },
-  ];
-
   const expediente = (
     <SectionDetail label="DETALLE DE EXPEDIENTE">
       <DetailItem
         label="Descripción"
-        value={item?.expediente.descripcion || "Sin descripción"}
+        value={item?.expediente?.descripcion || "Sin descripción"}
       />
     </SectionDetail>
   );
@@ -50,25 +47,25 @@ const DetalleDocumento = () => {
     <>
       <ButtonBack />
       <SectionContainer>
-        {(item?.expediente && item?.expediente.descripcion) ? expediente : null}
+        {item?.expediente && item?.expediente.descripcion ? expediente : null}
 
-        <SectionDetail label="Detalle del Documento">
+        <SectionDetail label="DETALLE DE ELEMENTO ARCHIVADO">
+          <DetailItem label="Serie" value={item?.clasificacion?.serie} />
+          <DetailItem label="Subserie" value={item?.clasificacion?.subserie} />
+
           <DetailItem label="Codigo" value={item?.codigo || "No disponible"} />
+          <DetailItem label="Titulo" value={item?.titulo || "Sin contenido"} />
           <DetailItem
-            label="Descripción  de contenido"
-            value={item?.titulo || "Sin descripción"}
+            label="Año"
+            value={item?.ejercicio_fiscal || "Sin contenido"}
           />
           <DetailItem
-            label="Numero de Pieza"
-            value={item?.numero_pieza || "Sin descripción"}
-          />
-          <DetailItem
-            label="Ubicación"
-            value={item?.ubicacion || "Sin ubicación"}
+            label="Soporte"
+            value={item?.soporte || "Sin contenido"}
           />
           <DetailItem
             label="Observacion"
-            value={item?.observacion || "Sin observaciones"}
+            value={item?.observacion || "Sin contenido"}
           />
         </SectionDetail>
       </SectionContainer>
@@ -76,4 +73,4 @@ const DetalleDocumento = () => {
   );
 };
 
-export default DetalleDocumento;
+export default DetalleElementoArchivado;
