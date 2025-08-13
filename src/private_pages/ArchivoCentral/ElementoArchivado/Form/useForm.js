@@ -6,9 +6,11 @@ const initialState = {
   ejercicio_fiscal: "",
   soporte: "",
   observacion: "",
+  clasificacion_id: "",
+  departamento_id: "",
 };
 
-function useForm ({ initialData = initialState } = {}) {
+function useForm ({ initialData = initialState, changeDepartment = () => null } = {}) {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
 
@@ -23,6 +25,9 @@ function useForm ({ initialData = initialState } = {}) {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if(e.target.name === "departamento_id" && e.target.value){
+      changeDepartment(e.target.value);
+    }
   };
 
   const resetForm = () => {

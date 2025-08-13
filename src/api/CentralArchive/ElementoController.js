@@ -8,6 +8,13 @@ export const getElementosArchivados = async () => {
   return inventory;
 };
 
+export const getElementosSinContenedor = async () => {
+  const response = await api.get(`${API_URL}/archivo/elemento/list/sin_contenedor`);
+  const elementos = response.data;
+  console.log(elementos);
+  return elementos;
+};
+
 export const getElementoArchivado = async (id) => {
   const response = await api.get(`${API_URL}/archivo/elemento/get`, {
     params: { id },

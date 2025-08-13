@@ -11,10 +11,39 @@ const Fields = ({
   onSubmit,
   submitLabel,
   clasificaciones = [],
+  departamentos = [],
 }) => (
   <form onSubmit={onSubmit}>
-    <FormGroup title="Formulario de Elemento Archivado" direction="horizontal" wrap="true" collapsible={true}>
-      <InputGroup label="Clasificación" htmlFor="clasificacion_id" error={errors.clasificacion_id}>
+    <FormGroup
+      title="Formulario de Elemento Archivado"
+      direction="horizontal"
+      wrap="true"
+      collapsible={true}
+    >
+      <InputGroup
+        label="Departamento"
+        htmlFor="departamento_id"
+        error={errors.departamento_id}
+      >
+        <select
+          id="departamento_id"
+          name="departamento_id"
+          value={form.departamento_id || ""}
+          onChange={onChange}
+        >
+          <option value="">-- Seleccione -- </option>
+          {departamentos.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.nombre || "no se hallaron las propiedades"}
+            </option>
+          ))}
+        </select>
+      </InputGroup>
+      <InputGroup
+        label="Clasificación"
+        htmlFor="clasificacion_id"
+        error={errors.clasificacion_id}
+      >
         <select
           id="clasificacion_id"
           name="clasificacion_id"
@@ -23,10 +52,22 @@ const Fields = ({
         >
           <option value="">Seleccione una clasificación</option>
           {clasificaciones.map((c) => (
-            <option key={c.id} value={c.id}>{c.serie +" - "+c.subserie || "no se hallaron las propiedades"}</option>
+            <option key={c.id} value={c.id}>
+              {c.serie + " - " + c.subserie || "no se hallaron las propiedades"}
+            </option>
           ))}
         </select>
       </InputGroup>
+      <InputGroup label="Código" htmlFor="codigo" error={errors.codigo}>
+        <input
+          id="codigo"
+          name="codigo"
+          value={form.codigo}
+          onChange={onChange}
+          autoComplete="off"
+        />
+      </InputGroup>
+
       <InputGroup label="Código" htmlFor="codigo" error={errors.codigo}>
         <input
           id="codigo"
