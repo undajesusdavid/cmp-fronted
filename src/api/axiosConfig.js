@@ -12,6 +12,11 @@ const api = axios.create({
 // Interceptor de solicitud
 api.interceptors.request.use(
   (config) => {
+    if (config.abortSignal) {
+      config.signal = config.abortSignal;
+      delete config.abortSignal; // Limpiamos la propiedad personalizada
+    }
+
     // Obtener el token de acceso del almacenamiento local (o donde lo guardes)
     const accessToken = localStorage.getItem("token"); // O sessionStorage.getItem('accessToken');
     // Si existe un token, adjuntarlo al encabezado de Autorización
