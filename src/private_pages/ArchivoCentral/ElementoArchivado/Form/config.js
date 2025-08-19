@@ -19,3 +19,7 @@ export const validationRules = {
   clasificacion_id: (value) => String.required(value, "clasificación"),
   departamento_id: (value) => String.required(value, "departamento"),
 };
+
+
+
+

@@ -30,7 +30,6 @@ const RegistrarElemento = () => {
       <FormElementos
         submitLabel="Registrar Elemento"
         loading={loading}
-        error={error}
         onSubmit={handleRegister}
       />
     </div>
