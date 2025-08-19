@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 
 const useForm = ({
   initialForm,
+  metadata,
   handleEvents = {},
   validationRules = {},
 }) => {
@@ -19,7 +20,7 @@ const useForm = ({
 
       // Ejecutar función específica si existe en handleEvents
       if (typeof handleEvents[name] === "function") {
-        handleEvents[name](e, { form: newForm, setForm });
+        handleEvents[name](e, { form: newForm, setForm }, metadata);
       }
     },
     [form, handleEvents]

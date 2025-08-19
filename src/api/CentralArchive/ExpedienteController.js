@@ -1,8 +1,11 @@
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 import api from "../axiosConfig";
 
-export const getExpedientes = async () => {
-  const response = await api.get(`${API_URL}/archivo/expediente/list`);
+export const getExpedientes = async (id = null, signal) => {
+  const response = await api.get(`${API_URL}/archivo/expediente/list`,{
+    signal,
+    params: { departamento_id: id },
+  });
   const expedientes = response.data;
   console.log(expedientes);
   return expedientes;

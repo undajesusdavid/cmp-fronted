@@ -1,124 +1,119 @@
-import InputGroup from "../../../../components/InputGroup";
+import React from "react";
+import PropTypes from "prop-types";
 import DefaultButton from "../../../../components/DefaultButton";
 import FormGroup from "../../../../components/FormGroup";
+import SelectField from "../../../../components/SelectField";
+import TextField from "../../../../components/TextField";
+
+// Función utilitaria para manejar valores nulos o indefinidos
+const safe = (val) => val ?? "";
 
 const Fields = ({
   form,
-  errors,
-  loading,
+  errorsValidation,
+  loadingSubmit,
   onChange,
   onSubmit,
   submitLabel,
-  clasificaciones = [],
-  departamentos = [],
+  metadata,
 }) => {
+  const { clasificaciones, departamentos, expedientes, contenedores } = metadata;
+  const textInputs = [
+    { label: "Código", name: "codigo" },
+    { label: "Título", name: "titulo" },
+    { label: "Ejercicio Fiscal", name: "ejercicio_fiscal" },
+    { label: "Soporte", name: "soporte" },
+    { label: "Observación", name: "observacion", type: "textarea" },
+  ];
+
   return (
     <form onSubmit={onSubmit}>
       <FormGroup
         title="Formulario de Elemento Archivado"
         direction="horizontal"
-        wrap="true"
+        wrap={true}
         collapsible={true}
       >
-        <InputGroup
+        <SelectField
           label="Departamento"
-          htmlFor="departamento_id"
-          error={errors.departamento_id}
-        >
-          <select
-            id="departamento_id"
-            name="departamento_id"
-            value={form.departamento_id || ""}
-            onChange={onChange}
-          >
-            <option value="">-- Seleccione -- </option>
-            {departamentos.map((d) => (
-              <option key={d.id} value={d.id}>
-                {d.nombre || "no se hallaron las propiedades"}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
-        <InputGroup
-          label="Clasificación"
-          htmlFor="clasificacion_id"
-          error={errors.clasificacion_id}
-        >
-          <select
-            id="clasificacion_id"
-            name="clasificacion_id"
-            value={form.clasificacion_id || ""}
-            onChange={onChange}
-          >
-            <option value="">Seleccione una clasificación</option>
-            {clasificaciones.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.serie + " - " + c.subserie ||
-                  "no se hallaron las propiedades"}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
-        <InputGroup label="Código" htmlFor="codigo" error={errors.codigo}>
-          <input
-            id="codigo"
-            name="codigo"
-            value={form.codigo}
-            onChange={onChange}
-            autoComplete="off"
-          />
-        </InputGroup>
+          name="departamento_id"
+          value={safe(form.departamento_id)}
+          onChange={onChange}
+          options={departamentos?.data || []}
+          loading={departamentos?.loading}
+          error={errorsValidation?.departamento_id}
+          getOptionLabel={(opt) => `${opt.nombre}`}
+        />
 
-        <InputGroup label="Título" htmlFor="titulo" error={errors.titulo}>
-          <input
-            id="titulo"
-            name="titulo"
-            value={form.titulo}
+        <SelectField
+          label="Clasificación"
+          name="clasificacion_id"
+          value={safe(form.clasificacion_id)}
+          onChange={onChange}
+          options={clasificaciones?.data || []}
+          loading={clasificaciones?.loading}
+          error={errorsValidation?.clasificacion_id}
+          getOptionLabel={(opt) => `${opt.serie} - ${opt.subserie}`}
+        />
+
+        <SelectField
+          label="Expediente (Opcional)"
+          name="expediente_id"
+          value={safe(form.expediente_id)}
+          onChange={onChange}
+          options={expedientes?.data || []}
+          loading={expedientes?.loading}
+          error={errorsValidation?.expediente_id}
+          getOptionLabel={(opt) => `${opt?.descripcion} - ${opt?.ejercicio_fiscal}`}
+        />
+         <SelectField
+          label="Contenedor (Opcional)"
+          name="contenedor_id"
+          value={safe(form.contenedor_id)}
+          onChange={onChange}
+          options={contenedores?.data || []}
+          loading={contenedores?.loading}
+          error={errorsValidation?.contenedor_id}
+          getOptionLabel={(opt) => `${opt?.unidad_conservacion?.nombre} - ${opt?.ejercicio}`}
+        />
+
+        {textInputs.map(({ label, name, type }) => (
+          <TextField
+            key={name}
+            label={label}
+            name={name}
+            value={safe(form?.[name])}
+            error={errorsValidation?.[name]}
             onChange={onChange}
-            autoComplete="off"
+            type={type || "text"}
           />
-        </InputGroup>
-        <InputGroup
-          label="Ejercicio Fiscal"
-          htmlFor="ejercicio_fiscal"
-          error={errors.ejercicio_fiscal}
-        >
-          <input
-            id="ejercicio_fiscal"
-            name="ejercicio_fiscal"
-            value={form.ejercicio_fiscal}
-            onChange={onChange}
-            autoComplete="off"
-          />
-        </InputGroup>
-        <InputGroup label="Soporte" htmlFor="soporte" error={errors.soporte}>
-          <input
-            id="soporte"
-            name="soporte"
-            value={form.soporte}
-            onChange={onChange}
-            autoComplete="off"
-          />
-        </InputGroup>
-        <InputGroup
-          label="Observación"
-          htmlFor="observacion"
-          error={errors.observacion}
-        >
-          <textarea
-            id="observacion"
-            name="observacion"
-            value={form.observacion}
-            onChange={onChange}
-            autoComplete="off"
-          />
-        </InputGroup>
+        ))}
       </FormGroup>
-      <DefaultButton type="submit" disabled={loading}>
-        {loading ? "Registrando..." : submitLabel || "Registrar Elemento"}
+
+      <DefaultButton type="submit" disabled={loadingSubmit}>
+        {loadingSubmit ? "Registrando..." : submitLabel || "Registrar Elemento"}
       </DefaultButton>
     </form>
   );
+};
+
+Fields.propTypes = {
+  form: PropTypes.object.isRequired,
+  errors: PropTypes.object,
+  loading: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  submitLabel: PropTypes.string,
+  metadata: PropTypes.shape({
+    clasificaciones: PropTypes.shape({
+      data: PropTypes.array,
+      loading: PropTypes.bool,
+    }),
+    departamentos: PropTypes.shape({
+      data: PropTypes.array,
+      loading: PropTypes.bool,
+    }),
+  }).isRequired,
 };
 
 export default Fields;

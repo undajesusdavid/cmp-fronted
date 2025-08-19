@@ -1,6 +1,6 @@
 import { String } from "../../../../utils/rulesValidation";
 
-export const initialStateForm = {
+export const INITIAL_FORM = {
   codigo: "",
   titulo: "",
   ejercicio_fiscal: "",
@@ -8,9 +8,11 @@ export const initialStateForm = {
   observacion: "",
   clasificacion_id: "",
   departamento_id: "",
+  expediente_id: "",
+  contenedor_id: "",
 };
 
-export const validationRules = {
+export const VALIDATION_RULES = {
   codigo: (value) => String.required(value, "Codigo"),
   titulo: (value) => String.required(value, "Titulo"),
   ejercicio_fiscal: (value) => String.required(value, "Ejercicio Fiscal"),
@@ -18,8 +20,6 @@ export const validationRules = {
   observacion: (value) => String.required(value, "Observación"),
   clasificacion_id: (value) => String.required(value, "clasificación"),
   departamento_id: (value) => String.required(value, "departamento"),
+  expediente_id: (value) => null,
+  contenedor_id: (value) => null,
 };
-
-
-
-
