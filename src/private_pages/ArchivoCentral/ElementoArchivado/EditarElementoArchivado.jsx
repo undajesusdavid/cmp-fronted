@@ -10,26 +10,33 @@ import ErrorMessage from "../../../components/ErrorMessage";
 import Form from "./Form";
 import { toast } from "react-toastify";
 import ButtonBack from "../../../components/ButtonBack/ButtonBack";
+import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarElementoArchivado = () => {
   const { id } = useParams();
-  const [elemento, setElemento] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  //const [elemento, setElemento] = useState(null);
+  //const [loading, setLoading] = useState(false);
+  //const [error, setError] = useState(null);
 
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      setElemento(await getElementoArchivado(id));
-    } catch (error) {
-      setError(error.response.data);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {execute, data:elemento,loading, error} = useAsync({
+    asyncFunction: getElementoArchivado,
+    defaultData: {},
+    autoRun:false
+
+  })
+  // const fetchData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setElemento(await getElementoArchivado(id));
+  //   } catch (error) {
+  //     setError(error.response.data);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleSubmit = async (data) => {
     try {
@@ -44,8 +51,9 @@ const EditarElementoArchivado = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    //fetchData();
+    execute(id);
+  }, [id]);
 
   if (loading) return <LoadingSpinner message="Cargando Elemento Archvivado..." />;
   if (error)
@@ -65,7 +73,7 @@ const EditarElementoArchivado = () => {
           departamento_id: elemento?.departamento_id,
           clasificacion_id: elemento?.clasificacion_id,
           expediente_id: elemento?.expediente_id,
-          contenedor_id: elemento?.contenedor_id,
+          contenedor_id: (Array.isArray(elemento?.contenedores)) && elemento.contenedores[0]?.id,
 
           codigo: elemento?.codigo,
           titulo: elemento?.titulo,

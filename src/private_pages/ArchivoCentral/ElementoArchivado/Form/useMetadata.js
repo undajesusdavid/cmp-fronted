@@ -3,8 +3,9 @@ import { getExpedientes } from "../../../../api/CentralArchive/ExpedienteControl
 import { getDepartamentos } from "../../../../api/Departamentos/DepartamentosController";
 import { getContenedores } from "../../../../api/CentralArchive/ContenedorController";
 import useAsync from "../../../../custom_hooks/useAsync";
+import { useEffect } from "react";
 
-const useMetadata = ({isEdit = false}) => {
+const useMetadata = (formDefaultData = null) => {
   const departamentos = useAsync({
     asyncFunction: getDepartamentos,
     defaultData: [],
@@ -14,13 +15,13 @@ const useMetadata = ({isEdit = false}) => {
   const clasificaciones = useAsync({
     asyncFunction: getClasificaciones,
     defaultData: [],
-    autoRun: isEdit,
+    autoRun: false,
   });
 
   const expedientes = useAsync({
     asyncFunction: getExpedientes,
     defaultData: [],
-    autoRun: isEdit,
+    autoRun: false,
   });
 
   const contenedores = useAsync({
@@ -28,6 +29,16 @@ const useMetadata = ({isEdit = false}) => {
     defaultData: [],
     autoRun: false,
   });
+
+
+  useEffect(() => {
+    if(formDefaultData && formDefaultData.departamento_id){
+      clasificaciones.execute(formDefaultData?.departamento_id);
+      expedientes.execute(formDefaultData?.departamento_id);
+      contenedores.execute(formDefaultData?.departamento_id);
+    }
+
+  },[formDefaultData]);
 
   return {
     departamentos,

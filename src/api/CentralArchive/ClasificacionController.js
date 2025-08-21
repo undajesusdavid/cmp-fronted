@@ -3,40 +3,34 @@ import api from "../axiosConfig";
 
 export const getClasificaciones = async (id = null, signal) => {
   const response = await api.get(`${API_URL}/archivo/clasificacion/list`, {
-    signal,
     params: { departamento_id: id },
+    signal,
   });
-  const clasificaciones = response.data;
-  console.log(clasificaciones);
-  return clasificaciones;
+  return response.data;
 };
 
 export const getClasificacion = async (id, signal) => {
   const response = await api.get(`${API_URL}/archivo/clasificacion/get`, {
-    signal,
     params: { id: id },
+    signal,
   });
-  const clasificacion = response.data;
-  console.log(clasificacion);
-  return clasificacion;
+  return response.data;
 };
 
 export const updateClasificacion = async (data, signal) => {
   const response = await api.put(`${API_URL}/archivo/clasificacion/update`, {
+    ...data,
     signal,
-    data,
   });
-  const clasificacion = response.data;
-  return clasificacion;
+  return response.data;
 };
 
 export const addClasificacion = async (formData, signal) => {
   const response = await api.post(`${API_URL}/archivo/clasificacion/register`, {
-    signal,
     formData,
+    signal,
   });
-  const clasificacion = response.data;
-  return clasificacion;
+  return response.data;
 };
 
 export const deleteClasificacion = async (id, signal) => {
@@ -44,6 +38,5 @@ export const deleteClasificacion = async (id, signal) => {
     params: { id },
     signal,
   });
-  const status = response.data;
-  return status;
+  return response.data;
 };

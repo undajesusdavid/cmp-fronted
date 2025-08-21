@@ -3,17 +3,13 @@ import api from "../axiosConfig";
 
 export const getDepartamentos = async (signal) => {
   const response = await api.get(`${API_URL}/departamento/list`, { signal });
-  const departamentos = response.data;
-  console.log(departamentos);
-  return departamentos;
+  return response.data;
 };
 
 export const getDepartamento = async (id, signal) => {
   const response = await api.get(`${API_URL}/departamento/get`, {
-    signal,
     params: { id },
+    signal,
   });
-  const departamento = response.data;
-  console.log(departamento);
-  return departamento;
+  return response.data;
 };
