@@ -11,8 +11,9 @@ export const getExpedientes = async (id = null, signal) => {
   return expedientes;
 };
 
-export const getExpediente = async (id) => {
+export const getExpediente = async (id, signal) => {
   const response = await api.get(`${API_URL}/archivo/expediente/get`, {
+    signal,
     params: { id },
   });
   const expediente = response.data;

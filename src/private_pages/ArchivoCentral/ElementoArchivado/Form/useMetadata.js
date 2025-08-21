@@ -4,7 +4,7 @@ import { getDepartamentos } from "../../../../api/Departamentos/DepartamentosCon
 import { getContenedores } from "../../../../api/CentralArchive/ContenedorController";
 import useAsync from "../../../../custom_hooks/useAsync";
 
-const useMetadata = () => {
+const useMetadata = ({isEdit = false}) => {
   const departamentos = useAsync({
     asyncFunction: getDepartamentos,
     defaultData: [],
@@ -14,13 +14,13 @@ const useMetadata = () => {
   const clasificaciones = useAsync({
     asyncFunction: getClasificaciones,
     defaultData: [],
-    autoRun: false,
+    autoRun: isEdit,
   });
 
   const expedientes = useAsync({
     asyncFunction: getExpedientes,
     defaultData: [],
-    autoRun: false,
+    autoRun: isEdit,
   });
 
   const contenedores = useAsync({

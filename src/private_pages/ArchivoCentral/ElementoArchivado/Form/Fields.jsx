@@ -46,6 +46,7 @@ const Fields = ({
         />
 
         <SelectField
+          disabled={form.departamento_id === ""? true:false }
           label="Clasificación"
           name="clasificacion_id"
           value={safe(form.clasificacion_id)}
@@ -57,6 +58,7 @@ const Fields = ({
         />
 
         <SelectField
+          disabled={form.departamento_id === ""? true:false }
           label="Expediente (Opcional)"
           name="expediente_id"
           value={safe(form.expediente_id)}
@@ -67,6 +69,7 @@ const Fields = ({
           getOptionLabel={(opt) => `${opt?.descripcion} - ${opt?.ejercicio_fiscal}`}
         />
          <SelectField
+         disabled={form.departamento_id === ""? true:false }
           label="Contenedor (Opcional)"
           name="contenedor_id"
           value={safe(form.contenedor_id)}

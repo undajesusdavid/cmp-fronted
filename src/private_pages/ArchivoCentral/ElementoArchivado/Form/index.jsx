@@ -5,7 +5,7 @@ import useMetadata from "./useMetadata";
 import { INITIAL_FORM, VALIDATION_RULES } from "./config";
 
 const Form = ({ initialData, onSubmit, loading, submitLabel }) => {
-  const metadata = useMetadata();
+  const metadata = useMetadata({isEdit: initialData? true: false });
 
   const { form, errors, handleChange, validateForm } = useForm({
     initialForm: initialData ?? INITIAL_FORM,

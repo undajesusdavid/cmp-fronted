@@ -1,22 +1,23 @@
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 import api from "../axiosConfig";
 
-export const getElementosArchivados = async () => {
-  const response = await api.get(`${API_URL}/archivo/elemento/list`);
+export const getElementosArchivados = async (signal) => {
+  const response = await api.get(`${API_URL}/archivo/elemento/list`,{signal});
   const inventory = response.data;
   console.log(inventory);
   return inventory;
 };
 
-export const getElementosSinContenedor = async () => {
-  const response = await api.get(`${API_URL}/archivo/elemento/list/sin_contenedor`);
+export const getElementosSinContenedor = async (signal) => {
+  const response = await api.get(`${API_URL}/archivo/elemento/list/sin_contenedor`,{signal});
   const elementos = response.data;
   console.log(elementos);
   return elementos;
 };
 
-export const getElementoArchivado = async (id) => {
+export const getElementoArchivado = async (id,signal) => {
   const response = await api.get(`${API_URL}/archivo/elemento/get`, {
+    signal,
     params: { id },
   });
   const item = response.data;

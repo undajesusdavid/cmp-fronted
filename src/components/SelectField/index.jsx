@@ -9,7 +9,8 @@ const SelectField = ({
   options = [],
   loading,
   error,
-  getOptionLabel = (opt) => opt.nombre || "Sin nombre", // valor por defecto
+  disabled = false, // nueva prop opcional
+  getOptionLabel = (opt) => opt.nombre || "Sin nombre",
 }) => (
   <InputGroup label={label} htmlFor={name} error={error} loading={loading}>
     <select
@@ -19,6 +20,7 @@ const SelectField = ({
       onChange={onChange}
       aria-invalid={!!error}
       aria-describedby={`${name}-error`}
+      disabled={disabled} // aplicamos la prop aquí
     >
       <option value="">-- Seleccione --</option>
       {options.length > 0 ? (

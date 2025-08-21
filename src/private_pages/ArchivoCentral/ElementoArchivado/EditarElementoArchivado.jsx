@@ -62,7 +62,11 @@ const EditarElementoArchivado = () => {
         submitLabel="Actualizar Elemento"
         loading={loadingUpdate}
         initialData={{
+          departamento_id: elemento?.departamento_id,
           clasificacion_id: elemento?.clasificacion_id,
+          expediente_id: elemento?.expediente_id,
+          contenedor_id: elemento?.contenedor_id,
+
           codigo: elemento?.codigo,
           titulo: elemento?.titulo,
           ejercicio_fiscal: elemento?.ejercicio_fiscal,

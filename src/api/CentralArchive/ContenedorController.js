@@ -11,8 +11,9 @@ export const getContenedores = async (id = null, signal) => {
   return contenedores;
 };
 
-export const getContenedor = async (id) => {
+export const getContenedor = async (id, signal) => {
   const response = await api.get(`${API_URL}/archivo/contenedor/get`, {
+    signal,
     params: { id },
   });
   const contenedor = response.data;
