@@ -1,9 +1,9 @@
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 import api from "../axiosConfig";
 
-export const getContenedores = async (id = null, signal) => {
+export const getContenedores = async (departamento_id = null, signal) => {
   const response = await api.get(`${API_URL}/archivo/contenedor/list`, {
-    params: { departamento_id: id },
+    params: { departamento_id },
     signal,
   });
   return response.data;
@@ -19,7 +19,7 @@ export const getContenedor = async (id, signal) => {
 
 export const addContenedor = async (data, signal) => {
   const response = await api.post(`${API_URL}/archivo/contenedor/register`, {
-    data,
+    ...data,
     signal,
   });
   return response.data;
@@ -27,7 +27,7 @@ export const addContenedor = async (data, signal) => {
 
 export const updateContenedor = async (data, signal) => {
   const response = await api.put(`${API_URL}/archivo/contenedor/update`, {
-    data,
+    ...data,
     signal,
   });
   return response.data;

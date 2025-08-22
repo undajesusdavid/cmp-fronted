@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getExpediente,
   updateExpediente,
@@ -9,41 +9,41 @@ import ErrorMessage from "../../../components/ErrorMessage";
 import Form from "./Form";
 import { toast } from "react-toastify";
 import ButtonBack from "../../../components/ButtonBack/ButtonBack";
+import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarExpediente = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [expediente, setExpediente] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const {
+    execute: handleSubmit,
+    loading: loadingUpdate,
+    error: errorUpdate,
+  } = useAsync({
+    asyncFunction: updateExpediente,
+    defaultData: {},
+    successFunction: (response) => {
+      //navigate("/archivo-central/expedientes");
+      toast.success("¡Expediente actualizado correctamente!");
+    },
+  });
 
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [errorUpdate, setErrorUpdate] = useState(null);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      setExpediente(await getExpediente(id));
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmit = async (data) => {
-    try {
-      setLoadingUpdate(true);
-      await updateExpediente({ id, ...data });
-      toast.success("!Expediente actualizado correctamente!");
-    } catch (error) {
-      setErrorUpdate(error);
-    } finally {
-      setLoadingUpdate(false);
-    }
-  };
+  const {
+    execute: fetchData,
+    data: expediente,
+    loading,
+    error,
+  } = useAsync({
+    asyncFunction: getExpediente,
+    defaultData: {},
+    successFunction: (exp) => {
+      // toast.success(
+      //   "Datos del expediente " + exp?.codigo + " cargados exitosamente"
+      // );
+    },
+  });
 
   useEffect(() => {
-    fetchData();
+    fetchData(id);
   }, []);
 
   if (loading) return <LoadingSpinner message="Cargando Expediente..." />;
@@ -51,7 +51,7 @@ const EditarExpediente = () => {
     return <ErrorMessage message="ha ocurrido un error, al cargar los datos" />;
 
   return (
-    <di>
+    <div>
       {errorUpdate && (
         <ErrorMessage message="Ha ocurrio un error, no se pudo aplicar el cambio." />
       )}
@@ -61,13 +61,14 @@ const EditarExpediente = () => {
         submitLabel="Actualizar Expediente"
         loading={loadingUpdate}
         initialData={{
+          id: expediente?.id,
           departamento_id: expediente?.departamento_id,
           codigo: expediente?.codigo,
           ejercicio_fiscal: expediente?.ejercicio_fiscal,
           descripcion: expediente?.descripcion,
         }}
       />
-    </di>
+    </div>
   );
 };
 

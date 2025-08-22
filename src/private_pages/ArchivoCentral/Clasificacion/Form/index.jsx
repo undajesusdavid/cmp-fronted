@@ -1,73 +1,36 @@
-import React, { useState, useEffect } from "react";
-
-//Componentes del Formulario
 import Fields from "./Fields";
-import useFormClasificacion from "./useForm";
-//Api
-import { getDepartamentos } from "../../../../api/Departamentos/DepartamentosController";
-//Componentes
-import SubmitButton from "../../../../components/DefaultButton";
-import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
-import ErrorMessage from "../../../../components/ErrorMessage";
+import useForm from "../../../../custom_hooks/useForm";
+import useMetadata from "./useMetadata";
+import { INITIAL_FORM, VALIDATION_RULES } from "./config";
 
-const Form = ({
-  onSubmit,
-  loading = false,
-  initialData,
-  submitLabel = "Enviar Datos",
-}) => {
-  const [loadingMetadata, setLoadingMetadata] = useState(false);
-  const [errorMetadata, setErrorMetadata] = useState(null);
-  const [departamentos, setDepartamentos] = useState([]);
+const Form = ({ initialData, onSubmit, loading, submitLabel }) => {
+  const metadata = useMetadata(initialData);
 
-  // Funcion para cargar los datos para el formulario
-  const onLoadMetadata = async () => {
-    setLoadingMetadata(true);
-    try {
-      setDepartamentos(await getDepartamentos());
-    } catch (error) {
-      setErrorMetadata(error);
-    } finally {
-      setLoadingMetadata(false);
-    }
-  };
-
-  useEffect(() => {
-    onLoadMetadata();
-  }, []);
-
-  const { form, errors, handleChange, validate, resetForm } =
-    useFormClasificacion({ initialData });
+  const { form, errors, handleChange, validateForm, resetForm } = useForm({
+    initialForm: initialData ?? INITIAL_FORM,
+    validationRules: VALIDATION_RULES,
+    metadata: metadata,
+    handleEvents: {},
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate() && onSubmit) {
+    if (validateForm() && onSubmit) {
       onSubmit(form);
-      // resetForm(); // Descomenta si quieres limpiar el formulario tras registrar
+      !initialData ?? resetForm();
     }
   };
 
   return (
-    <div>
-      {errorMetadata && (
-        <ErrorMessage message="Error del servidor, no se pudo obtener los datos" />
-      )}
-      {loadingMetadata && (
-        <LoadingSpinner message="Cargando datos del formulario" />
-      )}
-
-      <Fields
-        form={form}
-        errors={errors}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-        departamentos={departamentos}
-      />
-
-      <SubmitButton onClick={(e) => handleSubmit(e)} disabled={loading}>
-        {loading ? "Enviando Datos..." : submitLabel || "Enviar"}
-      </SubmitButton>
-    </div>
+    <Fields
+      form={form}
+      loadingSubmit={loading || false}
+      errorsValidation={errors}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      submitLabel={submitLabel || "Procesar"}
+      metadata={metadata}
+    />
   );
 };
 

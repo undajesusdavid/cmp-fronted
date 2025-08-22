@@ -13,7 +13,7 @@ const api = axios.create({
 api.interceptors.response.use(
   function (response) {
     // ✅ Aquí puedes modificar o inspeccionar la respuesta
-    console.log('Respuesta interceptada:', response);
+    console.log('Respuesta interceptada:', response.data);
     return response;
   },
   function (error) {

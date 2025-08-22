@@ -1,15 +1,21 @@
 import React from "react";
 import InputGroup from "../../../../components/InputGroup";
 import FormGroup from "../../../../components/FormGroup";
+import SelectField from "../../../../components/SelectField";
+import DefaultButton from "../../../../components/DefaultButton";
+
+const safe = (val) => val ?? "";
 
 const Fields = ({
   form,
-  errors,
+  loadingSubmit,
+  errorsValidation: errors,
   onChange,
   onSubmit,
-  unidad_conservacion = [],
-  departamentos = [],
+  submitLabel,
+  metadata,
 }) => {
+  const { departamentos, unidadesDeConservacion } = metadata;
   return (
     <form onSubmit={onSubmit}>
       <FormGroup
@@ -18,45 +24,27 @@ const Fields = ({
         titulo="Contenedor"
         collapsible={true}
       >
-        <InputGroup
+         <SelectField
           label="Departamento"
-          htmlFor="departamento_id"
-          error={errors.departamento_id}
-        >
-          <select
-            id="departamento_id"
-            name="departamento_id"
-            value={form.departamento_id}
-            onChange={onChange}
-          >
-            <option value="">Seleccione un departamento</option>
-            {departamentos.map((dep) => (
-              <option key={dep.id} value={dep.id}>
-                {dep.nombre}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
+          name="departamento_id"
+          value={safe(form.departamento_id)}
+          onChange={onChange}
+          options={departamentos?.data || []}
+          loading={departamentos?.loading}
+          error={errors?.departamento_id}
+          getOptionLabel={(opt) => `${opt.nombre}`}
+        />
 
-        <InputGroup
+        <SelectField
           label="Unidad de Conservación"
-          htmlFor="unidad_conservacion_id"
-          error={errors.unidad_conservacion_id}
-        >
-          <select
-            id="unidad_conservacion_id"
-            name="unidad_conservacion_id"
-            value={form.unidad_conservacion_id}
-            onChange={onChange}
-          >
-            <option value="">-- Seleccione --</option>
-            {unidad_conservacion.map((unidad) => (
-              <option key={unidad.id} value={unidad.id}>
-                {unidad.nombre}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
+          name="unidad_conservacion_id"
+          value={safe(form.unidad_conservacion_id)}
+          onChange={onChange}
+          options={unidadesDeConservacion?.data || []}
+          loading={unidadesDeConservacion?.loading}
+          error={errors?.unidad_conservacion_id}
+          getOptionLabel={(opt) => `${opt.nombre}`}
+        />
 
         <InputGroup
           label="Ejercicio"
@@ -99,6 +87,9 @@ const Fields = ({
           />
         </InputGroup>
       </FormGroup>
+      <DefaultButton type="submit" disabled={loadingSubmit}>
+        {loadingSubmit ? "Registrando..." : submitLabel || "Registrar Elemento"}
+      </DefaultButton>
     </form>
   );
 };

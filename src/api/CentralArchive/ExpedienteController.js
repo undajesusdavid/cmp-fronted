@@ -19,7 +19,7 @@ export const getExpediente = async (id, signal) => {
 
 export const addExpediente = async (data, signal) => {
   const response = await api.post(`${API_URL}/archivo/expediente/register`, {
-    data,
+    ...data,
     signal,
   });
   return response.data;
@@ -27,7 +27,7 @@ export const addExpediente = async (data, signal) => {
 
 export const updateExpediente = async (data, signal) => {
   const response = await api.put(`${API_URL}/archivo/expediente/update`, {
-    data,
+    ...data,
     signal,
   });
   return response.data;

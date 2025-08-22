@@ -1,31 +1,35 @@
 import React from "react";
 import InputGroup from "../../../../components/InputGroup";
 import FormGroup from "../../../../components/FormGroup";
+import SelectField from "../../../../components/SelectField";
+import DefaultButton from "../../../../components/DefaultButton";
 
-const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
+const safe = (val) => val ?? "";
+
+const Fields = ({ form,
+  loadingSubmit,
+  errorsValidation: errors,
+  onChange,
+  onSubmit,
+  submitLabel,
+  metadata, }) => {
+    
+  const { departamentos } = metadata;
+
   return (
     <div>
       <form onSubmit={onSubmit}>
         <FormGroup direction="horizontal" wrap="true">
-          <InputGroup
+          <SelectField
             label="Departamento"
-            htmlFor="departamento_id"
-            error={errors.departamento_id}
-          >
-            <select
-              id="departamento_id"
-              name="departamento_id"
-              value={form.departamento_id}
-              onChange={onChange}
-            >
-              <option value="">Seleccione un departamento</option>
-              {departamentos.map((dep) => (
-                <option key={dep.id} value={dep.id}>
-                  {dep.nombre}
-                </option>
-              ))}
-            </select>
-          </InputGroup>
+            name="departamento_id"
+            value={safe(form.departamento_id)}
+            onChange={onChange}
+            options={departamentos?.data || []}
+            loading={departamentos?.loading}
+            error={errors?.departamento_id}
+            getOptionLabel={(opt) => `${opt.nombre}`}
+          />
           <InputGroup
             label="Código de Serie"
             htmlFor="cod_serie"
@@ -75,6 +79,11 @@ const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
             />
           </InputGroup>
         </FormGroup>
+        <DefaultButton type="submit" disabled={loadingSubmit}>
+          {loadingSubmit
+            ? "Registrando..."
+            : submitLabel || "Registrar Elemento"}
+        </DefaultButton>
       </form>
     </div>
   );

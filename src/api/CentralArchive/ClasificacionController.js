@@ -25,9 +25,9 @@ export const updateClasificacion = async (data, signal) => {
   return response.data;
 };
 
-export const addClasificacion = async (formData, signal) => {
+export const addClasificacion = async (data, signal) => {
   const response = await api.post(`${API_URL}/archivo/clasificacion/register`, {
-    formData,
+    ...data,
     signal,
   });
   return response.data;

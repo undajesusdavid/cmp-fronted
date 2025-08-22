@@ -1,6 +1,11 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 
-const useAsync = ({ asyncFunction, defaultData = null, autoRun = false }) => {
+const useAsync = ({
+  asyncFunction,
+  defaultData = null,
+  autoRun = false,
+  successFunction = () => null,
+}) => {
   const [data, setData] = useState(defaultData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,8 +34,8 @@ const useAsync = ({ asyncFunction, defaultData = null, autoRun = false }) => {
         if (currentId === lastCallId.current) {
           originalDataRef.current = response; // Guardamos los datos originales
           setData(response);
+          successFunction(response);
         }
-
         return response;
       } catch (err) {
         if (err.name !== "AbortError" && currentId === lastCallId.current) {

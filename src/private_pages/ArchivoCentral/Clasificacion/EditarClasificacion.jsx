@@ -9,9 +9,19 @@ import ErrorMessage from "../../../components/ErrorMessage";
 import Form from "./Form";
 import { toast } from "react-toastify";
 import ButtonBack from "../../../components/ButtonBack/ButtonBack";
+import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarClasificacion = () => {
   const { id } = useParams();
+  const {execute} = useAsync({
+    asyncFunction: updateClasificacion,
+    defaultData: {},
+    successFunction: (data) => {
+      toast.success("¡Clasificación registrada exitosamente!");
+    }
+  })
+
+
   const [clasificacion, setClasificacion] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

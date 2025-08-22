@@ -1,8 +1,21 @@
 import React from "react";
 import InputGroup from "../../../../components/InputGroup";
 import FormGroup from "../../../../components/FormGroup";
+import SelectField from "../../../../components/SelectField";
+import DefaultButton from "../../../../components/DefaultButton";
 
-const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
+const safe = (val) => val ?? "";
+
+const Fields = ({
+  form,
+  loadingSubmit,
+  submitLabel,
+  onSubmit,
+  errorsValidation: errors,
+  onChange,
+  metadata,
+}) => {
+  const { departamentos } = metadata;
   return (
     <form onSubmit={onSubmit}>
       <FormGroup
@@ -11,31 +24,18 @@ const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
         titulo="Expediente"
         collapsible={true}
       >
-        <InputGroup
+        <SelectField
           label="Departamento"
-          htmlFor="departamento_id"
-          error={errors.departamento_id}
-        >
-          <select
-            id="departamento_id"
-            name="departamento_id"
-            value={form.departamento_id}
-            onChange={onChange}
-          >
-            <option value="">Seleccione un departamento</option>
-            {departamentos.map((dep) => (
-              <option key={dep.id} value={dep.id}>
-                {dep.nombre}
-              </option>
-            ))}
-          </select>
-        </InputGroup>
+          name="departamento_id"
+          value={safe(form.departamento_id)}
+          onChange={onChange}
+          options={departamentos?.data || []}
+          loading={departamentos?.loading}
+          error={errors?.departamento_id}
+          getOptionLabel={(opt) => `${opt.nombre}`}
+        />
 
-        <InputGroup
-          label="Codigo"
-          htmlFor="codigo"
-          error={errors.codigo}
-        >
+        <InputGroup label="Codigo" htmlFor="codigo" error={errors.codigo}>
           <input
             id="codigo"
             name="codigo"
@@ -44,7 +44,6 @@ const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
             autoComplete="off"
           />
         </InputGroup>
-
 
         <InputGroup
           label="Ejercicio Fiscal"
@@ -74,6 +73,9 @@ const Fields = ({ form, errors, onChange, onSubmit, departamentos = [] }) => {
           />
         </InputGroup>
       </FormGroup>
+      <DefaultButton type="submit" disabled={loadingSubmit}>
+        {loadingSubmit ? "Registrando..." : submitLabel || "Registrar Elemento"}
+      </DefaultButton>
     </form>
   );
 };

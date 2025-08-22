@@ -1,46 +1,39 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getContenedor, updateContenedor } from "../../../api/CentralArchive/ContenedorController";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getContenedor,
+  updateContenedor,
+} from "../../../api/CentralArchive/ContenedorController";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../../components/ErrorMessage";
 import Form from "./Form";
 import { toast } from "react-toastify";
 import ButtonBack from "../../../components/ButtonBack/ButtonBack";
+import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarContenedor = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [contenedor, setContenedor] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const {
+    execute: handleSubmit,
+    loading: loadingUpdate,
+    error: errorUpdate,
+  } = useAsync({
+    asyncFunction: updateContenedor,
+    defaultData: {},
+    successFunction: (response) => {
+      navigate("/archivo-central/contenedores");
+      toast.success("¡Contenedor actualizado exitosamente!");
+    },
+  });
 
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [errorUpdate, setErrorUpdate] = useState(null);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      setContenedor(await getContenedor(id));
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmit = async (data) => {
-    try {
-      setLoadingUpdate(true)
-      await updateContenedor({id, ...data});
-      toast.success("¡Contenedor actualizado correctamente!");
-    } catch (error) {
-      setErrorUpdate(error)
-    } finally {
-      setLoadingUpdate(false);
-    }
-  };
+  const { execute:fetchData,  data:contenedor, loading, error } = useAsync({
+    asyncFunction: getContenedor,
+    defaultData: {}
+  });
 
   useEffect(() => {
-    fetchData();
+    fetchData(id);
   }, []);
 
   if (loading) return <LoadingSpinner message="Cargando Contenedor..." />;
@@ -48,14 +41,17 @@ const EditarContenedor = () => {
     return <ErrorMessage message="ha ocurrido un error, al cargar los datos" />;
 
   return (
-    <di>
-      {(errorUpdate) && <ErrorMessage message="Ha ocurrio un error, no se pudo aplicar el cambio." /> }
+    <div>
+      {errorUpdate && (
+        <ErrorMessage message="Ha ocurrio un error, no se pudo aplicar el cambio." />
+      )}
       <ButtonBack />
       <Form
         onSubmit={handleSubmit}
         submitLabel="Actualizar Contenedor"
         loading={loadingUpdate}
         initialData={{
+          id: contenedor?.id,
           descripcion: contenedor?.descripcion,
           ubicacion: contenedor?.ubicacion,
           ejercicio: contenedor?.ejercicio,
@@ -63,7 +59,7 @@ const EditarContenedor = () => {
           departamento_id: contenedor?.departamento_id,
         }}
       />
-    </di>
+    </div>
   );
 };
 
