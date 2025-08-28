@@ -4,7 +4,7 @@ const useAsync = ({
   asyncFunction,
   defaultData = null,
   autoRun = false,
-  successFunction = () => null,
+  successFunction = (data) => null,
 }) => {
   const [data, setData] = useState(defaultData);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const useAsync = ({
 
   const execute = useCallback(
     async (...args) => {
-      const currentId = ++lastCallId.current;
+      const currentId = ++lastCallId.current; 
 
       if (controllerRef.current) {
         controllerRef.current.abort();
@@ -34,8 +34,8 @@ const useAsync = ({
         if (currentId === lastCallId.current) {
           originalDataRef.current = response; // Guardamos los datos originales
           setData(response);
-          successFunction(response);
         }
+        successFunction(response);
         return response;
       } catch (err) {
         if (err.name !== "AbortError" && currentId === lastCallId.current) {

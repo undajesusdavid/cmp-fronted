@@ -1,4 +1,4 @@
-import { String } from "../../../../utils/rulesValidation";
+import { String, Number } from "../../../../utils/rulesValidation";
 
 export const INITIAL_FORM = {
   codigo: "",
@@ -18,8 +18,8 @@ export const VALIDATION_RULES = {
   ejercicio_fiscal: (value) => String.required(value, "Ejercicio Fiscal"),
   soporte: (value) => String.required(value, "Soporte"),
   observacion: (value) => String.required(value, "Observación"),
-  clasificacion_id: (value) => String.required(value, "clasificación"),
-  departamento_id: (value) => String.required(value, "departamento"),
+  clasificacion_id: (value) => Number.required(value, "clasificación"),
+  departamento_id: (value) => Number.required(value, "departamento"),
   expediente_id: (value) => null,
   contenedor_id: (value) => null,
 };

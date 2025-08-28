@@ -38,9 +38,9 @@ export const addElementoArchivado = async (data, signal) => {
   return response.data;
 };
 
-export const updateElementoArchivado = async (data) => {
+export const updateElementoArchivado = async (data, signal) => {
   const response = await api.put(`${API_URL}/archivo/elemento/update`, {
-    data,
+    ...data,
     signal,
   });
   return response.data;

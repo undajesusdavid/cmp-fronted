@@ -5,3 +5,12 @@ export const String = {
     },
 
 }
+
+
+export const Number = {
+
+    required: (value, name = null , message = `El campo ${name} es requerido`) => {
+        return value !== "" ? "" : message;
+    },
+
+}

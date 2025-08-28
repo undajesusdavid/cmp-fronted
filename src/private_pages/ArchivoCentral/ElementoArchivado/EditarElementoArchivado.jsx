@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getElementoArchivado,
   updateElementoArchivado,
@@ -14,66 +14,55 @@ import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarElementoArchivado = () => {
   const { id } = useParams();
-  //const [elemento, setElemento] = useState(null);
-  //const [loading, setLoading] = useState(false);
-  //const [error, setError] = useState(null);
-
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [errorUpdate, setErrorUpdate] = useState(null);
-
-  const {execute, data:elemento,loading, error} = useAsync({
+  const navigate = useNavigate();
+  const {
+    execute,
+    data: elemento,
+    loading,
+    error,
+  } = useAsync({
     asyncFunction: getElementoArchivado,
     defaultData: {},
-    autoRun:false
+  });
 
-  })
-  // const fetchData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     setElemento(await getElementoArchivado(id));
-  //   } catch (error) {
-  //     setError(error.response.data);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  const handleSubmit = async (data) => {
-    try {
-      setLoadingUpdate(true);
-      await updateElementoArchivado({ id, ...data });
+  const {
+    execute: update,
+    loading: loadingUpdate,
+    error: errorUpdate,
+  } = useAsync({
+    asyncFunction: updateElementoArchivado,
+    defaultData: {},
+    successFunction: (/*data*/) => {
       toast.success("!Elemento actualizado correctamente!");
-    } catch (error) {
-      setErrorUpdate(error.response.data);
-    } finally {
-      setLoadingUpdate(false);
-    }
-  };
+      navigate("/archivo-central/elementos");
+    },
+  });
 
   useEffect(() => {
-    //fetchData();
     execute(id);
   }, [id]);
 
-  if (loading) return <LoadingSpinner message="Cargando Elemento Archvivado..." />;
-  if (error)
-    return <ErrorMessage message={error?.message } />;
+  if (loading)
+    return <LoadingSpinner message="Cargando Elemento Archvivado..." />;
+  
+  if (error) return <ErrorMessage message={error?.message} />;
 
   return (
     <div>
-      {errorUpdate && (
-        <ErrorMessage message={errorUpdate?.message} />
-      )}
+      {errorUpdate && <ErrorMessage message={errorUpdate?.message} />}
       <ButtonBack />
       <Form
-        onSubmit={handleSubmit}
+        onSubmit={update}
         submitLabel="Actualizar Elemento"
         loading={loadingUpdate}
         initialData={{
+          id: elemento?.id,
           departamento_id: elemento?.departamento_id,
           clasificacion_id: elemento?.clasificacion_id,
           expediente_id: elemento?.expediente_id,
-          contenedor_id: (Array.isArray(elemento?.contenedores)) && elemento.contenedores[0]?.id,
+          contenedor_id:
+            Array.isArray(elemento?.contenedores) &&
+            elemento.contenedores[0]?.id,
 
           codigo: elemento?.codigo,
           titulo: elemento?.titulo,

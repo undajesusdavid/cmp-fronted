@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   getClasificacion,
@@ -13,7 +13,7 @@ import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarClasificacion = () => {
   const { id } = useParams();
-  const {execute} = useAsync({
+  const {execute: update, loading: loadingUpdate, error: errorUpdate} = useAsync({
     asyncFunction: updateClasificacion,
     defaultData: {},
     successFunction: (data) => {
@@ -21,56 +21,33 @@ const EditarClasificacion = () => {
     }
   })
 
-
-  const [clasificacion, setClasificacion] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [errorUpdate, setErrorUpdate] = useState(null);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      setClasificacion(await getClasificacion(id));
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmit = async (data) => {
-    try {
-      setLoadingUpdate(true);
-      await updateClasificacion({ id, ...data });
-      toast.success("¡Clasificación actualizada correctamente!");
-    } catch (error) {
-      setErrorUpdate(error);
-    } finally {
-      setLoadingUpdate(false);
-    }
-  };
+  const {execute, loading, error, data:clasificacion} = useAsync({
+    asyncFunction: getClasificacion,
+    defaultData: {},
+    successFunction:  () => null,
+  });
 
   useEffect(() => {
-    fetchData();
+    execute(id);
   }, []);
 
   if (loading) return <LoadingSpinner message="Cargando Clasificación..." />;
   if (error)
-    return <ErrorMessage message="ha ocurrido un error, al cargar los datos" />;
+    return <ErrorMessage error={error} message="ha ocurrido un error, al cargar los datos" />;
 
   return (
     <div>
       {errorUpdate && (
         <ErrorMessage message="Ha ocurrio un error, no se pudo aplicar el cambio." />
       )}
+      
       <ButtonBack />
       <Form
-        onSubmit={handleSubmit}
+        onSubmit={update}
         submitLabel="Actualizar Clasificacion"
         loading={loadingUpdate}
         initialData={{
+          id: clasificacion?.id,
           departamento_id: clasificacion?.departamento_id,
           cod_serie: clasificacion?.cod_serie,
           cod_subserie: clasificacion?.cod_subserie,
