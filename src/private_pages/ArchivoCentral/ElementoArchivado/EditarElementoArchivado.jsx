@@ -14,7 +14,7 @@ import useAsync from "../../../custom_hooks/useAsync";
 
 const EditarElementoArchivado = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const {
     execute,
     data: elemento,
@@ -23,6 +23,9 @@ const EditarElementoArchivado = () => {
   } = useAsync({
     asyncFunction: getElementoArchivado,
     defaultData: {},
+    successFunction: (/*data*/) => {
+      toast.info("Elemento Archivado cargado");
+    },
   });
 
   const {
@@ -34,7 +37,7 @@ const EditarElementoArchivado = () => {
     defaultData: {},
     successFunction: (/*data*/) => {
       toast.success("!Elemento actualizado correctamente!");
-      navigate("/archivo-central/elementos");
+      //navigate("/archivo-central/elementos");
     },
   });
 

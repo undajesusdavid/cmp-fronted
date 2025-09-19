@@ -17,7 +17,7 @@ const Form = ({ initialData, onSubmit, loading, submitLabel }) => {
     e.preventDefault();
     if (validateForm() && onSubmit) {
       onSubmit(form);
-      !initialData ?? resetForm();
+      if(!initialData) resetForm();
     }
   };
 

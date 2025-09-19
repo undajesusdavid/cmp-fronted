@@ -6,6 +6,8 @@ import useAsync from "../../../../custom_hooks/useAsync";
 import { useEffect } from "react";
 
 const useMetadata = (formDefaultData = null) => {
+  const departamentoId = formDefaultData?.departamento_id;
+
   const departamentos = useAsync({
     asyncFunction: getDepartamentos,
     defaultData: [],
@@ -15,38 +17,42 @@ const useMetadata = (formDefaultData = null) => {
   const clasificaciones = useAsync({
     asyncFunction: getClasificaciones,
     defaultData: [],
-    autoRun: false,
   });
 
   const expedientes = useAsync({
     asyncFunction: getExpedientes,
     defaultData: [],
-    autoRun: false,
   });
 
   const contenedores = useAsync({
     asyncFunction: getContenedores,
     defaultData: [],
-    autoRun: false,
   });
 
 
   useEffect(() => {
-    if(formDefaultData && formDefaultData.departamento_id){
-      clasificaciones.execute(formDefaultData?.departamento_id);
-      expedientes.execute(formDefaultData?.departamento_id);
-      contenedores.execute(formDefaultData?.departamento_id);
+    // Si no hay un ID de departamento, no hacemos nada
+    if (!departamentoId) {
+      return;
     }
 
-  },[formDefaultData]);
+    // Ejecutamos las llamadas en paralelo para mayor eficiencia
+    const promises = [
+      clasificaciones.execute(departamentoId),
+      expedientes.execute(departamentoId),
+      contenedores.execute(departamentoId),
+    ];
+
+    Promise.all(promises);
+
+  }, [departamentoId]);
 
   return {
     departamentos,
     clasificaciones,
     expedientes,
-    contenedores
-  }
+    contenedores,
+  };
 };
-
 
 export default useMetadata;
